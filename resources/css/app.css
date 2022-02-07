@@ -1,0 +1,160 @@
+@import "~bootstrap";
+@import url(https://fonts.googleapis.com/earlyaccess/cwtexfangsong.css);
+@import url(https://fonts.googleapis.com/earlyaccess/cwtexkai.css);
+@import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+@import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);
+@import url(https://fonts.googleapis.com/earlyaccess/cwtexming.css);
+
+* {
+    font-family: 'cwTeXKai', serif;
+    /* font-family: 'cwTeXYen', sans-serif; */
+    /* font-family: 'cwTeXFangSong', serif; */
+    /* font-family: 'Noto Sans TC', sans-serif; */
+    /* font-family: 'cwTeXMing', serif; */
+}
+
+/* #instrument_platform { */
+    /* background: rgb(24, 25, 26); */
+/* } */
+
+.flex-cc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-jc {
+    display: flex;
+    justify-content: center;
+}
+
+.flex-ac {
+    display: flex;
+    align-items: center;
+}
+
+.w-15 {
+    width: 15%;
+}
+
+.mx-60 {
+    max-width: 60%;
+}
+
+.w-80 {
+    width: 80%;
+}
+
+.bg-gray {
+    background-color: rgb(36, 37, 38);
+}
+.bg-white{
+    background-color: white;
+}
+.border-gray-radius {
+    border: 1px solid rgba(146, 131, 131, 0.5);
+    border-radius: 5px;
+}
+
+.border-bottom-gray {
+    border-bottom: 1px solid rgba(146, 131, 131, .5);
+}
+
+#content {
+    padding-top: 5rem;
+    height: 100%;
+}
+/* 動畫 */
+.roll-up-enter-active,
+.roll-up-leave-active {
+  transition: all 0.5s ease-in-out;
+}
+.roll-up-enter-from {
+  /* opacity: 0; */
+  transform: translateY(130%);
+  /* transform: scale(1.1); */
+  opacity: 0;
+}
+.roll-up-leave-to {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter-from, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+@media all and (min-width:576px) {
+    .w-sm-auto{
+        width: auto !important;
+    }
+    .w-sm-10 {
+        width: 10% !important;
+    }
+
+    .w-sm-60 {
+        width: 60%;
+    }
+
+    .w-sm-80 {
+        width: 80%;
+    }
+
+    .w-sm-100 {
+        width: 100%;
+    }
+
+    .flex-sm-column {
+        flex-direction: column;
+    }
+
+    #content {
+        padding-top: 5rem;
+    }
+    .border-sm-0{
+        border-width: 0px;
+    }
+}
+
+@media all and (min-width:768px) {
+    .w-md-5 {
+        width: 5% !important;
+    }
+
+    .w-md-60 {
+        width: 60%;
+    }
+
+    .w-md-80 {
+        width: 80%;
+    }
+
+    .w-md-100 {
+        width: 100%;
+    }
+    .position-md-relative{
+        position: relative !important;
+    }
+    #content {
+        padding-top: 3.5rem;
+    }
+}
+
+@media all and (min-width:992px) {
+    .w-lg-60 {
+        width: 60%;
+    }
+
+    .w-lg-80 {
+        width: 80%;
+    }
+}
+
+@media all and (min-width:1200px) {
+    #content {
+        padding-top: 4rem;
+    }
+}
