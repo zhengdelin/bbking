@@ -1,10 +1,12 @@
 @import "~bootstrap";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 @import url(https://fonts.googleapis.com/earlyaccess/cwtexfangsong.css);
 @import url(https://fonts.googleapis.com/earlyaccess/cwtexkai.css);
 @import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
 @import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);
 @import url(https://fonts.googleapis.com/earlyaccess/cwtexming.css);
-
 * {
     font-family: 'cwTeXKai', serif;
     /* font-family: 'cwTeXYen', sans-serif; */
@@ -13,9 +15,18 @@
     /* font-family: 'cwTeXMing', serif; */
 }
 
-/* #instrument_platform { */
+body {
+    overscroll-behavior: contain
+}
+
+#instrument_platform {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    min-height: 100%;
     /* background: rgb(24, 25, 26); */
-/* } */
+}
 
 .flex-cc {
     display: flex;
@@ -48,9 +59,11 @@
 .bg-gray {
     background-color: rgb(36, 37, 38);
 }
-.bg-white{
+
+.bg-white {
     background-color: white;
 }
+
 .border-gray-radius {
     border: 1px solid rgba(146, 131, 131, 0.5);
     border-radius: 5px;
@@ -61,60 +74,74 @@
 }
 
 #content {
-    padding-top: 5rem;
+    /* padding-top: 5rem; */
     height: 100%;
 }
+
+.input-field-title {
+    font-size: 1rem;
+    padding-left: 0.5rem;
+}
+
+
 /* 動畫 */
+
 .roll-up-enter-active,
 .roll-up-leave-active {
-  transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
 }
+
 .roll-up-enter-from {
-  /* opacity: 0; */
-  transform: translateY(130%);
-  /* transform: scale(1.1); */
-  opacity: 0;
+    /* opacity: 0; */
+    transform: translateY(130%);
+    /* transform: scale(1.1); */
+    opacity: 0;
 }
+
 .roll-up-leave-to {
-  transform: translateY(-100%);
-  opacity: 0;
+    transform: translateY(-100%);
+    opacity: 0;
 }
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+    transition: opacity 0.5s;
 }
-.fade-enter-from, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
+
+.fade-enter-from,
+.fade-leave-to
+/* .fade-leave-active below version 2.1.8 */
+
+{
+    opacity: 0;
 }
+
 @media all and (min-width:576px) {
-    .w-sm-auto{
+    .w-sm-auto {
         width: auto !important;
     }
     .w-sm-10 {
         width: 10% !important;
     }
-
     .w-sm-60 {
         width: 60%;
     }
-
     .w-sm-80 {
         width: 80%;
     }
-
     .w-sm-100 {
         width: 100%;
     }
-
+    .h-sm-100 {
+        height: 100%;
+    }
     .flex-sm-column {
         flex-direction: column;
     }
-
-    #content {
+    /* #content {
         padding-top: 5rem;
-    }
-    .border-sm-0{
+    } */
+    .border-sm-0 {
         border-width: 0px;
     }
 }
@@ -123,38 +150,34 @@
     .w-md-5 {
         width: 5% !important;
     }
-
     .w-md-60 {
         width: 60%;
     }
-
     .w-md-80 {
         width: 80%;
     }
-
     .w-md-100 {
         width: 100%;
     }
-    .position-md-relative{
+    .position-md-relative {
         position: relative !important;
     }
-    #content {
+    /* #content {
         padding-top: 3.5rem;
-    }
+    } */
 }
 
 @media all and (min-width:992px) {
     .w-lg-60 {
         width: 60%;
     }
-
     .w-lg-80 {
         width: 80%;
     }
 }
 
 @media all and (min-width:1200px) {
-    #content {
+    /* #content {
         padding-top: 4rem;
-    }
+    } */
 }

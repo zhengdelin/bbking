@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import LRControlBoxVue from "../Login/LRControlBox.vue";
+import LRControlBoxVue from "../components/Login/LRControlBox.vue";
 export default {
   data() {
     return {
@@ -52,9 +52,9 @@ export default {
   display: none;
 }
 
-#login-register-page {
+/* #login-register-page {
   overflow: scroll;
-}
+} */
 .login-register-container {
   margin:auto;
   padding:1rem 0;
@@ -63,7 +63,7 @@ export default {
   /* position: absolute;
   top: 0;
   left: 0; */
-  font-size: 1.2rem;
+  /* font-size: 1.2rem; */
   border: black 2px solid;
   border-radius: 10px;
 }

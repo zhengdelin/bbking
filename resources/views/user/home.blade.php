@@ -30,18 +30,18 @@
 
 <body>
     <div id="instrument_platform">
-        <v-nav></v-nav>
+        <router-view name="nav"></router-view>
         <div class="" id="content">
             {{-- {{ dd(session()) }} --}}
             {{-- <v-home v-if="is_home" ref="home"></v-home> --}}
-                <router-view></router-view>
+            <router-view></router-view>
             
         </div>
     </div>
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.extensions.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/vendors/scrolloverflow.min.js"></script> --}}
-    <script src="{{ asset('/js/user.js') }}"></script>
+    <script src="{{ asset('/js/app.js') }}"></script>
 </body>
 
 </html>

@@ -12,7 +12,8 @@ class LoginController extends BaseController
 {
     public function getUserInfo()
     {
-        return response()->json(['user_info' => $this->get_user_info()]);
+        // dd(['user_info' => $this->get_user_info()]);
+        return response()->json($this->get_user_info());
     }
     public function get_user_info()
     {
@@ -30,7 +31,7 @@ class LoginController extends BaseController
         $address = $request->address;
         if (session('user') !== $account) {
             if ($this->checkAccountExist($account)) {
-                return response()->json(['status' => 'error', 'status_object' => ['error' => ['帳號已被註冊!!!']]]);
+                return response()->json(['status' => 'api_error', 'status_obj'=>["帳號已被註冊!!!"]]);
             }
             Cookie::queue('user', $account, 43200);
             session(['user' => $account]);
@@ -42,7 +43,7 @@ class LoginController extends BaseController
             'email' => $email,
             'address' => $address,
         ]);
-        return response()->json(['status' => 'success', 'status_object' => ['success' => ['更改資料成功!!!']]]);
+        return response()->json(['status' => 'success', 'status_obj' => ['更改資料成功!!!']]);
     }
     public function getUser()
     {
@@ -63,11 +64,12 @@ class LoginController extends BaseController
     // }
     public function userLogin(Request $request)
     {
+        // dd($request->all());
         $account = $request->account;
         $password = $request->password;
         $user = DB::table('members')->where('account', $account)->first();
         if (!$user || !password_verify($password, $user->password)) {
-            return response()->json(['status' => 'error', 'status_object' => ['error' => ['無效的登陸名或密碼']]]);
+            return response()->json(['status' => 'api_error', 'status_obj' => ['無效的登陸名或密碼']]);
         }
         // dd(session());
         if ($request->remember) {
@@ -90,7 +92,7 @@ class LoginController extends BaseController
         $email = $request->email;
         $password = $request->password;
         if ($this->checkAccountExist($account)) {
-            return response()->json(['status' => 'error', 'status_object' => ['error' => ['帳號已被註冊']]]);
+            return response()->json(['status' => 'api_error', 'status_obj' => ['帳號已被註冊']]);
         }
         if ($request->remember) {
             $remember_token = Str::random(100);
@@ -125,5 +127,14 @@ class LoginController extends BaseController
     public function checkAccountExist($account)
     {
         return in_array($account, DB::table('members')->pluck('account')->toArray());
+    }
+    public function upLoadBase64Img(Request $request)
+    {
+        $img = $request->img_base64;
+        $data = explode( ',', $img );
+        // dd()
+        $fp = fopen('./pictures/sign.png','wb');
+        fwrite($fp,base64_decode($data[1]));
+        fclose( $fp );
     }
 }

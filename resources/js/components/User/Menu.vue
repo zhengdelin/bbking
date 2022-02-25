@@ -18,7 +18,7 @@
     <router-link :to="{ name: 'user_shopping_record' }" class="w-100">
       <div class="py-2 text-center">購買紀錄</div>
     </router-link>
-    <div class="logout position-absolute bottom-0 mb-4" @click="LogOut">
+    <div class="logout position-absolute bottom-0 mb-4" @click="logOut">
       登出
     </div>
     <!-- <div v-if="" ref="mobile"></div> -->
@@ -26,33 +26,34 @@
 </template>
 
 <script>
-import axios from "axios";
+import { ref } from "@vue/reactivity";
+import { inject, onMounted } from "@vue/runtime-core";
+import { useRouter } from 'vue-router';
+import { apiPostUserLogout } from '../../api/api';
 export default {
-  data() {
-    return {
-      user: "",
-      show_user: false,
-    };
-  },
-  methods: {
-    LogOut() {
+  setup() {
+    const router = useRouter();
+    const store = inject("store");
+    const { state, userLogout } = store;
+
+    const logOut = async() => {
       if (confirm("確認登出?")) {
-        axios.post("/userLogout").then(() => {
-          window.location.assign('/')
-        });
+        await apiPostUserLogout();
+        userLogout();
+        router.push({name:'user_login'})
       }
-    },
-    ClickProfile() {},
-  },
-  created() {
-    axios.post("/getUser").then((res) => {
-      this.user = res.data.user;
+    };
+    const user = ref(state.user);
+
+    const show_user = ref(false);
+
+    onMounted(() => {
+      setTimeout(() => {
+        show_user.value = true;
+      }, 500);
     });
-  },
-  mounted() {
-    setTimeout(() => {
-      this.show_user = true;
-    }, 500);
+
+    return { user, show_user, logOut };
   },
 };
 </script>
@@ -65,8 +66,6 @@ export default {
 .user-menu {
   border-right: 0px;
   border-bottom: 1px solid rgba(146, 131, 131, 0.5);
-
-  position: relative;
 }
 @media all and (min-width: 768px) {
   .user-menu {

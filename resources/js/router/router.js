@@ -1,20 +1,27 @@
-import axios from 'axios';
-import { createRouter, createWebHistory } from 'vue-router'
+import {
+    createRouter,
+    createWebHistory
+} from 'vue-router'
+import { apiGetUser } from '../api/api';
+import { admin_routes } from "../router/admin-routes"
+console.log(...admin_routes);
 async function Auth(to, from) {
-
-    axios.post('/getUser').then((res) => {
-        // console.log(res)
+    apiGetUser().then(res => {
         if (res.data.user) {
-            
+
             // router.push({ name: 'user' })
             if (to.name === "user_register" || to.name === "user_login") {
-                router.push({ path: from.fullPath });
+                router.push({
+                    path: from.fullPath
+                });
             }
             return true;
         } else {
             if (to.name !== "user_register") {
                 // alert('123')
-                router.push({ name: 'user_login' })
+                router.push({
+                    name: 'user_login'
+                })
             }
             return true;
         }
@@ -22,24 +29,47 @@ async function Auth(to, from) {
 }
 export const router = createRouter({
     history: createWebHistory(),
-    routes: [
-
+    routes: [{
+            path: '/',
+            name: 'home',
+            meta: {
+                title: '首頁'
+            },
+            components: {
+                nav: () =>
+                    import ("../components/Globals/Nav"),
+                // default: () =>
+                //     import ('../Pages/Home')
+                default: () =>
+                    import ("../Pages/Home")
+            },
+        },
         {
             path: '/user',
             name: 'user',
-            component: () => import('./components/Pages/User'),
+            components: {
+                nav: () =>
+                    import ("../components/Globals/Nav"),
+                default: () =>
+                    import ('../Pages/User')
+            },
             meta: {
                 title: '會員專區',
                 auth: true
             },
-            children: [
-                {
+            beforeEnter(to, next) {
+                if (document.body.clientWidth > 768 && to.name === "user") {
+                    return { name: 'user_profile' };
+                }
+            },
+            children: [{
                     path: 'profile',
-                    name:'user_profile',
+                    name: 'user_profile',
                     meta: {
                         title: '會員專區-個人資料'
                     },
-                    component: () => import('./components/User/Pages/Profile')
+                    component: () =>
+                        import ('../components/User/Pages/Profile')
                 },
                 {
                     path: 'shopping-cart',
@@ -47,7 +77,8 @@ export const router = createRouter({
                     meta: {
                         title: '會員專區-購物車'
                     },
-                    component: () => import('./components/User/Pages/ShoppingCart')
+                    component: () =>
+                        import ('../components/User/Pages/ShoppingCart')
                 },
                 {
                     path: 'article-collection',
@@ -55,7 +86,8 @@ export const router = createRouter({
                     meta: {
                         title: '會員專區-珍藏文章'
                     },
-                    component: () => import('./components/User/Pages/ArticleCollection')
+                    component: () =>
+                        import ('../components/User/Pages/ArticleCollection')
                 },
                 {
                     path: 'shopping-record',
@@ -63,22 +95,27 @@ export const router = createRouter({
                     meta: {
                         title: '會員專區-購物紀錄'
                     },
-                    component: () => import('./components/User/Pages/ShoppingRecord')
+                    component: () =>
+                        import ('../components/User/Pages/ShoppingRecord')
                 },
             ],
         },
         {
             path: '/user/login',
-
-            component: () => import('./components/Pages/UserLogin'),
-            children: [
-                {
+            components: {
+                nav: () =>
+                    import ("../components/Globals/Nav"),
+                default: () =>
+                    import ('../Pages/UserLogin')
+            },
+            children: [{
                     path: '',
                     name: 'user_login',
                     meta: {
                         title: "會員專區-登入"
                     },
-                    component: () => import('./components/Login/LoginForm'),
+                    component: () =>
+                        import ('../components/Login/LoginForm'),
                 },
                 {
                     path: '/user/register',
@@ -86,24 +123,21 @@ export const router = createRouter({
                     meta: {
                         title: "會員專區-註冊"
                     },
-                    component: () => import('./components/Login/RegisterForm'),
+                    component: () =>
+                        import ('../components/Login/RegisterForm'),
                 },
             ],
             beforeEnter: (to, from) => {
                 Auth(to, from)
             }
         },
-        {
-            path: '/',
-            name: 'home',
-            meta:{
-                title:'123'
-            },
-            component: () => import('./components/Pages/Home'),
-        },
+        ...admin_routes
     ],
 });
 router.beforeEach((to, from) => {
+    if ((from.path !== "/" && (to.fullPath === "/"))) {
+        window.location.assign(to.fullPath);
+    }
     if (to.meta.auth) {
         Auth(to, from);
     }
@@ -120,9 +154,6 @@ router.beforeEach((to, from) => {
     // if(!auth){
     //     window.location.assign('/');
     // }
-    // if ((from.path !== "/" && (to.fullPath === "/"))) {
-    //     window.location.assign(to.fullPath);
-    // }
     if (to.meta.title) {
         document.title = to.meta.title;
     }
@@ -130,4 +161,3 @@ router.beforeEach((to, from) => {
 
     // }
 });
-

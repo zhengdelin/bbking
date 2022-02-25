@@ -23,6 +23,8 @@ Route::post('/userLogin',[LoginController::class,'userLogin']);
 Route::post('/userRegister',[LoginController::class,'userRegister']);
 Route::post('/userLogout',[LoginController::class,'userLogout']);
 
+Route::post('/upLoadBase64Img',[LoginController::class,'upLoadBase64Img']);
+
 
 Route::get('/{path}', function () {
     return view('user.home');
