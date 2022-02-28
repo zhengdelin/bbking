@@ -6,8 +6,7 @@
       title="帳號"
       placeholder="account"
       v-model.trim="account"
-      :valueChange="handleCheckAccount"
-      :value="account"
+      @change="handleCheckAccount(account)"
       focus
       ref="accountDOM"
     ></input-text>
@@ -15,24 +14,21 @@
       type="password"
       placeholder="password"
       title="密碼"
-      :value="password"
       v-model.trim="password"
-      :valueChange="handleCheckPassword"
+      @change="handleCheckPassword(password,check_password)"
     ></input-text>
     <input-text
       type="password"
       title="再次輸入密碼"
       placeholder="check password"
-      :value="check_password"
       v-model.trim="check_password"
-      :valueChange="handleCheckAgainPassword"
+      @change="handleCheckAgainPassword(password,check_password)"
     ></input-text>
     <input-text
       title="電子郵件"
       placeholder="email"
-      :value="email"
       v-model.trim="email"
-      :valueChange="handleCheckEmail"
+      @change="handleCheckEmail(email)"
     ></input-text>
     <div class="col px-sm-2 pb-2">
       <input type="checkbox" name="remember" v-model="remember" />
@@ -45,15 +41,15 @@
 </template>
 
 <script>
-import InputText from "../Objects/InputText.vue";
+import InputText from "../Objects/Input/InputText.vue";
 import AlertBox from "../Objects/AlertBox.vue";
 import { reactive, ref, toRefs } from "@vue/reactivity";
 import { useRouter } from "vue-router";
 import {
-  checkAccount,
-  checkAgainPassword,
-  checkEmail,
-  checkPassword,
+  handleCheckAccount,
+  handleCheckPassword,
+  handleCheckAgainPassword,
+  handleCheckEmail,
   register,
 } from "../../composition/userHandler";
 import { inject } from "@vue/runtime-core";
@@ -78,30 +74,6 @@ export default {
     });
     const check_password = ref("");
     //function
-
-    const handleCheckAccount = async () => {
-      // console.log("account", register_data);
-      const error = await checkAccount(register_data.account);
-      setStatus("error",error,"account");
-    };
-    const handleCheckEmail = async () => {
-      const error = await checkEmail(register_data.email);
-      // console.log(error);
-      setStatus("error",error,"email");
-    };
-    const handleCheckPassword = async () => {
-      const error = await checkPassword(register_data.password);
-      handleCheckAgainPassword();
-      // console.log([...error, ...error2]);
-      setStatus("error",error,"password");
-    };
-    const handleCheckAgainPassword = async () => {
-      const error = await checkAgainPassword(
-        register_data.password,
-        check_password.value
-      );
-      setStatus("error",error,"check_password");
-    };
 
     const handleRegister = async () => {
       if (state.status !== "error") {

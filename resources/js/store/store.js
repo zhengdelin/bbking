@@ -9,34 +9,41 @@ import {
 const state = reactive({
     user: '',
     status: '',
-    successes: [],
+    status_msg: '',
     errors: {}
 })
 apiGetUser().then(res => {
         state.user = res.data.user;
     })
     //function
-const setStatus = async(status_type, arr, error_type) => {
+const setStatus = async(status_type, item, error_type) => {
     // console.log("setStatus");
-    if (status_type === 'success') {
+    //200表示成功
+    if (status_type === 200) {
         state.errors = {};
         state.status = 'success'
-        state.successes = arr;
-    } else if (status_type === 'error') {
-        state.successes = [];
-        state.status = 'error'
-        state.errors[error_type] = arr;
-        if (error_type !== 'api_error') clearApiError()
+        state.status_msg = item;
+    } else {
+        state.status = 'error';
+        //error 表示前端攔截的error
+        if (status_type === 'error') {
+            clearApiError()
+            state.errors[error_type] = item;
+        } else if (status_type === 400) {
+            //400表示後端回傳的error
+            state.errors = {};
+            state.status_msg = item;
+        }
         confirmErrorStatus();
     }
 }
 const clearApiError = async() => {
-    state.errors.api_error = []
+    state.status_msg = '';
 }
 const clearStatus = async() => {
     // console.log("clearStatus");
     state.status = ''
-    state.successes = []
+    state.success = []
     state.errors = {}
 }
 const confirmErrorStatus = async() => {

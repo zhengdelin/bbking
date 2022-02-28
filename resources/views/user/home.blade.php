@@ -25,18 +25,14 @@
     <title>首頁</title>
     {{-- <title>Xiang's music store</title> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.css">
+    <link rel="stylesheet" href="{{ asset('/css/tailwind.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
 </head>
 
 <body>
     <div id="instrument_platform">
         <router-view name="nav"></router-view>
-        <div class="" id="content">
-            {{-- {{ dd(session()) }} --}}
-            {{-- <v-home v-if="is_home" ref="home"></v-home> --}}
-            <router-view></router-view>
-            
-        </div>
+        <router-view></router-view>
     </div>
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.extensions.min.js"></script>

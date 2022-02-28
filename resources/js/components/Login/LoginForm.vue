@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import InputText from "../Objects/InputText.vue";
+import InputText from "../Objects/Input/InputText.vue";
 import AlertBox from "../Objects/AlertBox.vue";
 import { reactive, ref, toRefs } from "@vue/reactivity";
 import { inject } from "@vue/runtime-core";

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex-cc h-100">
+    <div class="flex-jc h-[70%]">
       <div id="floatingCirclesG">
         <div class="f_circleG" id="frotateG_01"></div>
         <div class="f_circleG" id="frotateG_02"></div>
@@ -14,9 +14,7 @@
 </template>
 
 <script>
-    export default {
-        
-    }
+export default {};
 </script>
 
 <style scoped>

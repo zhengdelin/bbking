@@ -31,7 +31,8 @@ class LoginController extends BaseController
         $address = $request->address;
         if (session('user') !== $account) {
             if ($this->checkAccountExist($account)) {
-                return response()->json(['status' => 'api_error', 'status_obj'=>["帳號已被註冊!!!"]]);
+                // return response()->json(['status' => 'api_error', 'status_obj'=>["帳號已被註冊!!!"]]);
+                return response()->json(['status' => 400, 'msg'=>'帳號已被註冊']);
             }
             Cookie::queue('user', $account, 43200);
             session(['user' => $account]);
@@ -43,7 +44,8 @@ class LoginController extends BaseController
             'email' => $email,
             'address' => $address,
         ]);
-        return response()->json(['status' => 'success', 'status_obj' => ['更改資料成功!!!']]);
+        return response()->json(['status' => 200, 'msg'=>'更改資料成功']);
+        // return response()->json(['status' => 'success', 'status_obj' => ['更改資料成功!!!']]);
     }
     public function getUser()
     {
@@ -51,7 +53,7 @@ class LoginController extends BaseController
             $user = Cookie::get('user');
             if ($user) {
                 $user_data = DB::table('members')->where('account', $user)->first();
-                if (Cookie::get('remember_token') === $user_data->remember_token) {
+                if (Cookie::get('token') === $user_data->token) {
                     session(['user' => Cookie::get('user')]);
                 }
             }
@@ -69,22 +71,23 @@ class LoginController extends BaseController
         $password = $request->password;
         $user = DB::table('members')->where('account', $account)->first();
         if (!$user || !password_verify($password, $user->password)) {
-            return response()->json(['status' => 'api_error', 'status_obj' => ['無效的登陸名或密碼']]);
+            // return response()->json(['status' => 'api_error', 'status_obj' => ['無效的登陸名或密碼']]);
+            return response()->json(['status' => 400, 'msg'=>'無效的登陸名或密碼']);
         }
         // dd(session());
         if ($request->remember) {
-            if (!$user->remember_token) {
-                $remember_token = Str::random(100);
-                DB::table('members')->where('account', $account)->update(['remember_token' => $remember_token]);
+            if (!$user->token) {
+                $token = Str::random(100);
+                DB::table('members')->where('account', $account)->update(['token' => $token]);
             } else {
-                $remember_token = $user->remember_token;
+                $token = $user->token;
             }
 
             Cookie::queue('user', $account, 43200);
-            Cookie::queue('remember_token', $remember_token, 43200);
+            Cookie::queue('token', $token, 43200);
         }
         session(['user' => $account]);
-        return;
+        return response()->json(['status' => 200, 'msg'=>'登入成功']);
     }
     public function userRegister(Request $request)
     {
@@ -92,19 +95,20 @@ class LoginController extends BaseController
         $email = $request->email;
         $password = $request->password;
         if ($this->checkAccountExist($account)) {
-            return response()->json(['status' => 'api_error', 'status_obj' => ['帳號已被註冊']]);
+            // return response()->json(['status' => 'api_error', 'status_obj' => ['帳號已被註冊']]);
+            return response()->json(['status' => 400, 'msg'=>'帳號已被註冊']);
         }
         if ($request->remember) {
-            $remember_token = Str::random(100);
+            $token = Str::random(100);
             DB::table('members')->insert([
                 'account' => $account,
                 'email' => $email,
                 'password' => password_hash($password, PASSWORD_DEFAULT),
-                'remember_token' => $remember_token
+                'token' => $token
             ]);
 
             Cookie::queue('user', $account, 43200);
-            Cookie::queue('remember_token', $remember_token, 43200);
+            Cookie::queue('token', $token, 43200);
         } else {
             DB::table('members')->insert([
                 'account' => $account,
@@ -113,16 +117,16 @@ class LoginController extends BaseController
             ]);
         }
         session(['user' => $account]);
-        return;
+        return response()->json(['status' => 200, 'msg'=>'註冊成功']);
     }
     public function userLogout(Request $request)
     {
         $user = session('user');
         $request->session()->forget('user');
         Cookie::queue(Cookie::forget('user'));
-        Cookie::queue(Cookie::forget('remember_token'));
-        DB::table('members')->where('account', $user)->update(['remember_token' => NULL]);
-        return;
+        Cookie::queue(Cookie::forget('token'));
+        DB::table('members')->where('account', $user)->update(['token' => NULL]);
+        return response()->json(['status' => 200, 'msg'=>'登出成功']);
     }
     public function checkAccountExist($account)
     {

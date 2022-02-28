@@ -1,15 +1,15 @@
 <template>
-  <div class="col">
-    <div class="col fw-bold input-field-title">
+  <div id="input_text">
+    <div class="font-bold">
       {{ props.title }}
     </div>
-    <div class="col-12 py-1">
+    <div class="w-full py-1">
       <!-- component v-model時
       要加:value = "attrs.modelValue",
       @input="$emit('update:modelValue',$event.targe.value)" 
       -->
       <input
-        class="w-100"
+        class="w-full"
         type="text"
         v-bind="attrs"
         ref="field"
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { onMounted, ref, watch } from "@vue/runtime-core";
+import { onMounted, ref } from "@vue/runtime-core";
 export default {
   inheritAttrs: false,
   props: {
@@ -61,8 +61,8 @@ export default {
 };
 </script>
 
-<style scoped>
-input {
+<style>
+#input_text input {
   height: 40px;
   border: rgb(128, 128, 128, 0.5) solid 1px;
   border-radius: 10px;

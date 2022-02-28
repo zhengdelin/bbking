@@ -4,12 +4,18 @@ const userRequest = axios.create({
     baseURL: 'http://127.0.0.1:8000/'
 })
 
-// userRequest.interceptors.response.use(response => {
-//     return response;
-// };
+userRequest.interceptors.request.use(request => {
+    return request;
+});
 
-export const getUser = () => userRequest.post("getUser")
-export const getUserInfo = () => userRequest.post("/getUserInfo")
-export const postUserLogout = () => userRequest.post("userLogout")
-export const postUserLogin = data => userRequest.post("userLogin", data)
-export const postUserRegister = data => userRequest.post('userRegister', data)
+export const getUser = () => userRequest.post("user/api/getUser")
+export const getUserInfo = () => userRequest.post("user/api/getUserInfo")
+export const postUserLogout = () => userRequest.post("user/api/userLogout")
+export const postUserLogin = data => userRequest.post("user/api/userLogin", data)
+export const postUserRegister = data => userRequest.post('user/api/userRegister', data)
+
+
+//admin
+
+export const getAllUserInfo = () => userRequest.post("admin/api/getAllUserInfo")
+export const postCreateUser = (data) => userRequest.post("admin/api/createUser", data)

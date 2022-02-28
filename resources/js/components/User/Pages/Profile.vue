@@ -21,7 +21,7 @@
             v-model.trim="name"
             placeholder="姓名"
             :readonly="read_only"
-            :valueChange="handleCheckName"
+            @change="handleCheckName(name)"
           ></input-text>
         </div>
         <div class="pe-sm-2">
@@ -30,7 +30,7 @@
             v-model.trim="phone"
             :readonly="read_only"
             placeholder="手機號碼"
-            :valueChange="handleCheckPhone"
+            @change="handleCheckPhone(phone)"
           ></input-text>
         </div>
       </div>
@@ -40,7 +40,7 @@
             title="帳號"
             v-model.trim="account"
             :readonly="read_only"
-            :valueChange="handleCheckAccount"
+            @change="handleCheckAccount(account)"
           ></input-text>
         </div>
         <div class="pe-sm-2">
@@ -48,7 +48,7 @@
             title="Email"
             v-model.trim="email"
             :readonly="read_only"
-            :valueChange="handleCheckEmail"
+            @change="handleCheckEmail(email)"
           ></input-text>
         </div>
       </div>
@@ -58,7 +58,7 @@
             title="地址"
             v-model.trim="address"
             :readonly="read_only"
-            :valueChange="handleCheckAddress"
+            @change="handleCheckAddress(address)"
             rows="4"
           ></input-textarea>
         </div>
@@ -71,23 +71,24 @@
 
 <script>
 import axios from "axios";
-import InputTextarea from "../../Objects/InputTextarea.vue";
-import InputText from "../../Objects/InputText.vue";
-import EditButton from "../../Objects/EditButton.vue";
-import SaveButton from "../../Objects/SaveButton.vue";
-import CancelButton from "../../Objects/CancelButton.vue";
-import ReturnButton from "../../Objects/ReturnButton.vue";
+import InputTextarea from "../../Objects/Input/InputTextarea.vue";
+import InputText from "../../Objects/Input/InputText.vue";
+import EditButton from "../../Objects/Button/EditButton.vue";
+import SaveButton from "../../Objects/Button/SaveButton.vue";
+import CancelButton from "../../Objects/Button/CancelButton.vue";
+import ReturnButton from "../../Objects/Button/ReturnButton.vue";
 import ChangePas from "../ChangePas.vue";
 import AlertBox from "../../Objects/AlertBox.vue";
 import { reactive, ref, toRef, toRefs } from "@vue/reactivity";
 import { inject, onMounted } from "@vue/runtime-core";
 import {
-  checkName,
-  checkPhone,
+  handleCheckAccount,
+  handleCheckEmail,
+  handleCheckName,
+  handleCheckPhone,
+  handleCheckAddress,
   getUserInfo,
-  checkAccount,
-  checkEmail,
-  checkAddress,
+  
 } from "../../../composition/userHandler";
 export default {
   components: {
@@ -190,28 +191,6 @@ export default {
     const cancel = () => {
       return2OldUserInfo();
       read_only.value = true;
-    };
-    const handleCheckAccount = async () => {
-      const error = await checkAccount(user_data.account);
-      setStatus("error", error, "account");
-      // console.log(user_data, old_user_data);
-    };
-    const handleCheckEmail = async () => {
-      const error = await checkEmail(user_data.email);
-      setStatus("error", error, "email");
-    };
-    const handleCheckName = async () => {
-      const error = await checkName(user_data.name);
-      setStatus("error", error, "name");
-    };
-    const handleCheckPhone = async () => {
-      // console.log("handleCheckPhone");
-      const error = await checkPhone(user_data.phone);
-      setStatus("error", error, "phone");
-    };
-    const handleCheckAddress = async () => {
-      const error = await checkAddress(user_data.address);
-      setStatus("error", error, "address");
     };
     onMounted(() => {
       handleGetUserInfo();

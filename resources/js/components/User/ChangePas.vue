@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import UserProfileField from "../Objects/InputText.vue";
+import UserProfileField from "../Objects/Input/InputText.vue";
 export default {
   components: {
     UserProfileField,

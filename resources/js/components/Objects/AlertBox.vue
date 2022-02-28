@@ -1,7 +1,7 @@
 <template>
   <div class="alert-box" :class="status" v-if="status && datas.length">
     <ul>
-      <li v-for="item in datas" :key="item">{{ item }}</li>
+      <li v-for="item in datas" :key="item" class=" font-semibold">{{ item }}</li>
     </ul>
   </div>
 </template>
@@ -14,16 +14,15 @@ export default {
     // console.log({ ...toRefs(state) });
     // console.log(state);
     const datas = computed(() => {
-      if (state.status === "success") {
-        return state.successes;
-      } else if (state.status === "error") {
         let array = [];
         Object.values(state.errors).forEach((i) => {
           array = array.concat(i);
         });
+        if(state.status_msg){
+          array.push(state.status_msg)
+        }
         // console.log(array);
         return array;
-      }
     });
 
     return { datas, ...toRefs(state) };
@@ -31,9 +30,11 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 ul {
+  list-style: inherit;
   margin: 0;
+  padding-left: 2rem;
 }
 .alert-box {
   position: relative;

@@ -2,13 +2,13 @@
   <div id="nav" class="w-100">
     <div
       class="
-        d-flex
-        align-items-center
-        justify-content-center justify-content-sm-start
+        flex
+        items-center
+        justify-center sm:justify-start
       "
     >
       <v-mobile-nav-btn
-        class="d-sm-none"
+        class="sm:hidden"
         @click="mobileNavSwitch()"
       ></v-mobile-nav-btn>
       <v-nav-logo></v-nav-logo>

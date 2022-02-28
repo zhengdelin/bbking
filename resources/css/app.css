@@ -1,7 +1,3 @@
-@import "~bootstrap";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 @import url(https://fonts.googleapis.com/earlyaccess/cwtexfangsong.css);
 @import url(https://fonts.googleapis.com/earlyaccess/cwtexkai.css);
 @import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
@@ -15,8 +11,37 @@
     /* font-family: 'cwTeXMing', serif; */
 }
 
+.font-cwTeXKai {
+    font-family: 'cwTeXKai', serif;
+}
+
+.font-cwTeXFangSong {
+    font-family: 'cwTeXFangSong', serif !important;
+}
+
+.font-cwTeXYen {
+    font-family: 'cwTeXYen', serif;
+}
+
+.font-NotoSansTC {
+    font-family: 'Noto Sans TC', serif;
+}
+
+.font-cwTeXMing {
+    font-family: 'cwTeXMing', serif;
+}
+
+.font-MicrosoftJhengHei {
+    font-family: 'Microsoft JhengHei', serif;
+}
+
 body {
     overscroll-behavior: contain
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
 #instrument_platform {
@@ -114,6 +139,23 @@ body {
 
 {
     opacity: 0;
+}
+
+.leave-to-left-500-enter-active,
+.leave-to-left-500-leave-active {
+    transition: all 0.5s;
+}
+
+.leave-to-left-500-enter-from,
+.leave-to-left-500-leave-to {
+    transform: translateX(-20px);
+    opacity: 0;
+}
+
+.leave-to-left-500-enter-to,
+.leave-to-left-500-leave-from {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 @media all and (min-width:576px) {

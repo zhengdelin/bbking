@@ -4,7 +4,12 @@ import {
 } from 'vue-router'
 import { apiGetUser } from '../api/api';
 import { admin_routes } from "../router/admin-routes"
-console.log(...admin_routes);
+import NProgress from "nprogress";
+import 'nprogress/nprogress.css'
+// NProgress.inc(0.2);
+// NProgress.configure({ easing: 'linear', speed: 500, showSpinner: false, trickle: false })
+
+// console.log(...admin_routes);
 async function Auth(to, from) {
     apiGetUser().then(res => {
         if (res.data.user) {
@@ -135,6 +140,7 @@ export const router = createRouter({
     ],
 });
 router.beforeEach((to, from) => {
+    NProgress.start();
     if ((from.path !== "/" && (to.fullPath === "/"))) {
         window.location.assign(to.fullPath);
     }
@@ -161,3 +167,7 @@ router.beforeEach((to, from) => {
 
     // }
 });
+router.afterEach(to => {
+    NProgress.done();
+    window.scrollTo(0, 0);
+})
