@@ -1,8 +1,8 @@
 <template>
-  <div class="d-flex pt-3 h-100">
+  <div class="flex pt-3 h-full">
     <div
-      class="h-sm-100 col col-md-2 p-2 px-4 p-md-0"
-      :class="{ 'd-none d-md-block': !is_now_user }"
+      class="sm:h-full w-full md:w-[16.666%] p-2 px-4 md:p-0"
+      :class="{ 'hidden md:block': !is_now_user }"
     >
       <transition name="fade">
         <menu-vue v-if="show" class=""></menu-vue>
@@ -10,11 +10,11 @@
     </div>
 
     <div
-      class="flex-cc w-100 h-100"
-      :class="{ 'd-none d-md-flex': is_now_user }"
+      class="flex items-center justify-center w-full h-full"
+      :class="{ 'hidden md:flex': is_now_user }"
     >
       <div
-        class="col-11 h-100 p-2 px-4 p-sm-4 border-gray-radius overflow-scroll"
+        class="w-[90%] h-full p-2 px-4 sm:p-4 border-gray-radius overflow-scroll"
       >
         <router-view v-slot="{ Component }">
           <transition name="roll-up" mode="out-in">

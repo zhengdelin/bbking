@@ -1,8 +1,8 @@
 <template>
-  <div class="flex-cc text-center w-100">
+  <div class="flex-cc text-center w-full">
     <router-link
       :to="{ name: 'user_login'}"
-      class="col fw-bold login-register-option"
+      class="w-full font-bold login-register-option"
       :class="{ 'opt-selected': login_register === 'login' }"
       @click="routeChange"
     >
@@ -10,7 +10,7 @@
     </router-link>
     <router-link
       :to="{ name: 'user_register' }"
-      class="col fw-bold login-register-option"
+      class="w-full font-bold login-register-option"
       :class="{ 'opt-selected': login_register === 'register' }"
       @click="routeChange"
     >

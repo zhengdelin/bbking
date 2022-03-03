@@ -133,7 +133,7 @@ var _hoisted_2 = {
   "class": "flex items-center justify-center sm:justify-start"
 };
 var _hoisted_3 = {
-  "class": "d-none d-sm-block ms-5"
+  "class": "hidden sm:block ms-5"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_v_mobile_nav_btn = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("v-mobile-nav-btn");
@@ -157,7 +157,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [$setup.mobile_nav_toggle ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_v_nav_box, {
         key: 0,
-        "class": "d-sm-none"
+        "class": "sm:hidden"
       })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)];
     }),
     _: 1
@@ -187,7 +187,7 @@ var _withScopeId = function _withScopeId(n) {
 
 var _hoisted_1 = {
   id: "navbox",
-  "class": "flex-ac flex-column flex-sm-row w-100 text-center"
+  "class": "flex-ac flex-col sm:flex-row w-full text-center"
 };
 
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("首頁");
@@ -195,7 +195,7 @@ var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNod
 var _hoisted_3 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     href: "#",
-    "class": "border-bottom-gray border-sm-0"
+    "class": "border-b sm:border-0 border-gray-500"
   }, "商品", -1
   /* HOISTED */
   );
@@ -204,7 +204,7 @@ var _hoisted_3 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     href: "#",
-    "class": "border-bottom-gray border-sm-0"
+    "class": "border-b sm:border-0 border-gray-500"
   }, "文章", -1
   /* HOISTED */
   );
@@ -219,7 +219,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     to: {
       name: 'home'
     },
-    "class": "border-bottom-gray border-sm-0"
+    "class": "border-b sm:border-0 border-gray-500"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_2];
@@ -227,11 +227,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
     /* STABLE */
 
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a href=\"/\" class=\"border-bottom-gray border-sm-0\">首頁</a> "), _hoisted_3, _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a href=\"/\" class=\" border-b sm:border-0 border-gray-500\">首頁</a> "), _hoisted_3, _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: {
       name: 'user'
     },
-    "class": "border-bottom-gray border-sm-0"
+    "class": "border-b sm:border-0 border-gray-500"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_5];
@@ -257,7 +257,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "nav-btn position-absolute start-0 mx-3"
+  "class": "nav-btn absolute left-0 mx-3"
 };
 
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
@@ -296,7 +296,7 @@ var _withScopeId = function _withScopeId(n) {
 };
 
 var _hoisted_1 = {
-  "class": "nav-icon flex-cc position-absolute end-0 me-1 pt-2 me-sm-4"
+  "class": "nav-icon flex-cc absolute right-0 me-1 pt-2 sm:me-4"
 };
 
 var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
@@ -387,7 +387,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "logo w-15 w-md-5 w-sm-10"
+  "class": "logo w-[15%] md:w-[5%] sm:w-[10%]"
 };
 
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
@@ -444,7 +444,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#navbox[data-v-794fd2be] {\r\n  height: 100vh;\n}\r\n\r\n/* class=\"p-3 p-sm-0 w-100 w-sm-auto border-bottom-gray border-sm-0\" */\n#navbox > *[data-v-794fd2be] {\r\n  color: black;\r\n  font-size: 1.2rem;\r\n  text-decoration: none;\r\n  padding: 1rem;\r\n  width: 100%;\r\n  /* display: inline-block; */\n}\n#navbox > a[data-v-794fd2be]:hover {\r\n  background-color: rgba(193, 247, 247, 0.5);\r\n  font-weight: bold;\n}\n.router-link-active[data-v-794fd2be] {\r\n  background-color: rgba(193, 247, 247, 0.5);\r\n  font-weight: bold;\n}\n@media all and (min-width: 576px) {\n#navbox[data-v-794fd2be] {\r\n    height: 50px;\n}\n#navbox > *[data-v-794fd2be] {\r\n    padding: 0.5rem 1rem 0 1rem; /* 上右下左 */\r\n    width: auto;\n}\n#navbox > a[data-v-794fd2be]:hover {\r\n    border-bottom: purple 2px solid;\r\n    color: purple;\r\n    font-weight: bold;\r\n    background-color: white;\n}\n.router-link-active[data-v-794fd2be] {\r\n    background-color: white;\r\n    font-weight: normal;\r\n    border-bottom: rgb(200, 111, 241) 2px solid;\r\n    color: rgb(186, 37, 255) !important;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#navbox[data-v-794fd2be] {\r\n  height: 100vh;\n}\n#navbox > *[data-v-794fd2be] {\r\n  color: black;\r\n  font-size: 1.2rem;\r\n  text-decoration: none;\r\n  padding: 1rem;\r\n  width: 100%;\r\n  /* display: inline-block; */\n}\n#navbox > a[data-v-794fd2be]:hover {\r\n  background-color: rgba(193, 247, 247, 0.5);\r\n  font-weight: bold;\n}\n.router-link-active[data-v-794fd2be] {\r\n  background-color: rgba(193, 247, 247, 0.5);\r\n  font-weight: bold;\n}\n@media all and (min-width: 576px) {\n#navbox[data-v-794fd2be] {\r\n    height: 50px;\n}\n#navbox > *[data-v-794fd2be] {\r\n    padding: 0.5rem 1rem 0 1rem; /* 上右下左 */\r\n    width: auto;\n}\n#navbox > a[data-v-794fd2be]:hover {\r\n    border-bottom: purple 2px solid;\r\n    color: purple;\r\n    font-weight: bold;\r\n    background-color: white;\n}\n.router-link-active[data-v-794fd2be] {\r\n    background-color: white;\r\n    font-weight: normal;\r\n    border-bottom: rgb(200, 111, 241) 2px solid;\r\n    color: rgb(186, 37, 255) !important;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

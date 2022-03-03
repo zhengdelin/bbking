@@ -1,5 +1,5 @@
 <template>
-  <div id="input_text">
+  <div class="input_text">
     <div class="font-bold">
       {{ props.title }}
     </div>
@@ -15,7 +15,6 @@
         ref="field"
         :value="attrs.modelValue"
         @input="emitInput"
-        @change="props.valueChange"
       />
     </div>
   </div>
@@ -34,9 +33,9 @@ export default {
       type: Boolean,
       default: false,
     },
-    valueChange: {
-      type: Function,
-      default: () => {},
+    trim: {
+      type: Boolean,
+      default: true,
     },
   },
   emits: {
@@ -51,7 +50,11 @@ export default {
     // data
     // console.log("emits", emits);
     const emitInput = (e) => {
-      emit("update:modelValue", e.target.value);
+      if (props.trim) {
+        emit("update:modelValue", e.target.value.trim());
+      } else {
+        emit("update:modelValue", e.target.value);
+      }
     };
     onMounted(() => {
       if (props.focus) field.value.focus();
@@ -62,7 +65,7 @@ export default {
 </script>
 
 <style>
-#input_text input {
+.input_text input {
   height: 40px;
   border: rgb(128, 128, 128, 0.5) solid 1px;
   border-radius: 10px;

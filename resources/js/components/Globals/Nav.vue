@@ -12,13 +12,13 @@
         @click="mobileNavSwitch()"
       ></v-mobile-nav-btn>
       <v-nav-logo></v-nav-logo>
-      <div class="d-none d-sm-block ms-5">
+      <div class="hidden sm:block ms-5">
         <v-nav-box class=""></v-nav-box>
       </div>
       <v-nav-icon></v-nav-icon>
     </div>
     <transition name="slide">
-      <v-nav-box class="d-sm-none" v-if="mobile_nav_toggle"></v-nav-box>
+      <v-nav-box class="sm:hidden" v-if="mobile_nav_toggle"></v-nav-box>
     </transition>
   </div>
 </template>

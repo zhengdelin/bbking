@@ -1,7 +1,8 @@
 <template>
   <table class="text-center table-auto bg-white border-gray-900">
-    <thead>
+    <thead class="border-b border-gray-100">
       <tr class="divide-x divide-gray-100">
+        <th class="py-1">#</th>
         <th v-for="head in heads" :key="head" class="py-1">
           {{ head }}
         </th>
@@ -10,17 +11,24 @@
     </thead>
     <tbody class="divide-y divide-gray-200">
       <tr
-        v-for="data in datas"
+        v-for="(data, index) in datas"
         :key="data.id"
         class="divide-x divide-gray-200"
         :class="{ 'bg-gray-100': data.id % 2 == 1 }"
       >
-        <td v-for="i in data" :key="i" class="py-2">
-          {{ i ? i : "--" }}
+        <td class="py-2">{{ index + 1 }}</td>
+        <td v-for="key in keys" :key="key" class="py-2">
+          {{ data[key] ? data[key] : "--" }}
         </td>
         <td class="w-40">
           <div class="flex scale-75">
-            <router-link to="/" class="mr-3">
+            <router-link
+              :to="{
+                name: edit_route_name,
+                params: { info: JSON.stringify(data) },
+              }"
+              class="mr-3"
+            >
               <edit-button-vue></edit-button-vue>
             </router-link>
             <delete-button-vue></delete-button-vue>
@@ -28,9 +36,9 @@
         </td>
       </tr>
     </tbody>
-    <tfoot class=" border-t border-gray-200">
+    <tfoot class="border-t border-gray-100">
       <tr class="h-full">
-        <td class="py-4 pl-2" colspan="4">
+        <td class="py-4 pl-2" colspan="5">
           <div class="flex items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +70,12 @@
             >
               <path d="M8.122 24l-4.122-4 8-8-8-8 4.122-4 11.878 12z" />
             </svg>
-            <select name="page" id="page" v-model="current_page" class=" appearance-none px-3 py-1 hover:cursor-pointer">
+            <select
+              name="page"
+              id="page"
+              v-model="current_page"
+              class="appearance-none px-3 py-1 hover:cursor-pointer"
+            >
               <option v-for="page in total_pages" :key="page" :value="page - 1">
                 {{ page }}
               </option>
@@ -118,6 +131,7 @@
 import { computed, ref, watch } from "@vue/runtime-core";
 import EditButtonVue from "../Button/EditButton.vue";
 import DeleteButtonVue from "../Button/DeleteButton.vue";
+import {  useRouter } from "vue-router";
 
 export default {
   components: {
@@ -133,12 +147,21 @@ export default {
       type: Object,
       default: () => {},
     },
+    keys:{
+      type:Array,
+      default:()=>[]
+    }
   },
   setup(props) {
+    const router = useRouter();
     //表頭
     const heads = computed(() => {
       return props.column_heads;
     });
+    //鍵值順序
+    const keys = computed(()=>{
+      return props.keys;
+    })
     //第幾頁,總共幾頁,一頁幾個
     const current_page = ref(0);
     const per = ref(10);
@@ -151,6 +174,7 @@ export default {
       const end = start + per.value;
       return props.datas.slice(start, end);
     });
+    console.log("adminform->datas,",datas);
     watch(per, () => {
       current_page.value =
         current_page.value >= total_pages.value
@@ -174,9 +198,19 @@ export default {
           ? current_page.value
           : total_pages.value - 1;
     };
-
+    const edit_route_name = computed(() => {
+      // console.log(router, route);
+      const cur_route_name = router.currentRoute.value.name;
+      return (
+        cur_route_name
+          .toString()
+          .replace("-update", "")
+          .replace("-create", "") + "-update"
+      );
+    });
     return {
       heads,
+      keys,
       datas,
       current_page,
       total_pages,
@@ -186,6 +220,7 @@ export default {
       toPreviosPage,
       toLastPage,
       toNextPage,
+      edit_route_name,
     };
   },
 };

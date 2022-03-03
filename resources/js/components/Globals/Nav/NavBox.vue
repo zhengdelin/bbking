@@ -1,12 +1,12 @@
 <template>
-  <div id="navbox" class="flex-ac flex-column flex-sm-row w-100 text-center">
-    <router-link :to="{ name: 'home' }" class="border-bottom-gray border-sm-0"
+  <div id="navbox" class="flex-ac flex-col sm:flex-row w-full text-center">
+    <router-link :to="{ name: 'home' }" class=" border-b sm:border-0 border-gray-500"
       >首頁</router-link
     >
-    <!-- <a href="/" class="border-bottom-gray border-sm-0">首頁</a> -->
-    <a href="#" class="border-bottom-gray border-sm-0">商品</a>
-    <a href="#" class="border-bottom-gray border-sm-0">文章</a>
-    <router-link :to="{ name: 'user' }" class="border-bottom-gray border-sm-0"
+    <!-- <a href="/" class=" border-b sm:border-0 border-gray-500">首頁</a> -->
+    <a href="#" class=" border-b sm:border-0 border-gray-500">商品</a>
+    <a href="#" class=" border-b sm:border-0 border-gray-500">文章</a>
+    <router-link :to="{ name: 'user' }" class=" border-b sm:border-0 border-gray-500"
       >會員專區</router-link
     >
   </div>
@@ -21,7 +21,6 @@ export default {};
   height: 100vh;
 }
 
-/* class="p-3 p-sm-0 w-100 w-sm-auto border-bottom-gray border-sm-0" */
 #navbox > * {
   color: black;
   font-size: 1.2rem;

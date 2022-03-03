@@ -102,13 +102,13 @@ __webpack_require__.r(__webpack_exports__);
 
 var _hoisted_1 = {
   id: "login-register-page",
-  "class": "flex-cc pt-1 h-100 a"
+  "class": "flex-cc pt-1 h-full"
 };
 var _hoisted_2 = {
-  "class": "login-register-container w-80 w-md-60"
+  "class": "login-register-container w-[80%] md:w-[60%]"
 };
 var _hoisted_3 = {
-  "class": "login-register-box w-100 p-3"
+  "class": "login-register-box w-full p-3"
 };
 
 var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
@@ -121,10 +121,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_router_view = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-view");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_v_lr_control_box, {
-    login_register: $options.login_register
+    login_register: $options.login_register,
+    "class": "mb-3"
   }, null, 8
   /* PROPS */
-  , ["login_register"]), _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <v-error v-if=\"error\" :error=\"error\"></v-error> ")])])]);
+  , ["login_register"]), _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view, {
+    "class": "my-3"
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <v-error v-if=\"error\" :error=\"error\"></v-error> ")])])]);
 }
 
 /***/ }),
@@ -142,7 +145,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "flex-cc text-center w-100"
+  "class": "flex-cc text-center w-full"
 };
 
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 登入 ");
@@ -156,7 +159,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     to: {
       name: 'user_login'
     },
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["col fw-bold login-register-option", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["w-full font-bold login-register-option", {
       'opt-selected': $props.login_register === 'login'
     }]),
     onClick: $options.routeChange
@@ -173,7 +176,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     to: {
       name: 'user_register'
     },
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["col fw-bold login-register-option", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["w-full font-bold login-register-option", {
       'opt-selected': $props.login_register === 'register'
     }]),
     onClick: $options.routeChange

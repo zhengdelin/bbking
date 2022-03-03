@@ -1,11 +1,11 @@
 <template>
-  <div class="col">
-    <div class="col fw-bold input-field-title">
+  <div class="w-full">
+    <div class="w-full font-bold input-field-title">
       {{ props.title }}
     </div>
-    <div class="col-12 py-1">
+    <div class="w-full py-1">
       <textarea
-        class="w-100"
+        class="w-full"
         type="textarea"
         v-bind="attrs"
         ref="field"
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { onMounted, reactive, ref, toRefs } from "vue";
+import { onMounted, ref } from "vue";
 
 export default {
   props: {

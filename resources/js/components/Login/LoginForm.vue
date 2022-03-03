@@ -1,5 +1,5 @@
 <template>
-  <div class="login-register-form w-sm-80 w-lg-60">
+  <div class="login-register-form sm:w-[80%] lg:w-[60%]">
     <alert-box class="mb-1"></alert-box>
 
     <input-text
@@ -8,7 +8,7 @@
       placeholder="account"
       :value="account"
       focus
-      :valueChange="clearApiError"
+      :valueChange="commit('clearApiError')"
     ></input-text>
     <input-text
       title="密碼"
@@ -16,14 +16,14 @@
       :value="password"
       type="password"
       placeholder="password"
-      :valueChange="clearApiError"
+      :valueChange="commit('clearApiError')"
     ></input-text>
-    <div class="col px-sm-2 pb-2">
+    <div class="w-full sm:px-2 pb-2">
       <input type="checkbox" name="remember" v-model="remember" />
       <label class="ps-1" for="remember">保持登入</label>
     </div>
-    <div class="col flex-jc">
-      <input type="button" value="登入" @click="handleLogin()" />
+    <div class="w-full flex-jc hover:cursor-pointer">
+      <input type="button" value="登入" @click="login()" />
     </div>
   </div>
 </template>
@@ -31,17 +31,16 @@
 <script>
 import InputText from "../Objects/Input/InputText.vue";
 import AlertBox from "../Objects/AlertBox.vue";
-import { reactive, ref, toRefs } from "@vue/reactivity";
-import { inject } from "@vue/runtime-core";
+import { reactive, toRefs } from "@vue/reactivity";
 import { useRouter } from "vue-router";
-import { login } from "../../composition/userHandler.js";
+import { useStore } from "vuex";
 export default {
   components: {
     AlertBox,
     InputText,
   },
   setup() {
-    const { userLogin, setStatus,clearApiError } = inject("store");
+    const { dispatch, state, commit } = useStore();
     const router = useRouter();
     //data
     const login_data = reactive({
@@ -50,19 +49,17 @@ export default {
       remember: true,
     });
     //function
-    const handleLogin = async () => {
-      const res = await login(login_data);
-      if (res.status) {
-        setStatus("error", res.status_obj, res.status);
-      } else {
-        userLogin(login_data.account);
+    const login = async () => {
+      const res = await dispatch("userHandler/handleLogin", login_data);
+      // console.log('loginForm->',state);
+      if (state.is_login) {
         router.push({ name: "user" });
       }
     };
     return {
       ...toRefs(login_data),
-      handleLogin,
-      clearApiError
+      login,
+      commit,
     };
   },
 };

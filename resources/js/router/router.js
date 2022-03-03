@@ -1,44 +1,45 @@
-import {
-    createRouter,
-    createWebHistory
-} from 'vue-router'
-import { apiGetUser } from '../api/api';
-import { admin_routes } from "../router/admin-routes"
+import { createRouter, createWebHistory } from "vue-router";
+import { admin_routes } from "../router/admin-routes";
 import NProgress from "nprogress";
-import 'nprogress/nprogress.css'
+import "nprogress/nprogress.css";
+import store from "../store/index";
 // NProgress.inc(0.2);
 // NProgress.configure({ easing: 'linear', speed: 500, showSpinner: false, trickle: false })
 
 // console.log(...admin_routes);
-async function Auth(to, from) {
-    apiGetUser().then(res => {
-        if (res.data.user) {
 
+async function Auth(to, from) {
+    // console.log(!store._state.data.user);
+    if (to.name === 'user_login') {
+        return true;
+    } else {
+        if (!store._state.data.is_login) {
             // router.push({ name: 'user' })
-            if (to.name === "user_register" || to.name === "user_login") {
+            if (to.name !== "user_register") {
+                // alert('123')
                 router.push({
-                    path: from.fullPath
+                    name: "user_login",
                 });
             }
             return true;
         } else {
-            if (to.name !== "user_register") {
-                // alert('123')
+            if (to.name === "user_register" || to.name === "user_login") {
                 router.push({
-                    name: 'user_login'
-                })
+                    path: from.fullPath,
+                });
             }
             return true;
         }
-    })
+    }
+
 }
 export const router = createRouter({
     history: createWebHistory(),
     routes: [{
-            path: '/',
-            name: 'home',
+            path: "/",
+            name: "home",
             meta: {
-                title: '首頁'
+                title: "首頁",
             },
             components: {
                 nav: () =>
@@ -46,102 +47,113 @@ export const router = createRouter({
                 // default: () =>
                 //     import ('../Pages/Home')
                 default: () =>
-                    import ("../Pages/Home")
+                    import ("../Pages/Home"),
             },
         },
         {
-            path: '/user',
-            name: 'user',
+            path: "/user",
+            name: "user",
             components: {
                 nav: () =>
                     import ("../components/Globals/Nav"),
                 default: () =>
-                    import ('../Pages/User')
+                    import ("../Pages/User"),
             },
             meta: {
-                title: '會員專區',
-                auth: true
+                title: "會員專區",
+                auth: true,
             },
             beforeEnter(to, next) {
                 if (document.body.clientWidth > 768 && to.name === "user") {
-                    return { name: 'user_profile' };
+                    return { name: "user_profile" };
                 }
             },
             children: [{
-                    path: 'profile',
-                    name: 'user_profile',
+                    path: "profile",
+                    name: "user_profile",
                     meta: {
-                        title: '會員專區-個人資料'
+                        title: "會員專區-個人資料",
                     },
                     component: () =>
-                        import ('../components/User/Pages/Profile')
+                        import ("../components/User/Pages/Profile"),
                 },
                 {
-                    path: 'shopping-cart',
-                    name: 'user_shopping_cart',
+                    path: "shopping-cart",
+                    name: "user_shopping_cart",
                     meta: {
-                        title: '會員專區-購物車'
+                        title: "會員專區-購物車",
                     },
                     component: () =>
-                        import ('../components/User/Pages/ShoppingCart')
+                        import ("../components/User/Pages/ShoppingCart"),
                 },
                 {
-                    path: 'article-collection',
-                    name: 'user_article_collection',
+                    path: "article-collection",
+                    name: "user_article_collection",
                     meta: {
-                        title: '會員專區-珍藏文章'
+                        title: "會員專區-珍藏文章",
                     },
                     component: () =>
-                        import ('../components/User/Pages/ArticleCollection')
+                        import ("../components/User/Pages/ArticleCollection"),
                 },
                 {
-                    path: 'shopping-record',
-                    name: 'user_shopping_record',
+                    path: "shopping-record",
+                    name: "user_shopping_record",
                     meta: {
-                        title: '會員專區-購物紀錄'
+                        title: "會員專區-購物紀錄",
                     },
                     component: () =>
-                        import ('../components/User/Pages/ShoppingRecord')
+                        import ("../components/User/Pages/ShoppingRecord"),
                 },
             ],
         },
         {
-            path: '/user/login',
+            path: "/user/login",
             components: {
                 nav: () =>
                     import ("../components/Globals/Nav"),
                 default: () =>
-                    import ('../Pages/UserLogin')
+                    import ("../Pages/UserLogin"),
             },
             children: [{
-                    path: '',
-                    name: 'user_login',
+                    path: "",
+                    name: "user_login",
                     meta: {
-                        title: "會員專區-登入"
+                        title: "會員專區-登入",
                     },
                     component: () =>
-                        import ('../components/Login/LoginForm'),
+                        import ("../components/Login/LoginForm"),
                 },
                 {
-                    path: '/user/register',
-                    name: 'user_register',
+                    path: "/user/register",
+                    name: "user_register",
                     meta: {
-                        title: "會員專區-註冊"
+                        title: "會員專區-註冊",
                     },
                     component: () =>
-                        import ('../components/Login/RegisterForm'),
+                        import ("../components/Login/RegisterForm"),
                 },
             ],
             beforeEnter: (to, from) => {
-                Auth(to, from)
-            }
+                Auth(to, from);
+            },
+        }, {
+            path: "/errors",
+            name: 'exception_error',
+            meta: {
+                title: "Oops!!出錯啦!!"
+            },
+            component: () =>
+                import ("../components/Globals/Loading")
         },
-        ...admin_routes
+        ...admin_routes,
     ],
 });
 router.beforeEach((to, from) => {
     NProgress.start();
-    if ((from.path !== "/" && (to.fullPath === "/"))) {
+    if (!store.state.exception_error && to.name === 'exception_error') {
+        router.push({ name: 'home' })
+    }
+    if (from.path !== "/" && to.fullPath === "/") {
         window.location.assign(to.fullPath);
     }
     if (to.meta.auth) {
@@ -167,7 +179,11 @@ router.beforeEach((to, from) => {
 
     // }
 });
-router.afterEach(to => {
+router.afterEach((to) => {
+    // console.log('router afterEach');
+    // if (store.state.exception_error && to.name !== 'exception_error') {
+    //     router.push({ name: 'exception_error' })
+    // }
     NProgress.done();
     window.scrollTo(0, 0);
-})
+});

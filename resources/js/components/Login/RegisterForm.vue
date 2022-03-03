@@ -1,12 +1,12 @@
 <template>
-  <div class="login-register-form w-sm-80 w-lg-60">
+  <div class="login-register-form sm:w-[80%] lg:w-[60%]">
     <alert-box class="mb-1"></alert-box>
 
     <input-text
       title="帳號"
       placeholder="account"
       v-model.trim="account"
-      @change="handleCheckAccount(account)"
+      @change="dispatch('userHandler/handleCheckAccount', { account })"
       focus
       ref="accountDOM"
     ></input-text>
@@ -15,27 +15,37 @@
       placeholder="password"
       title="密碼"
       v-model.trim="password"
-      @change="handleCheckPassword(password,check_password)"
+      @change="
+        dispatch('userHandler/handleCheckPassword', {
+          password,
+          check_password,
+        })
+      "
     ></input-text>
     <input-text
       type="password"
       title="再次輸入密碼"
       placeholder="check password"
       v-model.trim="check_password"
-      @change="handleCheckAgainPassword(password,check_password)"
+      @change="
+        dispatch('userHandler/handleCheckAgainPassword', {
+          password,
+          check_password,
+        })
+      "
     ></input-text>
     <input-text
       title="電子郵件"
       placeholder="email"
       v-model.trim="email"
-      @change="handleCheckEmail(email)"
+      @change="dispatch('userHandler/handleCheckEmail', { email })"
     ></input-text>
     <div class="col px-sm-2 pb-2">
       <input type="checkbox" name="remember" v-model="remember" />
       <label class="ps-1" for="remember">保持登入</label>
     </div>
     <div class="col flex-jc">
-      <input type="button" value="註冊" @click="handleRegister" />
+      <input type="button" value="註冊" @click="register" />
     </div>
   </div>
 </template>
@@ -45,14 +55,7 @@ import InputText from "../Objects/Input/InputText.vue";
 import AlertBox from "../Objects/AlertBox.vue";
 import { reactive, ref, toRefs } from "@vue/reactivity";
 import { useRouter } from "vue-router";
-import {
-  handleCheckAccount,
-  handleCheckPassword,
-  handleCheckAgainPassword,
-  handleCheckEmail,
-  register,
-} from "../../composition/userHandler";
-import { inject } from "@vue/runtime-core";
+import { useStore } from "vuex";
 
 export default {
   components: {
@@ -60,7 +63,7 @@ export default {
     InputText,
   },
   setup() {
-    const { state,userRegister, setStatus } = inject("store");
+    const { dispatch, state } = useStore();
     // ref
     const accountDOM = ref(null);
     //router
@@ -75,30 +78,18 @@ export default {
     const check_password = ref("");
     //function
 
-    const handleRegister = async () => {
-      if (state.status !== "error") {
-        console.log(state);
-        const res = await register(register_data);
-        console.log(res);
-        // console.log(res);
-        if (res.status) {
-          setStatus("error", res.status_obj, res.status);
-        } else {
-          userRegister(register_data.account);
-          router.push({ name: "user" });
-        }
-      }
+    const register = async () => {
+      const res = await dispatch("userHandler/handleRegister", register_data);
+      
+      if (state.is_login) router.push({ name: "user" });
     };
     //更新狀態
     return {
       accountDOM,
       ...toRefs(register_data),
       check_password,
-      handleRegister,
-      handleCheckAccount,
-      handleCheckEmail,
-      handleCheckPassword,
-      handleCheckAgainPassword,
+      register,
+      dispatch,
     };
   },
 };

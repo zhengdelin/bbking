@@ -1,49 +1,43 @@
 <template>
-  <div class="user-menu flex-ac flex-column w-100 h-100">
+  <div class="user-menu flex-ac flex-col w-full h-full">
     <div class="title flex-cc">
       <transition name="title">
         <span v-show="show_user">Hello {{ user }}</span>
       </transition>
     </div>
 
-    <router-link :to="{ name: 'user_profile' }" class="w-100">
+    <router-link :to="{ name: 'user_profile' }" class="w-full">
       <div class="py-2 text-center">個人資料</div>
     </router-link>
-    <router-link :to="{ name: 'user_shopping_cart' }" class="w-100">
+    <router-link :to="{ name: 'user_shopping_cart' }" class="w-full">
       <div class="py-2 text-center">購物車</div>
     </router-link>
-    <router-link :to="{ name: 'user_article_collection' }" class="w-100">
+    <router-link :to="{ name: 'user_article_collection' }" class="w-full">
       <div class="py-2 text-center">文章收藏</div>
     </router-link>
-    <router-link :to="{ name: 'user_shopping_record' }" class="w-100">
+    <router-link :to="{ name: 'user_shopping_record' }" class="w-full">
       <div class="py-2 text-center">購買紀錄</div>
     </router-link>
-    <div class="logout position-absolute bottom-0 mb-4" @click="logOut">
-      登出
-    </div>
+    <div class="logout absolute bottom-0 mb-4" @click="logout">登出</div>
     <!-- <div v-if="" ref="mobile"></div> -->
   </div>
 </template>
 
 <script>
 import { ref } from "@vue/reactivity";
-import { inject, onMounted } from "@vue/runtime-core";
-import { useRouter } from 'vue-router';
-import { apiPostUserLogout } from '../../api/api';
+import { onMounted } from "@vue/runtime-core";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 export default {
   setup() {
     const router = useRouter();
-    const store = inject("store");
-    const { state, userLogout } = store;
+    const { state,dispatch } = useStore();
 
-    const logOut = async() => {
-      if (confirm("確認登出?")) {
-        await apiPostUserLogout();
-        userLogout();
-        router.push({name:'user_login'})
-      }
+    const logout = async () => {
+      dispatch("userLogout");
+      if (!state.is_login) router.push({ name: "user_login" });
     };
-    const user = ref(state.user);
+    const user = ref(state.user_info.account);
 
     const show_user = ref(false);
 
@@ -53,7 +47,7 @@ export default {
       }, 500);
     });
 
-    return { user, show_user, logOut };
+    return { user, show_user, logout };
   },
 };
 </script>
@@ -65,7 +59,6 @@ export default {
 }
 .user-menu {
   border-right: 0px;
-  border-bottom: 1px solid rgba(146, 131, 131, 0.5);
 }
 @media all and (min-width: 768px) {
   .user-menu {

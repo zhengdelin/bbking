@@ -3,7 +3,7 @@
   <div class="flex flex-col">
     <admin-page-title-vue
       target="admin-members"
-      title="會員資訊"
+      title="會員 - 新增會員"
     ></admin-page-title-vue>
     <alert-box-vue></alert-box-vue>
     <div class="flex flex-col">
@@ -12,120 +12,105 @@
           <create-button-vue @click="createUser"></create-button-vue>
         </template>
       </admin-title-vue>
-      <div class="bg-white rounded-md border-gray-500 p-4">
-        <div class="grid grid-cols-6 gap-4">
-          <div class="col-span-6 md:col-span-3 lg:col-span-2">
-            <input-text-vue
-              title="帳號"
-              v-model.trim="account"
-              @change="handleCheckAccount(account)"
-            ></input-text-vue>
-          </div>
-          <div class="col-span-6 md:col-span-3 lg:col-span-2">
-            <input-text-vue
-              title="密碼"
-              v-model.trim="password"
-              @change="handleCheckPassword(password)"
-            ></input-text-vue>
-          </div>
-          <div class="col-span-6 md:col-span-3 lg:col-span-2">
-            <input-text-vue
-              title="電子郵件"
-              v-model.trim="email"
-              @change="handleCheckEmail(email)"
-            ></input-text-vue>
-          </div>
-          <div class="col-span-6 md:col-span-3 lg:col-span-2">
-            <input-text-vue
-              title="姓名"
-              v-model.trim="name"
-              @change="handleCheckName(name)"
-              class="col-span-6 md:col-span-3 lg:col-span-2"
-            ></input-text-vue>
-          </div>
-          <div class="col-span-6 md:col-span-3 lg:col-span-2">
-            <input-text-vue
-              title="電話"
-              v-model.trim="phone"
-              @change="handleCheckPhone(phone)"
-              class="col-span-6 md:col-span-3 lg:col-span-2"
-            ></input-text-vue>
-          </div>
-          <div class="col-span-6 md:col-span-3 lg:col-span-2">
-            <input-text-vue
-              title="地址"
-              v-model.trim="address"
-              @change="handleCheckAddress(address)"
-              class="col-span-6 md:col-span-3 lg:col-span-2"
-            ></input-text-vue>
-          </div>
-          <div class="col-span-6 md:col-span-3 lg:col-span-2">
-            <input-single-checkbox-vue></input-single-checkbox-vue>
-          </div>
-        </div>
-      </div>
+      <admin-input-box-vue :input_cols="input_cols" :data_source="user_info">
+      </admin-input-box-vue>
     </div>
   </div>
 </template>
 
 <script>
-import { reactive, toRefs } from "@vue/reactivity";
-import {
-  handleCheckAccount,
-  handleCheckAddress,
-  handleCheckEmail,
-  handleCheckName,
-  handleCheckPassword,
-  handleCheckPhone,
-  handleCreateUser,
-} from "../../../composition/userHandler";
+import { reactive, ref } from "@vue/reactivity";
+import { useRoute, useRouter } from "vue-router";
+import { useStore } from "vuex";
+//components
 import AdminPageTitleVue from "../../Objects/Admin/AdminPageTitle.vue";
 import AdminTitleVue from "../../Objects/Admin/AdminTitle.vue";
 import CreateButtonVue from "../../Objects/Button/CreateButton.vue";
-import InputTextVue from "../../Objects/Input/InputText.vue";
 import AlertBoxVue from "../../Objects/AlertBox.vue";
-import { inject } from "@vue/runtime-core";
-import { useRouter } from "vue-router";
-import InputSingleCheckboxVue from '../../Objects/Input/InputSingleCheckbox.vue';
-
+import AdminInputBoxVue from "../../Objects/Admin/AdminInputBox.vue";
+import { watch } from "@vue/runtime-core";
 export default {
   components: {
-    InputTextVue,
     CreateButtonVue,
     AdminTitleVue,
     AdminPageTitleVue,
-    AlertBoxVue,InputSingleCheckboxVue
+    AlertBoxVue,
+    AdminInputBoxVue,
   },
   setup() {
+    const route = useRoute();
     const router = useRouter();
-    const { state } = inject("store");
-    const user_info = reactive({
+    const store = useStore();
+    const user_info = ref({
       account: "",
       password: "",
       email: "",
       name: "",
       phone: "",
       address: "",
+      active: true,
     });
     const createUser = async () => {
-      await handleCreateUser(user_info);
+      await store.dispatch("userHandler/handleCreateUserMember", user_info.value);
       // console.log(state);
-      if (state.status !== "error") {
+      if (store.state.status !== "error") {
         router.push({ name: "admin-members" });
       }
     };
-    const a=[
-      {title:'帳號',model:account,trim:true,valChangeFun:handleCheckAccount,valChangeFunParams:[account]}
-    ]
+    watch(route, async (from, to) => {
+      if (to.name === "admin-members-create") {
+        user_info.value = {
+          account: "",
+          password: "",
+          email: "",
+          name: "",
+          phone: "",
+          address: "",
+          active: true,
+        };
+      }
+    });
+    const input_cols = reactive([
+      {
+        model: "account",
+        func_call: "userHandler/handleCheckAccount",
+        func_datas: ["account"],
+      },
+      {
+        model: "password",
+        func_call: "userHandler/handleCheckPassword",
+        func_datas: ["password"],
+      },
+      {
+        model: "name",
+        func_call: "userHandler/handleCheckName",
+        func_datas: ["name"],
+      },
+      {
+        model: "phone",
+        func_call: "userHandler/handleCheckPhone",
+        func_datas: ["phone"],
+      },
+      {
+        model: "email",
+        func_call: "userHandler/handleCheckEmail",
+        func_datas: ["email"],
+
+      },
+      {
+        model: "address",
+        func_call: "userHandler/handleCheckAddress",
+        func_datas: ["address"],
+      },
+      {
+        model: "active",
+        component: "input-single-checkbox-vue",
+      },
+    ]);
     return {
-      ...toRefs(user_info),
-      handleCheckAccount,
-      handleCheckPassword,
-      handleCheckEmail,
-      handleCheckName,
-      handleCheckPhone,
-      handleCheckAddress,
+      user_info,
       createUser,
+      input_cols,
     };
   },
 };

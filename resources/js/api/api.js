@@ -1,20 +1,23 @@
 import {
-    getUser,
+    getOwnProfile,
     postUserLogout,
     postUserLogin,
     postUserRegister,
-    getUserInfo,
-    getAllUserInfo,
-    postCreateUser
+    getUserMember,
+    postCreateUserMember,
+    postUpdateUser,
+    postUpdateUserMember,
 } from "./user";
 
-export const apiGetUser = getUser;
-export const apiGetUserInfo = getUserInfo;
+//user
+////user/global
+// export const apiPostUpdataUser = postUpdateUser;
+export const apiGetOwnProfile = getOwnProfile;
+////user/user
 export const apiPostUserLogout = postUserLogout;
 export const apiPostUserLogin = postUserLogin;
 export const apiPostUserRegister = postUserRegister;
-
-
-//admin
-export const apiGetAllUserInfo = getAllUserInfo;
-export const apiPostCreateUser = postCreateUser;
+//user/admin
+export const apiGetUserMember = getUserMember;
+export const apiPostCreateUserMember = postCreateUserMember;
+export const apiPostUpdateUserMember = postUpdateUserMember;

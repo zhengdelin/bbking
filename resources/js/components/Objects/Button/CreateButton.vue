@@ -11,7 +11,7 @@
     "
   >
     <div class="flex-ac">
-      <div class="text-white font-semibold">新增{{ target }}</div>
+      <div class="text-white font-semibold">新增{{ target_text }}</div>
     </div>
   </div>
 </template>
@@ -20,16 +20,16 @@
 import { computed } from "@vue/runtime-core";
 export default {
   props: {
-    target: {
+    target_text: {
       type: String,
       default: "",
     },
   },
   setup(props) {
-    const target = computed(() => {
-      return props.target;
+    const target_text = computed(() => {
+      return props.target_text;
     });
-    return { target };
+    return { target_text };
   },
 };
 </script>

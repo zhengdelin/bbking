@@ -1,5 +1,5 @@
 <template>
-  <div class="return-button" @click="returnToRouteName()">
+  <div class="return-button flex items-center" @click="returnToRouteName()">
     <div class="flex-ac">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -19,28 +19,35 @@
 </template>
 
 <script>
+import { useRouter } from "vue-router";
 export default {
-    props:['route_name'],
-    methods: {
-        returnToRouteName(){
-            this.$router.push({name:this.route_name})
-        }
+  props: {
+    route_name: {
+      type: String,
+      default: "home",
     },
+  },
+  setup(props) {
+    const router = useRouter();
+    const returnToRouteName = () => {
+      router.push({ name: props.route_name });
+    };
+
+    return { returnToRouteName };
+  },
 };
 </script>
 
-<style scoped>
-svg {
+<style>
+.return-button svg {
   fill: white;
 }
 .return-button {
   height: 36px;
-  display: flex;
-  align-items: center;
   padding: 0 10px;
   color: white;
   border-radius: 8px;
-  background: rgb(76,165,255);
+  background: rgb(76, 165, 255);
 }
 .return-button:hover {
   background: rgb(22, 139, 255);

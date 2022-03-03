@@ -5,7 +5,7 @@
       flex
       justify-center
       py-[7px]
-      rounded-[7px]
+      rounded-[8px]
       bg-slate-900
       hover:cursor-pointer hover:bg-slate-700
     "

@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-btn position-absolute start-0 mx-3">
+  <div class="nav-btn absolute left-0 mx-3">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"

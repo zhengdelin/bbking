@@ -1,12 +1,13 @@
 <template>
-  <div id="login-register-page" class="flex-cc pt-1 h-100 a">
-    <div class="login-register-container w-80 w-md-60">
-      <div class="login-register-box w-100 p-3">
+  <div id="login-register-page" class="flex-cc pt-1 h-full">
+    <div class="login-register-container w-[80%] md:w-[60%]">
+      <div class="login-register-box w-full p-3">
         <v-lr-control-box
           :login_register="login_register"
+          class="mb-3"
         ></v-lr-control-box>
         <hr />
-        <router-view></router-view>
+        <router-view class="my-3"></router-view>
         <!-- <v-error v-if="error" :error="error"></v-error> -->
       </div>
     </div>

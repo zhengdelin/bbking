@@ -1,5 +1,5 @@
 <template>
-    <div class="logo w-15 w-md-5 w-sm-10">
+    <div class="logo w-[15%] md:w-[5%] sm:w-[10%]">
       <img class="w-100" src="/pictures/logo.png" alt="Xiang's Music Store" />
     </div>
 </template>

@@ -1,70 +1,59 @@
 <template>
-  <div class="w-100" v-if="show">
-    <div class="flex-ac pb-sm-2">
-      <h1 class="fw-bold m-0 col-4">會員專區</h1>
-      <div class="col-8 d-flex justify-content-end">
+  <div class="w-full" v-if="show">
+    <div class="flex-ac sm:pb-2">
+      <h1 class="font-bold m-0 w-1/3">會員專區</h1>
+      <div class="w-2/3 flex justify-end">
         <edit-button @click="toEdit" v-if="read_only"></edit-button>
-        <div class="d-flex" v-else>
+        <div class="flex" v-else>
           <cancel-button @click="cancel"></cancel-button>
           <save-button @click="save"></save-button>
         </div>
-        <return-button class="ms-2 d-md-none" route_name="user"></return-button>
+        <return-button class="ml-2 md:hidden" route_name="user"></return-button>
       </div>
     </div>
 
     <alert-box class="mb-1"></alert-box>
-    <div class="flex-ac flex-column pt-2 p-sm-0">
-      <div class="w-100 d-flex flex-wrap row-cols-1 row-cols-sm-2">
-        <div class="pe-sm-2">
-          <input-text
-            title="姓名"
-            v-model.trim="name"
-            placeholder="姓名"
-            :readonly="read_only"
-            @change="handleCheckName(name)"
-          ></input-text>
-        </div>
-        <div class="pe-sm-2">
-          <input-text
-            title="手機號碼"
-            v-model.trim="phone"
-            :readonly="read_only"
-            placeholder="手機號碼"
-            @change="handleCheckPhone(phone)"
-          ></input-text>
-        </div>
+    <div class="grid grid-cols-2 gap-4 pt-2 sm:p-0">
+      <div>
+        <input-text
+          title="姓名"
+          v-model.trim="user_info.name"
+          placeholder="姓名"
+          :readonly="read_only"
+        ></input-text>
       </div>
-      <div class="w-100 d-flex flex-wrap row-cols-1 row-cols-sm-2">
-        <div class="pe-sm-2">
-          <input-text
-            title="帳號"
-            v-model.trim="account"
-            :readonly="read_only"
-            @change="handleCheckAccount(account)"
-          ></input-text>
-        </div>
-        <div class="pe-sm-2">
-          <input-text
-            title="Email"
-            v-model.trim="email"
-            :readonly="read_only"
-            @change="handleCheckEmail(email)"
-          ></input-text>
-        </div>
+      <div>
+        <input-text
+          title="手機號碼"
+          v-model.trim="user_info.phone"
+          :readonly="read_only"
+          placeholder="手機號碼"
+        ></input-text>
       </div>
-      <div class="w-100">
-        <div class="pe-sm-2">
-          <input-textarea
-            title="地址"
-            v-model.trim="address"
-            :readonly="read_only"
-            @change="handleCheckAddress(address)"
-            rows="4"
-          ></input-textarea>
-        </div>
+      <div>
+        <input-text
+          title="帳號"
+          v-model.trim="user_info.account"
+          :readonly="read_only"
+        ></input-text>
+      </div>
+      <div>
+        <input-text
+          title="Email"
+          v-model.trim="user_info.email"
+          :readonly="read_only"
+        ></input-text>
+      </div>
+      <div class="col-span-2">
+        <input-textarea
+          title="地址"
+          v-model.trim="user_info.address"
+          :readonly="read_only"
+          rows="4"
+        ></input-textarea>
       </div>
     </div>
-    <hr class="me-sm-2" />
+    <hr class="sm:me-2" />
     <change-pas></change-pas>
   </div>
 </template>
@@ -79,17 +68,9 @@ import CancelButton from "../../Objects/Button/CancelButton.vue";
 import ReturnButton from "../../Objects/Button/ReturnButton.vue";
 import ChangePas from "../ChangePas.vue";
 import AlertBox from "../../Objects/AlertBox.vue";
-import { reactive, ref, toRef, toRefs } from "@vue/reactivity";
-import { inject, onMounted } from "@vue/runtime-core";
-import {
-  handleCheckAccount,
-  handleCheckEmail,
-  handleCheckName,
-  handleCheckPhone,
-  handleCheckAddress,
-  getUserInfo,
-  
-} from "../../../composition/userHandler";
+import { ref } from "@vue/reactivity";
+import { onMounted } from "@vue/runtime-core";
+import { useStore } from "vuex";
 export default {
   components: {
     InputTextarea,
@@ -102,51 +83,12 @@ export default {
     ChangePas,
   },
   setup() {
-    const { setStatus } = inject("store");
+    const { state, dispatch } = useStore();
     //data
     const show = ref(false);
     const read_only = ref(true);
-    const id = ref(0);
-    const user_data = reactive({
-      account: "",
-      name: "",
-      email: "",
-      phone: "",
-      address: "",
-    });
-    const old_user_data = {
-      account: "",
-      name: "",
-      email: "",
-      phone: "",
-      address: "",
-    };
-    //取得資料
-    const handleGetUserInfo = async () => {
-      const data = await getUserInfo();
-      // console.log(data);
-      synkUserInfo(data);
-      replaceOldUserInfo();
-      // console.log(user_data, old_user_data);
-    };
-    //同步
-    const synkUserInfo = (data) => {
-      // console.log("synk", data, data.account);
-      id.value = data.id;
-      Object.keys(user_data).forEach(i => {
-        user_data[i]=data[i]
-      });
-    };
-    const replaceOldUserInfo = () => {
-      Object.keys(old_user_data).forEach((i) => {
-        old_user_data[i] = user_data[i];
-      });
-    };
-    const return2OldUserInfo = () => {
-      Object.keys(user_data).forEach((i) => {
-        user_data[i] = old_user_data[i]
-      });
-    };
+    const user_info = ref({ ...state.user_info });
+
     const compare = () => {
       // if (this.name != this.old_name) return true;
       // if (this.account != this.old_account) return true;
@@ -154,7 +96,10 @@ export default {
       // if (this.phone != this.old_phone) return true;
       // if (this.address != this.old_address) return true;
       // return false;
-      if (user_data === old_user_data) {
+      console.log(
+        JSON.stringify(user_info.value) === JSON.stringify(state.user_info)
+      );
+      if (user_info === old_user_info) {
         return false;
       }
       return true;
@@ -189,11 +134,11 @@ export default {
       }
     };
     const cancel = () => {
-      return2OldUserInfo();
+      // console.log(user_info,state.user_info);
+      user_info.value = state.user_info;
       read_only.value = true;
     };
     onMounted(() => {
-      handleGetUserInfo();
       setTimeout(() => {
         show.value = true;
       }, 300);
@@ -201,16 +146,11 @@ export default {
     return {
       show,
       read_only,
-      ...toRefs(user_data),
+      user_info,
       toEdit,
       save,
       cancel,
-      handleCheckAccount,
-      handleCheckEmail,
-      handleCheckEmail,
-      handleCheckName,
-      handleCheckPhone,
-      handleCheckAddress,
+      dispatch,
     };
   },
 };

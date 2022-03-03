@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-icon flex-cc position-absolute end-0 me-1 pt-2 me-sm-4">
+  <div class="nav-icon flex-cc absolute right-0 me-1 pt-2 sm:me-4">
     <svg
       class="m-2"
       xmlns="http://www.w3.org/2000/svg"

@@ -1,31 +1,34 @@
 <template>
   <div class="alert-box" :class="status" v-if="status && datas.length">
     <ul>
-      <li v-for="item in datas" :key="item" class=" font-semibold">{{ item }}</li>
+      <li v-for="item in datas" :key="item" class="font-semibold">
+        {{ item }}
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
-import { computed, inject, toRefs } from "@vue/runtime-core";
+import { computed } from "@vue/runtime-core";
+import { useStore } from "vuex";
 export default {
   setup() {
-    const { state } = inject("store");
-    // console.log({ ...toRefs(state) });
-    // console.log(state);
+    const store = useStore();
     const datas = computed(() => {
-        let array = [];
-        Object.values(state.errors).forEach((i) => {
-          array = array.concat(i);
-        });
-        if(state.status_msg){
-          array.push(state.status_msg)
-        }
-        // console.log(array);
-        return array;
+      let array = [];
+      Object.values(store.state.errors).forEach((i) => {
+        array = array.concat(i);
+      });
+      if (store.state.status_msg) {
+        array.push(store.state.status_msg);
+      }
+      return array;
     });
-
-    return { datas, ...toRefs(state) };
+    const status = computed(() => {
+      // console.log(store);
+      return store.state.status;
+    });
+    return { datas, status };
   },
 };
 </script>

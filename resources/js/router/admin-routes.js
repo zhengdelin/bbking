@@ -9,7 +9,9 @@ export const admin_routes = [{
     children: [{
             path: "/admin/home",
             name: "admin-home"
-        }, {
+        },
+        //會員首頁
+        {
             path: "/admin/members",
             meta: {
                 title: "後台管理-會員"
@@ -30,28 +32,74 @@ export const admin_routes = [{
         },
         //編輯會員資料
         {
-            path: "/admin/members/edit",
+            path: "/admin/members/update",
             meta: {
                 title: "後台管理-編輯會員資料"
             },
             props: true,
-            name: 'admin-members-edit',
+            name: 'admin-members-update',
             component: () =>
-                import ("../components/Admin/members/EditMember")
+                import ("../components/Admin/members/UpdateMember")
         },
+        //文章首頁
         {
             path: "/admin/articles",
             meta: {
                 title: "後台管理-文章"
             },
-            name: "admin-articles"
+            name: "admin-articles",
+            component: () =>
+                import ("../components/Admin/articles/AdminArticles"),
         },
+        //新增文章
+        {
+            path: "/admin/articles/create",
+            meta: {
+                title: "後台管理-新增文章"
+            },
+            name: "admin-articles-create",
+            component: () =>
+                import ("../components/Admin/articles/CreateArticle")
+        },
+        //編輯文章
+        {
+            path: "/admin/articles/update",
+            meta: {
+                title: "後台管理-編輯文章"
+            },
+            name: "admin-articles-update",
+            component: () =>
+                import ("../components/Admin/articles/UpdateArticle")
+        },
+        //產品首頁
         {
             path: "/admin/products",
             meta: {
                 title: "後台管理-產品"
             },
-            name: "admin-products"
-        }
+            name: "admin-products",
+            component: () =>
+                import ("../components/Admin/products/AdminProducts")
+        },
+        //新增產品
+        {
+            path: "/admin/products/create",
+            meta: {
+                title: "後台管理-新增產品"
+            },
+            name: "admin-products-create",
+            component: () =>
+                import ("../components/Admin/products/CreateProduct")
+        },
+        //編輯產品
+        {
+            path: "/admin/products/update",
+            meta: {
+                title: "後台管理-編輯產品"
+            },
+            name: "admin-articles-update",
+            component: () =>
+                import ("../components/Admin/products/UpdateProduct")
+        },
     ]
 }, ]
