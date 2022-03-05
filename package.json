@@ -10,7 +10,6 @@
         "production": "mix --production"
     },
     "devDependencies": {
-        "@popperjs/core": "^2.11.2",
         "autoprefixer": "^10.4.2",
         "axios": "^0.21",
         "laravel-mix": "^6.0.6",
@@ -21,10 +20,14 @@
         "vue-loader": "^17.0.0"
     },
     "dependencies": {
-        "@ckeditor/ckeditor5-build-classic": "^32.0.0",
-        "@ckeditor/ckeditor5-vue": "^2.0.1",
+        "@tinymce/tinymce-vue": "^4.0.6",
+        "@tiptap/extension-link": "^2.0.0-beta.36",
+        "@tiptap/extension-underline": "^2.0.0-beta.23",
+        "@tiptap/starter-kit": "^2.0.0-beta.183",
+        "@tiptap/vue-3": "^2.0.0-beta.90",
         "fullpage.js": "^3.1.2",
         "nprogress": "^0.2.0",
+        "tinymce": "^6.0.0",
         "vue-router": "^4.0.12",
         "vuex": "^4.0.2"
     }

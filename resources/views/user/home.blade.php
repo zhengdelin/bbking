@@ -1,20 +1,4 @@
-{{-- @extends('layouts.index')
-@section('title', '首頁')
-@section('cdn_css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.css">
-@endsection
-@section('content')
-    <v-event-img-banner></v-event-img-banner>
-    <router-view></router-view>
-@endsection
-@section('js')
-<script src="{{ asset('/js/user.js') }}"></script>
-<script src="{{ asset('/js/home.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.extensions.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/vendors/scrolloverflow.min.js"></script>
-<script src="{{ asset('/js/full_page.js') }}"></script>
-@endsection --}}
+<!DOCTYPE html>
 
 <html lang="en">
 
@@ -27,6 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.css">
     <link rel="stylesheet" href="{{ asset('/css/tailwind.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
+    <script src="{{url("assets/tinymce/tinymce.min.js")}}"></script>
+    {{-- <script src="https://cdn.tiny.cloud/1/5t2tjtgqke985s15zhhrl58l64chd7xl72ermvbvdxeubdq2/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> --}}
 </head>
 
 <body>
@@ -34,9 +20,6 @@
         <router-view name="nav"></router-view>
         <router-view></router-view>
     </div>
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.extensions.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/vendors/scrolloverflow.min.js"></script> --}}
     <script src="{{ asset('/js/app.js') }}"></script>
 </body>
 
