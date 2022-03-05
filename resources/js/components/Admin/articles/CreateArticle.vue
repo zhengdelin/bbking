@@ -7,14 +7,13 @@
     <div class="flex flex-col">
       <admin-title-vue title="文章資訊">
         <template v-slot:button>
-          <create-button-vue ></create-button-vue>
+          <create-button-vue></create-button-vue>
         </template>
       </admin-title-vue>
       <tinymce-editor-vue></tinymce-editor-vue>
       {{content}}
-      
-      <!-- <admin-input-box-vue :input_cols="input_cols" :data_source="user_info">
-      </admin-input-box-vue> -->
+      <div v-html="content"></div>
+      <button @click="getContent">getContent</button>
     </div>
   </div>
 </template>
@@ -23,30 +22,34 @@
 import AdminPageTitleVue from "../../Objects/Admin/AdminPageTitle.vue";
 import AdminTitleVue from "../../Objects/Admin/AdminTitle.vue";
 import CreateButtonVue from "../../Objects/Button/CreateButton.vue";
-import { reactive, ref } from "@vue/reactivity";
-import { onMounted } from '@vue/runtime-core';
-import TinymceEditorVue from '../../Objects/TinymceEditor.vue';
+import { ref } from "@vue/reactivity";
+import TinymceEditorVue from "../../Objects/TinymceEditor.vue";
 // import TipTapEditorVue from '../../Objects/TipTapEditor.vue';
 export default {
   components: {
     AdminPageTitleVue,
     AdminTitleVue,
     CreateButtonVue,
-    TinymceEditorVue
+    TinymceEditorVue,
     // TipTapEditorVue,
   },
   setup() {
-    
-    const init ={
-
-    }
-    const content = ref("");
-    return {content,init};
-  }
-  
+    const content = ref();
+    const getContent = () => {
+      content.value = tinymce.get("tinymce_editor").getContent();
+      return;
+    };
+    return { content,getContent };
+  },
 };
 </script>
 
 <style scoped>
-
+.tox .tox-toolbar__group {
+  /* align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0; */
+  padding: 0 5px 0 5px !important;
+}
 </style>

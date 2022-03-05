@@ -10,7 +10,7 @@ import store from "../store/index";
 
 async function Auth(to, from) {
     // console.log(!store._state.data.user);
-    if (to.name === 'user_login') {
+    if (to.name === "user_login") {
         return true;
     } else {
         if (!store._state.data.is_login) {
@@ -31,7 +31,6 @@ async function Auth(to, from) {
             return true;
         }
     }
-
 }
 export const router = createRouter({
     history: createWebHistory(),
@@ -136,22 +135,32 @@ export const router = createRouter({
             beforeEnter: (to, from) => {
                 Auth(to, from);
             },
-        }, {
+        },
+        {
             path: "/errors",
-            name: 'exception_error',
+            name: "exception_error",
             meta: {
-                title: "Oops!!出錯啦!!"
+                title: "Oops!!出錯啦!!",
             },
             component: () =>
-                import ("../components/Globals/Loading")
+                import ("../components/Globals/Loading"),
         },
         ...admin_routes,
+        {
+            path: "/:pathMatch(.*)*",
+            name: "NotFound",
+            meta: {
+                title: "not found"
+            },
+            component: () =>
+                import ("../Pages/Home"),
+        },
     ],
 });
 router.beforeEach((to, from) => {
     NProgress.start();
-    if (!store.state.exception_error && to.name === 'exception_error') {
-        router.push({ name: 'home' })
+    if (!store.state.exception_error && to.name === "exception_error") {
+        router.push({ name: "home" });
     }
     if (from.path !== "/" && to.fullPath === "/") {
         window.location.assign(to.fullPath);

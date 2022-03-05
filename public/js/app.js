@@ -19798,7 +19798,7 @@ function _Auth() {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            if (!(to.name === 'user_login')) {
+            if (!(to.name === "user_login")) {
               _context.next = 4;
               break;
             }
@@ -19951,21 +19951,30 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.createRouter)({
     }
   }, {
     path: "/errors",
-    name: 'exception_error',
+    name: "exception_error",
     meta: {
       title: "Oops!!出錯啦!!"
     },
     component: function component() {
       return __webpack_require__.e(/*! import() */ "resources_js_components_Globals_Loading_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Globals/Loading */ "./resources/js/components/Globals/Loading.vue"));
     }
-  }].concat(_toConsumableArray(_router_admin_routes__WEBPACK_IMPORTED_MODULE_1__.admin_routes))
+  }].concat(_toConsumableArray(_router_admin_routes__WEBPACK_IMPORTED_MODULE_1__.admin_routes), [{
+    path: "/:pathMatch(.*)*",
+    name: "NotFound",
+    meta: {
+      title: "not found"
+    },
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ "resources_js_Pages_Home_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../Pages/Home */ "./resources/js/Pages/Home.vue"));
+    }
+  }])
 });
 router.beforeEach(function (to, from) {
   nprogress__WEBPACK_IMPORTED_MODULE_2___default().start();
 
-  if (!_store_index__WEBPACK_IMPORTED_MODULE_4__["default"].state.exception_error && to.name === 'exception_error') {
+  if (!_store_index__WEBPACK_IMPORTED_MODULE_4__["default"].state.exception_error && to.name === "exception_error") {
     router.push({
-      name: 'home'
+      name: "home"
     });
   }
 
