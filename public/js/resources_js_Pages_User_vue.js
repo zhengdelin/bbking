@@ -78,18 +78,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         state = _useStore.state,
         dispatch = _useStore.dispatch;
 
-    var logout = /*#__PURE__*/function () {
+    var handleLogout = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                dispatch("userLogout");
-                if (!state.is_login) router.push({
-                  name: "user_login"
+                dispatch("userHandler/logout").then(function () {
+                  if (!state.is_login) router.push({
+                    name: "user_login"
+                  });
                 });
 
-              case 2:
+              case 1:
               case "end":
                 return _context.stop();
             }
@@ -97,7 +98,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }));
 
-      return function logout() {
+      return function handleLogout() {
         return _ref.apply(this, arguments);
       };
     }();
@@ -112,7 +113,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       user: user,
       show_user: show_user,
-      logout: logout
+      handleLogout: handleLogout
     };
   }
 });
@@ -312,7 +313,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "logout absolute bottom-0 mb-4",
     onClick: _cache[0] || (_cache[0] = function () {
-      return $setup.logout && $setup.logout.apply($setup, arguments);
+      return $setup.handleLogout && $setup.handleLogout.apply($setup, arguments);
     })
   }, "登出"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div v-if=\"\" ref=\"mobile\"></div> ")]);
 }
@@ -420,27 +421,6 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_10_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_10_use_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Menu_vue_vue_type_style_index_0_id_43c6e5e8_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/dist/exportHelper.js":
-/*!******************************************************!*\
-  !*** ./node_modules/vue-loader/dist/exportHelper.js ***!
-  \******************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-// runtime helper for setting properties on components
-// in a tree-shakable way
-exports["default"] = (sfc, props) => {
-    const target = sfc.__vccOpts || sfc;
-    for (const [key, val] of props) {
-        target[key] = val;
-    }
-    return target;
-};
-
 
 /***/ }),
 

@@ -19480,6 +19480,153 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Objects/AlertBox.vue?vue&type=script&lang=js":
+/*!**********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Objects/AlertBox.vue?vue&type=script&lang=js ***!
+  \**********************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _vue_runtime_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @vue/runtime-core */ "./node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  setup: function setup() {
+    var _useStore = (0,vuex__WEBPACK_IMPORTED_MODULE_0__.useStore)(),
+        state = _useStore.state,
+        commit = _useStore.commit;
+
+    var errors = {
+      // account
+      account1: "帳號欄位不能為空",
+      account2: "帳號格式錯誤",
+      account3: "帳號不能大於20位數",
+      //password
+      password1: "密碼欄位不能為空",
+      password2: "密碼不能大於30位數",
+      //check password
+      check_password1: "請再次確認密碼",
+      check_password2: "密碼不相同",
+      //email
+      email1: "請填寫Email欄位",
+      email2: "Email不能大於30位數",
+      email3: "Email格式錯誤",
+      //name
+      name1: "姓名最多10字元",
+      //phone
+      phone1: "請輸入10位或9位數字",
+      phone2: "請輸入正確的手機號",
+      //address
+      address1: "地址最多50字元"
+    };
+    var status = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
+      return state.status;
+    });
+    var msgs = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
+      // console.log(state);
+      return Object.values(state.status_msgs).filter(function (val) {
+        return val;
+      });
+    });
+
+    var getBorder = function getBorder(index) {
+      return index === 0 && index === msgs.value.length - 1 ? "border-y" : index === 0 ? "border-t" : index === msgs.value.length - 1 ? "border-b" : "";
+    };
+
+    var getBorderRadius = function getBorderRadius(index) {
+      return index === 0 && index === msgs.value.length - 1 ? "rounded-[0.25rem]" : index === 0 ? "rounded-t-[0.25rem]" : index === msgs.value.length - 1 ? "rounded-b-[0.25rem]" : "rounded-none";
+    };
+
+    var getPadding = function getPadding(index) {
+      return index === 0 && index === msgs.value.length - 1 ? "pt-1" : index === 0 ? "pb-[0.994px] pt-1" : index === msgs.value.length - 1 ? "pt-[0.994px] pb-1" : "py-[0.994px]";
+    };
+
+    var getAlertBoxClass = function getAlertBoxClass(index) {
+      return "".concat(status.value, " ").concat(getBorder(index), " ").concat(getBorderRadius(index), " ").concat(getPadding(index));
+    };
+
+    (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_1__.watch)(status, function (val) {
+      if (val === 'success') {
+        setTimeout(function () {
+          commit('clearStatus');
+        }, 2000);
+      }
+    });
+    return {
+      msgs: msgs,
+      status: status,
+      getAlertBoxClass: getAlertBoxClass
+    };
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Objects/AlertBox.vue?vue&type=template&id=7c04e2f5&scoped=true":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Objects/AlertBox.vue?vue&type=template&id=7c04e2f5&scoped=true ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
+var _withScopeId = function _withScopeId(n) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-7c04e2f5"), n = n(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)(), n;
+};
+
+var _hoisted_1 = {
+  key: 0,
+  "class": "flex flex-col items-center fixed left-1/2 top-[10px] -ml-[150px] z-50"
+};
+var _hoisted_2 = {
+  "class": "font-semibold py-1 pl-10 list-disc"
+};
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Transition, {
+    name: "slidedown"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [$setup.status && $setup.msgs.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(vue__WEBPACK_IMPORTED_MODULE_0__.TransitionGroup, {
+        name: "slidedown"
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.msgs, function (msg, index) {
+            return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+              "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["alert-box border-x", $setup.getAlertBoxClass(index)]),
+              key: index
+            }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)("".concat($setup.status === "error" ? "錯誤 : " : "").concat(msg)), 1
+            /* TEXT */
+            )])], 2
+            /* CLASS */
+            );
+          }), 128
+          /* KEYED_FRAGMENT */
+          ))];
+        }),
+        _: 1
+        /* STABLE */
+
+      })])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)];
+    }),
+    _: 1
+    /* STABLE */
+
+  });
+}
+
+/***/ }),
+
 /***/ "./resources/js/api/api.js":
 /*!*********************************!*\
   !*** ./resources/js/api/api.js ***!
@@ -19489,35 +19636,181 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "apiGetArticles": () => (/* binding */ apiGetArticles),
+/* harmony export */   "apiGetCategories": () => (/* binding */ apiGetCategories),
 /* harmony export */   "apiGetOwnProfile": () => (/* binding */ apiGetOwnProfile),
 /* harmony export */   "apiGetUserMember": () => (/* binding */ apiGetUserMember),
+/* harmony export */   "apiPostCreateArticle": () => (/* binding */ apiPostCreateArticle),
 /* harmony export */   "apiPostCreateUserMember": () => (/* binding */ apiPostCreateUserMember),
 /* harmony export */   "apiPostUpdateUserMember": () => (/* binding */ apiPostUpdateUserMember),
 /* harmony export */   "apiPostUserLogin": () => (/* binding */ apiPostUserLogin),
 /* harmony export */   "apiPostUserLogout": () => (/* binding */ apiPostUserLogout),
 /* harmony export */   "apiPostUserRegister": () => (/* binding */ apiPostUserRegister)
 /* harmony export */ });
-/* harmony import */ var _user__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user */ "./resources/js/api/user.js");
- //user
-////user/global
+/* harmony import */ var _module_user__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./module/user */ "./resources/js/api/module/user.js");
+/* harmony import */ var _module_article__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./module/article */ "./resources/js/api/module/article.js");
+/* harmony import */ var _module_global__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./module/global */ "./resources/js/api/module/global.js");
+
+
+
+/* global */
+
+var apiGetCategories = _module_global__WEBPACK_IMPORTED_MODULE_2__.getCategories;
+/* user */
 // export const apiPostUpdataUser = postUpdateUser;
+////user/user
 
-var apiGetOwnProfile = _user__WEBPACK_IMPORTED_MODULE_0__.getOwnProfile; ////user/user
+var apiGetOwnProfile = _module_user__WEBPACK_IMPORTED_MODULE_0__.getOwnProfile;
+var apiPostUserLogout = _module_user__WEBPACK_IMPORTED_MODULE_0__.postUserLogout;
+var apiPostUserLogin = _module_user__WEBPACK_IMPORTED_MODULE_0__.postUserLogin;
+var apiPostUserRegister = _module_user__WEBPACK_IMPORTED_MODULE_0__.postUserRegister; //user/admin
 
-var apiPostUserLogout = _user__WEBPACK_IMPORTED_MODULE_0__.postUserLogout;
-var apiPostUserLogin = _user__WEBPACK_IMPORTED_MODULE_0__.postUserLogin;
-var apiPostUserRegister = _user__WEBPACK_IMPORTED_MODULE_0__.postUserRegister; //user/admin
+var apiGetUserMember = _module_user__WEBPACK_IMPORTED_MODULE_0__.getUserMember;
+var apiPostCreateUserMember = _module_user__WEBPACK_IMPORTED_MODULE_0__.postCreateUserMember;
+var apiPostUpdateUserMember = _module_user__WEBPACK_IMPORTED_MODULE_0__.postUpdateUserMember;
+/* article */
+//admin
 
-var apiGetUserMember = _user__WEBPACK_IMPORTED_MODULE_0__.getUserMember;
-var apiPostCreateUserMember = _user__WEBPACK_IMPORTED_MODULE_0__.postCreateUserMember;
-var apiPostUpdateUserMember = _user__WEBPACK_IMPORTED_MODULE_0__.postUpdateUserMember;
+var apiPostCreateArticle = _module_article__WEBPACK_IMPORTED_MODULE_1__.postCreateArticle;
+var apiGetArticles = _module_article__WEBPACK_IMPORTED_MODULE_1__.getArticles;
 
 /***/ }),
 
-/***/ "./resources/js/api/user.js":
-/*!**********************************!*\
-  !*** ./resources/js/api/user.js ***!
-  \**********************************/
+/***/ "./resources/js/api/baseAxios.js":
+/*!***************************************!*\
+  !*** ./resources/js/api/baseAxios.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "get": () => (/* binding */ get),
+/* harmony export */   "post": () => (/* binding */ post)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store */ "./resources/js/store/index.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+(axios__WEBPACK_IMPORTED_MODULE_1___default().defaults.baseURL) = "http://127.0.0.1:8000/api/"; //設置請求超時
+
+(axios__WEBPACK_IMPORTED_MODULE_1___default().defaults.timeout) = 10000; //攔截request
+
+axios__WEBPACK_IMPORTED_MODULE_1___default().interceptors.request.use(function (config) {
+  var token = _store__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getToken;
+  config.headers.token = token; // console.log(`${config.url}: request->`, config);
+
+  return config;
+}, function (error) {
+  return Promise.reject(error);
+}); // 攔截response
+
+axios__WEBPACK_IMPORTED_MODULE_1___default().interceptors.response.use(function (response) {
+  var data = response.data;
+  console.log("".concat(response.config.url, ": response->"), response);
+  _store__WEBPACK_IMPORTED_MODULE_2__["default"].commit("setStatus", {
+    status: data.status,
+    msg: data.msg
+  });
+  return data;
+}, function (error) {
+  var response = error.response;
+
+  if (!response || response.status === 404 || response.status === 500) {
+    if (!response) {
+      console.error("404 error ".concat(error));
+    } else {
+      console.error("".concat(response.status, " error =>").concat(error));
+      throw new _store__WEBPACK_IMPORTED_MODULE_2__["default"].commit("setStatus", {
+        msg: '伺服器異常，請稍後再試'
+      });
+    }
+  }
+
+  return Promise.reject(error.message);
+});
+var post = function post(url, data) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default().post(url, data);
+};
+var get = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(url) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            return _context.abrupt("return", axios__WEBPACK_IMPORTED_MODULE_1___default().get(url));
+
+          case 1:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function get(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+/***/ }),
+
+/***/ "./resources/js/api/module/article.js":
+/*!********************************************!*\
+  !*** ./resources/js/api/module/article.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getArticles": () => (/* binding */ getArticles),
+/* harmony export */   "postCreateArticle": () => (/* binding */ postCreateArticle)
+/* harmony export */ });
+/* harmony import */ var _baseAxios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../baseAxios */ "./resources/js/api/baseAxios.js");
+ //admin
+
+var postCreateArticle = function postCreateArticle(data) {
+  return (0,_baseAxios__WEBPACK_IMPORTED_MODULE_0__.post)("article/admin/createArticle", data);
+};
+var getArticles = function getArticles() {
+  return (0,_baseAxios__WEBPACK_IMPORTED_MODULE_0__.get)("article/admin/getArticles");
+};
+
+/***/ }),
+
+/***/ "./resources/js/api/module/global.js":
+/*!*******************************************!*\
+  !*** ./resources/js/api/module/global.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getCategories": () => (/* binding */ getCategories)
+/* harmony export */ });
+/* harmony import */ var _baseAxios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../baseAxios */ "./resources/js/api/baseAxios.js");
+
+var getCategories = function getCategories() {
+  return (0,_baseAxios__WEBPACK_IMPORTED_MODULE_0__.get)("global/getCategories");
+};
+
+/***/ }),
+
+/***/ "./resources/js/api/module/user.js":
+/*!*****************************************!*\
+  !*** ./resources/js/api/module/user.js ***!
+  \*****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19532,49 +19825,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "postUserLogout": () => (/* binding */ postUserLogout),
 /* harmony export */   "postUserRegister": () => (/* binding */ postUserRegister)
 /* harmony export */ });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store */ "./resources/js/store/index.js");
-
-
-var userRequest = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
-  baseURL: "http://127.0.0.1:8000/"
-});
-userRequest.interceptors.request.use(function (config) {
-  var token = _store__WEBPACK_IMPORTED_MODULE_1__["default"].getters.getToken;
-  config.headers.token = token;
-  console.log("user-api-request->", config);
-  return config;
-});
-userRequest.interceptors.response.use(function (response) {
-  console.log("user-api-response->", response);
-  return response;
-}); //global
+/* harmony import */ var _baseAxios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../baseAxios */ "./resources/js/api/baseAxios.js");
+ //global
 
 var getOwnProfile = function getOwnProfile() {
-  return userRequest.post("api/user/member/getOwnProfile");
+  return (0,_baseAxios__WEBPACK_IMPORTED_MODULE_0__.get)("user/member/getOwnProfile");
 };
 var postUpdateUser = function postUpdateUser(data) {
-  return userRequest.post("api/user/member/updateUser", data);
+  return (0,_baseAxios__WEBPACK_IMPORTED_MODULE_0__.post)("user/member/updateUser", data);
 };
 var postUserLogout = function postUserLogout() {
-  return userRequest.post("api/user/member/userLogout");
+  return (0,_baseAxios__WEBPACK_IMPORTED_MODULE_0__.post)("user/member/userLogout");
 };
 var postUserLogin = function postUserLogin(data) {
-  return userRequest.post("api/user/member/userLogin", data);
+  return (0,_baseAxios__WEBPACK_IMPORTED_MODULE_0__.post)("user/member/userLogin", data);
 };
 var postUserRegister = function postUserRegister(data) {
-  return userRequest.post("api/user/member/userRegister", data);
+  return (0,_baseAxios__WEBPACK_IMPORTED_MODULE_0__.post)("user/member/userRegister", data);
 }; //admin
 
 var getUserMember = function getUserMember() {
-  return userRequest.post("api/user/admin/getUserMember");
+  return (0,_baseAxios__WEBPACK_IMPORTED_MODULE_0__.get)("user/admin/getUserMember");
 };
 var postCreateUserMember = function postCreateUserMember(data) {
-  return userRequest.post("api/user/admin/createUserMember", data);
+  return (0,_baseAxios__WEBPACK_IMPORTED_MODULE_0__.post)("user/admin/createUserMember", data);
 };
 var postUpdateUserMember = function postUpdateUserMember(data) {
-  userRequest.post("api/user/admin/updateUserMember", data);
+  return (0,_baseAxios__WEBPACK_IMPORTED_MODULE_0__.post)("user/admin/updateUserMember", data);
 };
 
 /***/ }),
@@ -19588,23 +19865,27 @@ var postUpdateUserMember = function postUpdateUserMember(data) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm-bundler.js");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm-bundler.js");
 /* harmony import */ var _router_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./router/router */ "./resources/js/router/router.js");
-/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store/index */ "./resources/js/store/index.js");
+/* harmony import */ var _components_Objects_AlertBox__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Objects/AlertBox */ "./resources/js/components/Objects/AlertBox.vue");
+/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./store/index */ "./resources/js/store/index.js");
+
 
 
 
 
 var app = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)({
-  components: {},
+  components: {
+    AlertBoxVue: _components_Objects_AlertBox__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
   setup: function setup() {
-    var route = (0,vue_router__WEBPACK_IMPORTED_MODULE_3__.useRoute)();
-    var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_3__.useRouter)();
-    _store_index__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('getUser'); // if (!store.state.is_login)
+    var route = (0,vue_router__WEBPACK_IMPORTED_MODULE_4__.useRoute)();
+    var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_4__.useRouter)();
+    Promise.all([_store_index__WEBPACK_IMPORTED_MODULE_3__["default"].dispatch('globalHandler/getUser'), _store_index__WEBPACK_IMPORTED_MODULE_3__["default"].dispatch("globalHandler/getCategories")]); // if (!store.state.is_login)
     //     router.push({ name: 'home' })
 
     var exception_error = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
-      return _store_index__WEBPACK_IMPORTED_MODULE_2__["default"].state.exception_error;
+      return _store_index__WEBPACK_IMPORTED_MODULE_3__["default"].state.exception_error;
     });
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(exception_error, function () {
       // console.log("exception_error occurs");
@@ -19612,13 +19893,12 @@ var app = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)({
         name: "exception_error"
       });
     });
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(route, function () {
-      _store_index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('clearStatus');
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(route, function () {// store.commit('clearStatus')
     });
   }
 }); // app.use(CKEditor);
 
-app.use(_store_index__WEBPACK_IMPORTED_MODULE_2__["default"]);
+app.use(_store_index__WEBPACK_IMPORTED_MODULE_3__["default"]);
 app.use(_router_router__WEBPACK_IMPORTED_MODULE_1__.router);
 app.mount('#instrument_platform');
 
@@ -19653,9 +19933,10 @@ var admin_routes = [{
     meta: {
       title: "後台管理-會員"
     },
+    props: true,
     name: 'admin-members',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ "resources_js_components_Admin_members_AdminMembers_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Admin/members/AdminMembers */ "./resources/js/components/Admin/members/AdminMembers.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_SubPages_Admin_members_AdminMembers_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../SubPages/Admin/members/AdminMembers */ "./resources/js/SubPages/Admin/members/AdminMembers.vue"));
     }
   }, //新增會員
   {
@@ -19665,7 +19946,7 @@ var admin_routes = [{
     },
     name: 'admin-members-create',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ "resources_js_components_Admin_members_CreateMember_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Admin/members/CreateMember */ "./resources/js/components/Admin/members/CreateMember.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_SubPages_Admin_members_CreateMember_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../SubPages/Admin/members/CreateMember */ "./resources/js/SubPages/Admin/members/CreateMember.vue"));
     }
   }, //編輯會員資料
   {
@@ -19676,7 +19957,7 @@ var admin_routes = [{
     props: true,
     name: 'admin-members-update',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ "resources_js_components_Admin_members_UpdateMember_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Admin/members/UpdateMember */ "./resources/js/components/Admin/members/UpdateMember.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_SubPages_Admin_members_UpdateMember_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../SubPages/Admin/members/UpdateMember */ "./resources/js/SubPages/Admin/members/UpdateMember.vue"));
     }
   }, //文章首頁
   {
@@ -19686,7 +19967,7 @@ var admin_routes = [{
     },
     name: "admin-articles",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ "resources_js_components_Admin_articles_AdminArticles_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Admin/articles/AdminArticles */ "./resources/js/components/Admin/articles/AdminArticles.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_SubPages_Admin_articles_AdminArticles_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../SubPages/Admin/articles/AdminArticles */ "./resources/js/SubPages/Admin/articles/AdminArticles.vue"));
     }
   }, //新增文章
   {
@@ -19696,7 +19977,7 @@ var admin_routes = [{
     },
     name: "admin-articles-create",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ "resources_js_components_Admin_articles_CreateArticle_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Admin/articles/CreateArticle */ "./resources/js/components/Admin/articles/CreateArticle.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_SubPages_Admin_articles_CreateArticle_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../SubPages/Admin/articles/CreateArticle */ "./resources/js/SubPages/Admin/articles/CreateArticle.vue"));
     }
   }, //編輯文章
   {
@@ -19704,9 +19985,10 @@ var admin_routes = [{
     meta: {
       title: "後台管理-編輯文章"
     },
+    props: true,
     name: "admin-articles-update",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ "resources_js_components_Admin_articles_UpdateArticle_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Admin/articles/UpdateArticle */ "./resources/js/components/Admin/articles/UpdateArticle.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_SubPages_Admin_articles_UpdateArticle_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../SubPages/Admin/articles/UpdateArticle */ "./resources/js/SubPages/Admin/articles/UpdateArticle.vue"));
     }
   }, //產品首頁
   {
@@ -19716,7 +19998,7 @@ var admin_routes = [{
     },
     name: "admin-products",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ "resources_js_components_Admin_products_AdminProducts_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Admin/products/AdminProducts */ "./resources/js/components/Admin/products/AdminProducts.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_SubPages_Admin_products_AdminProducts_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../SubPages/Admin/products/AdminProducts */ "./resources/js/SubPages/Admin/products/AdminProducts.vue"));
     }
   }, //新增產品
   {
@@ -19726,7 +20008,7 @@ var admin_routes = [{
     },
     name: "admin-products-create",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ "resources_js_components_Admin_products_CreateProduct_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Admin/products/CreateProduct */ "./resources/js/components/Admin/products/CreateProduct.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_SubPages_Admin_products_CreateProduct_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../SubPages/Admin/products/CreateProduct */ "./resources/js/SubPages/Admin/products/CreateProduct.vue"));
     }
   }, //編輯產品
   {
@@ -19734,9 +20016,9 @@ var admin_routes = [{
     meta: {
       title: "後台管理-編輯產品"
     },
-    name: "admin-articles-update",
+    name: "admin-products-update",
     component: function component() {
-      return __webpack_require__.e(/*! import() */ "resources_js_components_Admin_products_UpdateProduct_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Admin/products/UpdateProduct */ "./resources/js/components/Admin/products/UpdateProduct.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_SubPages_Admin_products_UpdateProduct_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../SubPages/Admin/products/UpdateProduct */ "./resources/js/SubPages/Admin/products/UpdateProduct.vue"));
     }
   }]
 }];
@@ -19754,16 +20036,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "router": () => (/* binding */ router)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm-bundler.js");
-/* harmony import */ var _router_admin_routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../router/admin-routes */ "./resources/js/router/admin-routes.js");
-/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! nprogress */ "./node_modules/nprogress/nprogress.js");
-/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(nprogress__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var nprogress_nprogress_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! nprogress/nprogress.css */ "./node_modules/nprogress/nprogress.css");
-/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../store/index */ "./resources/js/store/index.js");
-
-
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm-bundler.js");
+/* harmony import */ var _router_admin_routes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../router/admin-routes */ "./resources/js/router/admin-routes.js");
+/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! nprogress */ "./node_modules/nprogress/nprogress.js");
+/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(nprogress__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var nprogress_nprogress_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! nprogress/nprogress.css */ "./node_modules/nprogress/nprogress.css");
+/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/index */ "./resources/js/store/index.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -19776,10 +20054,6 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 
 
 
@@ -19788,60 +20062,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 // NProgress.configure({ easing: 'linear', speed: 500, showSpinner: false, trickle: false })
 // console.log(...admin_routes);
 
-function Auth(_x, _x2) {
-  return _Auth.apply(this, arguments);
-}
-
-function _Auth() {
-  _Auth = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(to, from) {
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            if (!(to.name === "user_login")) {
-              _context.next = 4;
-              break;
-            }
-
-            return _context.abrupt("return", true);
-
-          case 4:
-            if (_store_index__WEBPACK_IMPORTED_MODULE_4__["default"]._state.data.is_login) {
-              _context.next = 9;
-              break;
-            }
-
-            // router.push({ name: 'user' })
-            if (to.name !== "user_register") {
-              // alert('123')
-              router.push({
-                name: "user_login"
-              });
-            }
-
-            return _context.abrupt("return", true);
-
-          case 9:
-            if (to.name === "user_register" || to.name === "user_login") {
-              router.push({
-                path: from.fullPath
-              });
-            }
-
-            return _context.abrupt("return", true);
-
-          case 11:
-          case "end":
-            return _context.stop();
-        }
+function Auth(to, from) {
+  // console.log(!store._state.data.user);
+  if (to.name === "user_login") {
+    return true;
+  } else {
+    if (!_store_index__WEBPACK_IMPORTED_MODULE_3__["default"]._state.data.is_login) {
+      // router.push({ name: 'user' })
+      if (to.name !== "user_register") {
+        // alert('123')
+        router.push({
+          name: "user_login"
+        });
       }
-    }, _callee);
-  }));
-  return _Auth.apply(this, arguments);
+
+      return true;
+    } else {
+      if (to.name === "user_register" || to.name === "user_login") {
+        router.push({
+          path: from.fullPath
+        });
+      }
+
+      return true;
+    }
+  }
 }
 
-var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.createRouter)({
-  history: (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.createWebHistory)(),
+var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_4__.createRouter)({
+  history: (0,vue_router__WEBPACK_IMPORTED_MODULE_4__.createWebHistory)(),
   routes: [{
     path: "/",
     name: "home",
@@ -19850,7 +20099,7 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.createRouter)({
     },
     components: {
       nav: function nav() {
-        return __webpack_require__.e(/*! import() */ "resources_js_components_Globals_Nav_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Globals/Nav */ "./resources/js/components/Globals/Nav.vue"));
+        return __webpack_require__.e(/*! import() */ "resources_js_components_Nav_Nav_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Nav/Nav */ "./resources/js/components/Nav/Nav.vue"));
       },
       // default: () =>
       //     import ('../Pages/Home')
@@ -19863,7 +20112,7 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.createRouter)({
     name: "user",
     components: {
       nav: function nav() {
-        return __webpack_require__.e(/*! import() */ "resources_js_components_Globals_Nav_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Globals/Nav */ "./resources/js/components/Globals/Nav.vue"));
+        return __webpack_require__.e(/*! import() */ "resources_js_components_Nav_Nav_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Nav/Nav */ "./resources/js/components/Nav/Nav.vue"));
       },
       "default": function _default() {
         return __webpack_require__.e(/*! import() */ "resources_js_Pages_User_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../Pages/User */ "./resources/js/Pages/User.vue"));
@@ -19887,7 +20136,7 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.createRouter)({
         title: "會員專區-個人資料"
       },
       component: function component() {
-        return __webpack_require__.e(/*! import() */ "resources_js_components_User_Pages_Profile_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/User/Pages/Profile */ "./resources/js/components/User/Pages/Profile.vue"));
+        return __webpack_require__.e(/*! import() */ "resources_js_SubPages_User_Profile_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../SubPages/User/Profile */ "./resources/js/SubPages/User/Profile.vue"));
       }
     }, {
       path: "shopping-cart",
@@ -19896,7 +20145,7 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.createRouter)({
         title: "會員專區-購物車"
       },
       component: function component() {
-        return __webpack_require__.e(/*! import() */ "resources_js_components_User_Pages_ShoppingCart_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/User/Pages/ShoppingCart */ "./resources/js/components/User/Pages/ShoppingCart.vue"));
+        return __webpack_require__.e(/*! import() */ "resources_js_SubPages_User_ShoppingCart_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../SubPages/User/ShoppingCart */ "./resources/js/SubPages/User/ShoppingCart.vue"));
       }
     }, {
       path: "article-collection",
@@ -19905,7 +20154,7 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.createRouter)({
         title: "會員專區-珍藏文章"
       },
       component: function component() {
-        return __webpack_require__.e(/*! import() */ "resources_js_components_User_Pages_ArticleCollection_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/User/Pages/ArticleCollection */ "./resources/js/components/User/Pages/ArticleCollection.vue"));
+        return __webpack_require__.e(/*! import() */ "resources_js_SubPages_User_ArticleCollection_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../SubPages/User/ArticleCollection */ "./resources/js/SubPages/User/ArticleCollection.vue"));
       }
     }, {
       path: "shopping-record",
@@ -19914,14 +20163,14 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.createRouter)({
         title: "會員專區-購物紀錄"
       },
       component: function component() {
-        return __webpack_require__.e(/*! import() */ "resources_js_components_User_Pages_ShoppingRecord_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/User/Pages/ShoppingRecord */ "./resources/js/components/User/Pages/ShoppingRecord.vue"));
+        return __webpack_require__.e(/*! import() */ "resources_js_SubPages_User_ShoppingRecord_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../SubPages/User/ShoppingRecord */ "./resources/js/SubPages/User/ShoppingRecord.vue"));
       }
     }]
   }, {
     path: "/user/login",
     components: {
       nav: function nav() {
-        return __webpack_require__.e(/*! import() */ "resources_js_components_Globals_Nav_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Globals/Nav */ "./resources/js/components/Globals/Nav.vue"));
+        return __webpack_require__.e(/*! import() */ "resources_js_components_Nav_Nav_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Nav/Nav */ "./resources/js/components/Nav/Nav.vue"));
       },
       "default": function _default() {
         return __webpack_require__.e(/*! import() */ "resources_js_Pages_UserLogin_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../Pages/UserLogin */ "./resources/js/Pages/UserLogin.vue"));
@@ -19934,7 +20183,7 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.createRouter)({
         title: "會員專區-登入"
       },
       component: function component() {
-        return __webpack_require__.e(/*! import() */ "resources_js_components_Login_LoginForm_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Login/LoginForm */ "./resources/js/components/Login/LoginForm.vue"));
+        return __webpack_require__.e(/*! import() */ "resources_js_SubPages_Login_LoginForm_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../SubPages/Login/LoginForm */ "./resources/js/SubPages/Login/LoginForm.vue"));
       }
     }, {
       path: "/user/register",
@@ -19943,7 +20192,7 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.createRouter)({
         title: "會員專區-註冊"
       },
       component: function component() {
-        return __webpack_require__.e(/*! import() */ "resources_js_components_Login_RegisterForm_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Login/RegisterForm */ "./resources/js/components/Login/RegisterForm.vue"));
+        return __webpack_require__.e(/*! import() */ "resources_js_SubPages_Login_RegisterForm_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../SubPages/Login/RegisterForm */ "./resources/js/SubPages/Login/RegisterForm.vue"));
       }
     }],
     beforeEnter: function beforeEnter(to, from) {
@@ -19956,23 +20205,21 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.createRouter)({
       title: "Oops!!出錯啦!!"
     },
     component: function component() {
-      return __webpack_require__.e(/*! import() */ "resources_js_components_Globals_Loading_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Globals/Loading */ "./resources/js/components/Globals/Loading.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_components_Loading_Loading_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/Loading/Loading */ "./resources/js/components/Loading/Loading.vue"));
     }
-  }].concat(_toConsumableArray(_router_admin_routes__WEBPACK_IMPORTED_MODULE_1__.admin_routes), [{
+  }].concat(_toConsumableArray(_router_admin_routes__WEBPACK_IMPORTED_MODULE_0__.admin_routes), [{
     path: "/:pathMatch(.*)*",
     name: "NotFound",
     meta: {
       title: "not found"
     },
-    component: function component() {
-      return __webpack_require__.e(/*! import() */ "resources_js_Pages_Home_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../Pages/Home */ "./resources/js/Pages/Home.vue"));
-    }
+    redirect: "/"
   }])
 });
 router.beforeEach(function (to, from) {
-  nprogress__WEBPACK_IMPORTED_MODULE_2___default().start();
+  nprogress__WEBPACK_IMPORTED_MODULE_1___default().start();
 
-  if (!_store_index__WEBPACK_IMPORTED_MODULE_4__["default"].state.exception_error && to.name === "exception_error") {
+  if (!_store_index__WEBPACK_IMPORTED_MODULE_3__["default"].state.exception_error && to.name === "exception_error") {
     router.push({
       name: "home"
     });
@@ -20010,7 +20257,7 @@ router.afterEach(function (to) {
   // if (store.state.exception_error && to.name !== 'exception_error') {
   //     router.push({ name: 'exception_error' })
   // }
-  nprogress__WEBPACK_IMPORTED_MODULE_2___default().done();
+  nprogress__WEBPACK_IMPORTED_MODULE_1___default().done();
   window.scrollTo(0, 0);
 });
 
@@ -20029,7 +20276,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _modules_global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/global */ "./resources/js/store/modules/global.js");
 /* harmony import */ var _modules_userHandler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/userHandler */ "./resources/js/store/modules/userHandler.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var _modules_articleHandler__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/articleHandler */ "./resources/js/store/modules/articleHandler.js");
+/* harmony import */ var _modules_globalHandler__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/globalHandler */ "./resources/js/store/modules/globalHandler.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -20038,13 +20287,107 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
+
  //彙總
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vuex__WEBPACK_IMPORTED_MODULE_2__.createStore)(_objectSpread(_objectSpread({}, _modules_global__WEBPACK_IMPORTED_MODULE_0__["default"]), {}, {
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vuex__WEBPACK_IMPORTED_MODULE_4__.createStore)(_objectSpread(_objectSpread({}, _modules_global__WEBPACK_IMPORTED_MODULE_0__["default"]), {}, {
   modules: {
-    userHandler: _modules_userHandler__WEBPACK_IMPORTED_MODULE_1__["default"]
+    userHandler: _modules_userHandler__WEBPACK_IMPORTED_MODULE_1__["default"],
+    articleHandler: _modules_articleHandler__WEBPACK_IMPORTED_MODULE_2__["default"],
+    globalHandler: _modules_globalHandler__WEBPACK_IMPORTED_MODULE_3__["default"]
   }
 })));
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/articleHandler.js":
+/*!******************************************************!*\
+  !*** ./resources/js/store/modules/articleHandler.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _api_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../api/api */ "./resources/js/api/api.js");
+
+
+function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  namespaced: true,
+  state: {},
+  mutations: {},
+  actions: {
+    createArticle: function () {
+      var _createArticle = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(_ref, data) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _objectDestructuringEmpty(_ref);
+
+                _context.next = 3;
+                return (0,_api_api__WEBPACK_IMPORTED_MODULE_1__.apiPostCreateArticle)(data);
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      function createArticle(_x, _x2) {
+        return _createArticle.apply(this, arguments);
+      }
+
+      return createArticle;
+    }(),
+    getArticles: function () {
+      var _getArticles = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var _yield$apiGetArticles, articles;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return (0,_api_api__WEBPACK_IMPORTED_MODULE_1__.apiGetArticles)();
+
+              case 2:
+                _yield$apiGetArticles = _context2.sent;
+                articles = _yield$apiGetArticles.articles;
+                return _context2.abrupt("return", articles ? articles : []);
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      function getArticles() {
+        return _getArticles.apply(this, arguments);
+      }
+
+      return getArticles;
+    }()
+  },
+  getters: {},
+  modules: {}
+});
 
 /***/ }),
 
@@ -20061,15 +20404,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _api_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../api/api */ "./resources/js/api/api.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
- //全局
+/* 處理全局state
 
+設置userToken、userInfo、storage、清除user、
+設定error、設定api error、清除error
+ */
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   state: {
     user: "",
@@ -20077,15 +20422,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     is_login: false,
     user_info: {},
     status: "",
-    status_msg: "",
-    errors: {},
+    status_msgs: {},
     exception_error: false
   },
   mutations: {
+    /* 設定user token 登入 */
     setUserToken: function setUserToken(state, token) {
       state.token = token;
       state.is_login = true;
     },
+
+    /* 將token存至storage */
     saveToStorage: function saveToStorage(state, _ref) {
       var token = _ref.token,
           remember = _ref.remember;
@@ -20096,46 +20443,62 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         // console.log('saveTOLocalStorage->token:', token);
         localStorage.setItem("token", token);
       } else {
-        localStorage.removeItem('token');
+        localStorage.removeItem("token");
         sessionStorage.setItem("token", token);
       }
     },
+
+    /* 設定user_info */
     setUserInfo: function setUserInfo(state, user_info) {
       state.user_info = user_info;
     },
+
+    /* 清除所有user */
     clearUser: function clearUser(state) {
       state.token = "";
       localStorage.removeItem("token");
       sessionStorage.removeItem("token");
       state.is_login = false;
     },
-    setErrors: function setErrors(state, _ref2) {
-      var error_type = _ref2.error_type,
-          item = _ref2.item;
-      // console.log("store.setErrors->", state, payload);
-      // const {} = payload;
-      state.status = "error";
-      state.errors[error_type] = item;
+
+    /* 設定全域status */
+    setStatus: function setStatus(state, _ref2) {
+      var msg = _ref2.msg,
+          _ref2$type = _ref2.type,
+          type = _ref2$type === void 0 ? "api" : _ref2$type,
+          _ref2$status = _ref2.status,
+          status = _ref2$status === void 0 ? "error" : _ref2$status;
+      state.status = status === 200 ? "success" : status === 400 ? "error" : status;
+      state.status_msgs[type] = msg || ""; // console.log(
+      //     "setstatus->",
+      //     ",msg->",
+      //     msg,
+      //     "type->",
+      //     type,
+      //     "status->",
+      //     status,
+      //     state
+      // );
+
+      if (type !== "api") {
+        var num = Object.values(state.status_msgs).reduce(function (acc, val) {
+          return acc + val.length;
+        }, 0); // console.log("num->", num);
+
+        if (!num) state.status = "";
+      }
     },
-    setStatus: function setStatus(state, _ref3) {
-      var status = _ref3.status,
-          msg = _ref3.msg;
-      // console.log("setStatus->", payload);
-      state.status = status;
-      state.status_msg = msg;
-    },
-    clearErrors: function clearErrors(state) {
-      state.errors = {};
-    },
-    clearApiError: function clearApiError(state) {
-      state.status_msg = "";
-    },
+
+    /* 清除error */
+
+    /* 清除所有狀態 */
     clearStatus: function clearStatus(state) {
       // console.log("clearStatus");
       state.status = "";
-      state.status_msg = "";
-      state.errors = {};
+      state.status_msgs = {};
     },
+
+    /* 例外狀況 */
     exceptionOccur: function exceptionOccur(state, error) {
       state.exception_error = true;
       console.log("----------------------exceptionOccur---------------------------");
@@ -20146,14 +20509,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   actions: {
     //更新user狀態,包括token,storage,userinfo
     updateUserStatus: function () {
-      var _updateUserStatus = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(_ref4, _ref5) {
+      var _updateUserStatus = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(_ref3, _ref4) {
         var commit, token, user_info, remember;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                commit = _ref4.commit;
-                token = _ref5.token, user_info = _ref5.user_info, remember = _ref5.remember;
+                commit = _ref3.commit;
+                token = _ref4.token, user_info = _ref4.user_info, remember = _ref4.remember;
                 // console.log('updateUserStatus->', token, user_info, remember);
                 //state.token
                 commit("setUserToken", token); //state.userinfo
@@ -20178,169 +20541,158 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       return updateUserStatus;
-    }(),
-    //每次進來畫面時如果localstorage有token就請求token是否過期、正確
-    getUser: function () {
-      var _getUser = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(_ref6) {
-        var commit, dispatch, token, res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                commit = _ref6.commit, dispatch = _ref6.dispatch;
-                token = localStorage.getItem("token");
-
-                if (!token) {
-                  _context2.next = 14;
-                  break;
-                }
-
-                commit("setUserToken", token);
-                _context2.prev = 4;
-                _context2.next = 7;
-                return (0,_api_api__WEBPACK_IMPORTED_MODULE_1__.apiGetOwnProfile)();
-
-              case 7:
-                res = _context2.sent;
-
-                // console.log("store.getUser->", token, res);
-                if (res.data.status === 200) {
-                  //如果success,更新user狀態(token)
-                  dispatch("updateUserStatus", {
-                    token: res.data.data.token,
-                    user_info: res.data.data.user_info,
-                    remember: 1
-                  });
-                } else {
-                  //如果fail,清除user
-                  commit("clearUser");
-                }
-
-                _context2.next = 14;
-                break;
-
-              case 11:
-                _context2.prev = 11;
-                _context2.t0 = _context2["catch"](4);
-                commit("exceptionOccur", _context2.t0);
-
-              case 14:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, null, [[4, 11]]);
-      }));
-
-      function getUser(_x3) {
-        return _getUser.apply(this, arguments);
-      }
-
-      return getUser;
-    }(),
-    userLogout: function userLogout(_ref7) {
-      var commit = _ref7.commit;
-
-      if (confirm("確認登出?")) {
-        try {
-          (0,_api_api__WEBPACK_IMPORTED_MODULE_1__.apiPostUserLogout)();
-          commit("clearUser");
-        } catch (error) {
-          commit("exceptionOccur", error);
-        }
-      }
-    },
-    setStatus: function () {
-      var _setStatus = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(_ref8, _ref9) {
-        var commit, dispatch, status_type, item, error_type;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                commit = _ref8.commit, dispatch = _ref8.dispatch;
-                status_type = _ref9.status_type, item = _ref9.item, error_type = _ref9.error_type;
-
-                //200表示成功
-                // console.log(payload);
-                if (status_type === 200) {
-                  commit("clearErrors");
-                  commit("setStatus", {
-                    status: "success",
-                    msg: item
-                  });
-                } else {
-                  //error 表示前端攔截的error
-                  if (status_type === "error") {
-                    commit("setErrors", {
-                      error_type: error_type,
-                      item: item
-                    });
-                    commit("clearApiError");
-                  } else if (status_type === 400) {
-                    //400表示後端回傳的error
-                    commit("clearErrors");
-                    commit("setStatus", {
-                      status: "error",
-                      msg: item
-                    });
-                  }
-
-                  dispatch("confirmErrorStatus");
-                }
-
-              case 3:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }));
-
-      function setStatus(_x4, _x5) {
-        return _setStatus.apply(this, arguments);
-      }
-
-      return setStatus;
-    }(),
-    confirmErrorStatus: function () {
-      var _confirmErrorStatus = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(_ref10) {
-        var state, commit, arr, num;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                state = _ref10.state, commit = _ref10.commit;
-                arr = [];
-                arr = Object.values(state.errors).map(function (item) {
-                  return item.length;
-                });
-                num = arr.reduce(function (a, b) {
-                  return a + b;
-                }, 0); // console.log("confirmErrorStatus", arr, state);
-
-                if (!num) commit("clearStatus");
-
-              case 5:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4);
-      }));
-
-      function confirmErrorStatus(_x6) {
-        return _confirmErrorStatus.apply(this, arguments);
-      }
-
-      return confirmErrorStatus;
     }()
   },
   getters: {
     getToken: function getToken(state) {
       // console.log('getUser');
       return state.token;
+    },
+    getStatus: function getStatus(state) {
+      return state.status;
     }
   }
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/globalHandler.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/store/modules/globalHandler.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _api_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../api/api */ "./resources/js/api/api.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+/*  取得類別、取得user
+
+
+
+ */
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  namespaced: true,
+  state: {
+    categories: {}
+  },
+  mutations: {
+    setCategories: function setCategories(state, categories) {
+      // console.log("setCategories", categories);
+      state.categories = categories;
+    }
+  },
+  actions: {
+    /* 取得類別 */
+    getCategories: function () {
+      var _getCategories = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(_ref) {
+        var commit, _yield$apiGetCategori, categories;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit = _ref.commit;
+                _context.next = 3;
+                return (0,_api_api__WEBPACK_IMPORTED_MODULE_1__.apiGetCategories)();
+
+              case 3:
+                _yield$apiGetCategori = _context.sent;
+                categories = _yield$apiGetCategori.categories;
+                // console.log("setCategories", res);
+                commit("setCategories", categories);
+
+              case 6:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      function getCategories(_x) {
+        return _getCategories.apply(this, arguments);
+      }
+
+      return getCategories;
+    }(),
+
+    /* 每次進來畫面時如果localstorage有token就請求token是否過期、正確 */
+    getUser: function () {
+      var _getUser = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(_ref2) {
+        var commit, dispatch, user_token, _yield$apiGetOwnProfi, token, user_info;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                commit = _ref2.commit, dispatch = _ref2.dispatch;
+                user_token = localStorage.getItem("token");
+
+                if (!user_token) {
+                  _context2.next = 10;
+                  break;
+                }
+
+                //如果有token將token放入state
+                commit("setUserToken", user_token, {
+                  root: true
+                }); //向後端要求驗證token
+
+                _context2.next = 6;
+                return (0,_api_api__WEBPACK_IMPORTED_MODULE_1__.apiGetOwnProfile)();
+
+              case 6:
+                _yield$apiGetOwnProfi = _context2.sent;
+                token = _yield$apiGetOwnProfi.token;
+                user_info = _yield$apiGetOwnProfi.user_info;
+
+                // console.log("getUser->", user_info, token);
+                if (token && user_info) {
+                  //如果success,更新user狀態(token)
+                  dispatch("updateUserStatus", {
+                    token: token,
+                    user_info: user_info,
+                    remember: 1
+                  }, {
+                    root: true
+                  });
+                } else {
+                  //如果fail,清除user
+                  commit("clearUser", {}, {
+                    root: true
+                  });
+                }
+
+              case 10:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      function getUser(_x2) {
+        return _getUser.apply(this, arguments);
+      }
+
+      return getUser;
+    }()
+  },
+  getters: {},
+  modules: {}
 });
 
 /***/ }),
@@ -20372,161 +20724,119 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   mutations: {},
   actions: {
     //登入
-    handleLogin: function () {
-      var _handleLogin = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(_ref, data) {
-        var dispatch, commit, res;
+    login: function () {
+      var _login = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(_ref, data) {
+        var dispatch, _yield$apiPostUserLog, token, user_info;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                dispatch = _ref.dispatch, commit = _ref.commit;
-                _context.prev = 1;
-                _context.next = 4;
+                dispatch = _ref.dispatch;
+                _context.next = 3;
                 return (0,_api_api__WEBPACK_IMPORTED_MODULE_1__.apiPostUserLogin)(data);
 
-              case 4:
-                res = _context.sent;
-                console.log(res);
-                dispatch("setStatus", {
-                  status_type: res.data.status,
-                  item: res.data.status_obj
-                }, {
-                  root: true
-                }); // console.log("userHandler/handleLogin1->", res);
+              case 3:
+                _yield$apiPostUserLog = _context.sent;
+                token = _yield$apiPostUserLog.token;
+                user_info = _yield$apiPostUserLog.user_info;
 
-                if (res.data.status === 200) {
+                if (token && user_info) {
                   dispatch("updateUserStatus", {
-                    token: res.data.data.token,
-                    user_info: res.data.data.user_info,
+                    token: token,
+                    user_info: user_info,
                     remember: data.remember
                   }, {
                     root: true
                   });
                 }
 
-                _context.next = 13;
-                break;
-
-              case 10:
-                _context.prev = 10;
-                _context.t0 = _context["catch"](1);
-                commit("exceptionOccur", _context.t0, {
-                  root: true
-                });
-
-              case 13:
+              case 7:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 10]]);
+        }, _callee);
       }));
 
-      function handleLogin(_x, _x2) {
-        return _handleLogin.apply(this, arguments);
+      function login(_x, _x2) {
+        return _login.apply(this, arguments);
       }
 
-      return handleLogin;
+      return login;
     }(),
     //註冊
-    handleRegister: function () {
-      var _handleRegister = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(_ref2, data) {
-        var rootState, dispatch, commit, res;
+    register: function () {
+      var _register = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(_ref2, data) {
+        var rootState, dispatch, _yield$apiPostUserReg, token, user_info;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                rootState = _ref2.rootState, dispatch = _ref2.dispatch, commit = _ref2.commit;
+                rootState = _ref2.rootState, dispatch = _ref2.dispatch;
 
                 if (!(rootState.status !== "error")) {
-                  _context2.next = 13;
+                  _context2.next = 8;
                   break;
                 }
 
-                _context2.prev = 2;
-                _context2.next = 5;
+                _context2.next = 4;
                 return (0,_api_api__WEBPACK_IMPORTED_MODULE_1__.apiPostUserRegister)(data);
 
-              case 5:
-                res = _context2.sent;
-                dispatch("setStatus", {
-                  status_type: res.data.status,
-                  item: res.data.status_obj
-                }, {
-                  root: true
-                });
+              case 4:
+                _yield$apiPostUserReg = _context2.sent;
+                token = _yield$apiPostUserReg.token;
+                user_info = _yield$apiPostUserReg.user_info;
 
-                if (res.data.status === 200) {
+                if (token && user_info) {
                   dispatch("updateUserStatus", {
-                    token: res.data.data.token,
-                    user_info: res.data.data.user_info,
+                    token: token,
+                    user_info: user_info,
                     remember: data.remember
                   }, {
                     root: true
                   });
                 }
 
-                _context2.next = 13;
-                break;
-
-              case 10:
-                _context2.prev = 10;
-                _context2.t0 = _context2["catch"](2);
-                commit("exceptionOccur", _context2.t0, {
-                  root: true
-                });
-
-              case 13:
+              case 8:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[2, 10]]);
+        }, _callee2);
       }));
 
-      function handleRegister(_x3, _x4) {
-        return _handleRegister.apply(this, arguments);
+      function register(_x3, _x4) {
+        return _register.apply(this, arguments);
       }
 
-      return handleRegister;
+      return register;
     }(),
-    handleUpdateUser: function () {
-      var _handleUpdateUser = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(_ref3, data) {
-        var rootState, dispatch, res;
+
+    /* 登出 */
+    logout: function () {
+      var _logout = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(_ref3) {
+        var commit;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                rootState = _ref3.rootState, dispatch = _ref3.dispatch;
+                commit = _ref3.commit;
 
-                if (!(rootState.status !== "error")) {
-                  _context3.next = 8;
+                if (!confirm("確認登出?")) {
+                  _context3.next = 4;
                   break;
                 }
 
                 _context3.next = 4;
-                return apiPostUpdataUser(data);
-
-              case 4:
-                res = _context3.sent;
-                dispatch("setStatus", {
-                  status_type: res.data.status,
-                  item: res.data.status_obj
-                }, {
-                  root: true
+                return (0,_api_api__WEBPACK_IMPORTED_MODULE_1__.apiPostUserLogout)().then(function () {
+                  commit("clearUser", {}, {
+                    root: true
+                  });
                 });
 
-                if (!(res.data.status === 200)) {
-                  _context3.next = 8;
-                  break;
-                }
-
-                return _context3.abrupt("return", true);
-
-              case 8:
-                return _context3.abrupt("return", false);
-
-              case 9:
+              case 4:
               case "end":
                 return _context3.stop();
             }
@@ -20534,43 +20844,46 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3);
       }));
 
-      function handleUpdateUser(_x5, _x6) {
-        return _handleUpdateUser.apply(this, arguments);
+      function logout(_x5) {
+        return _logout.apply(this, arguments);
       }
 
-      return handleUpdateUser;
-    }()
+      return logout;
+    }() // updateUser: async({ rootState, dispatch }, data) => {
+    //     if (rootState.status !== "error") {
+    //         const res = await apiPostUpdataUser(data);
+    //         dispatch(
+    //             "setStatus", {
+    //                 status_type: res.data.status,
+    //                 item: res.data.msg,
+    //             }, { root: true }
+    //         );
+    //         if (res.data.status === 200) return true;
+    //     }
+    //     return false;
+    // },
+
   },
   getters: {},
   modules: {
     check_userinfo_format: {
       actions: {
         //帳號
-        handleCheckAccount: function () {
-          var _handleCheckAccount = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(_ref4, _ref5) {
-            var dispatch, account, error, accountformat;
+        checkAccount: function () {
+          var _checkAccount = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(_ref4, _ref5) {
+            var commit, account, msg, accountformat;
             return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
               while (1) {
                 switch (_context4.prev = _context4.next) {
                   case 0:
-                    dispatch = _ref4.dispatch;
+                    commit = _ref4.commit;
                     account = _ref5.account;
-                    console.log("handleCheckAccount", account);
-                    error = [];
-
-                    if (!account) {
-                      error.push("帳號欄位不能為空");
-                    } else {
-                      accountformat = /^\w+([\.-]?\w+)*/;
-                      if (!account.match(accountformat)) error.push("帳號格式錯誤");
-                      if (account.length > 20) error.push("帳號不能大於20位數");
-                    } // store.setStatus("error", error, "account");
-
-
-                    dispatch("setStatus", {
-                      status_type: "error",
-                      item: error,
-                      error_type: "account"
+                    msg = "";
+                    accountformat = /^\w+([\.-]?\w+)*/;
+                    if (!account) msg = "帳號欄位不能為空";else if (account.length > 20) msg = "帳號不能大於20位數";else if (!account.match(accountformat)) msg = "帳號格式錯誤";
+                    commit("setStatus", {
+                      type: "account",
+                      msg: msg
                     }, {
                       root: true
                     });
@@ -20583,39 +20896,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }, _callee4);
           }));
 
-          function handleCheckAccount(_x7, _x8) {
-            return _handleCheckAccount.apply(this, arguments);
+          function checkAccount(_x6, _x7) {
+            return _checkAccount.apply(this, arguments);
           }
 
-          return handleCheckAccount;
+          return checkAccount;
         }(),
         //密碼
-        handleCheckPassword: function () {
-          var _handleCheckPassword = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(_ref6, _ref7) {
-            var dispatch, password, check_password, error;
+        checkPassword: function () {
+          var _checkPassword = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(_ref6, _ref7) {
+            var dispatch, commit, password, check_password, msg;
             return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
               while (1) {
                 switch (_context5.prev = _context5.next) {
                   case 0:
-                    dispatch = _ref6.dispatch;
+                    dispatch = _ref6.dispatch, commit = _ref6.commit;
                     password = _ref7.password, check_password = _ref7.check_password;
-                    error = [];
-
-                    if (!password) {
-                      error.push("密碼欄位不能為空");
-                    } else {
-                      if (password.length > 30) error.push("密碼不能大於30位數");
-                    }
-
-                    dispatch("setStatus", {
-                      status_type: "error",
-                      item: error,
-                      error_type: "password"
+                    msg = "";
+                    if (!password) msg = "密碼欄位不能為空";else if (password.length > 30) msg = "密碼不能大於30位數";
+                    commit("setStatus", {
+                      type: "password",
+                      msg: msg
                     }, {
                       root: true
                     }); // console.log(check_password);
 
-                    if (check_password !== undefined) dispatch("handleCheckAgainPassword", {
+                    if (check_password !== undefined) dispatch("checkAgainPassword", {
                       password: password,
                       check_password: check_password
                     });
@@ -20628,33 +20934,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }, _callee5);
           }));
 
-          function handleCheckPassword(_x9, _x10) {
-            return _handleCheckPassword.apply(this, arguments);
+          function checkPassword(_x8, _x9) {
+            return _checkPassword.apply(this, arguments);
           }
 
-          return handleCheckPassword;
+          return checkPassword;
         }(),
         //再次確認密碼
-        handleCheckAgainPassword: function () {
-          var _handleCheckAgainPassword = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6(_ref8, _ref9) {
-            var dispatch, password, check_password, error;
+        checkAgainPassword: function () {
+          var _checkAgainPassword = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6(_ref8, _ref9) {
+            var commit, password, check_password, msg;
             return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
               while (1) {
                 switch (_context6.prev = _context6.next) {
                   case 0:
-                    dispatch = _ref8.dispatch;
+                    commit = _ref8.commit;
                     password = _ref9.password, check_password = _ref9.check_password;
-                    error = []; // console.log(password);
+                    msg = ""; // console.log(password);
                     // console.log(check_password);
 
-                    if (!check_password) {
-                      error.push("請再次確認密碼");
-                    } else if (password !== check_password) error.push("密碼不相同");
-
-                    dispatch("setStatus", {
-                      status_type: "error",
-                      item: error,
-                      error_type: "check_password"
+                    if (!check_password) msg = "請再次確認密碼";else if (password !== check_password) msg = "密碼不相同";
+                    commit("setStatus", {
+                      type: "check_password",
+                      msg: msg
                     }, {
                       root: true
                     });
@@ -20667,44 +20969,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }, _callee6);
           }));
 
-          function handleCheckAgainPassword(_x11, _x12) {
-            return _handleCheckAgainPassword.apply(this, arguments);
+          function checkAgainPassword(_x10, _x11) {
+            return _checkAgainPassword.apply(this, arguments);
           }
 
-          return handleCheckAgainPassword;
+          return checkAgainPassword;
         }(),
         // email
-        handleCheckEmail: function () {
-          var _handleCheckEmail = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7(_ref10, _ref11) {
-            var dispatch, email, error, mailformat;
+        checkEmail: function () {
+          var _checkEmail = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7(_ref10, _ref11) {
+            var commit, email, msg, mailformat;
             return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
               while (1) {
                 switch (_context7.prev = _context7.next) {
                   case 0:
-                    dispatch = _ref10.dispatch;
+                    commit = _ref10.commit;
                     email = _ref11.email;
-                    error = [];
-
-                    if (!email) {
-                      error.push("請填寫Email欄位");
-                    } else {
-                      if (email.length > 30) {
-                        error.push("Email不能大於30位數");
-                      } else {
-                        mailformat = /^\w+([\.-]?\w+)*@gmail.com$/;
-                        if (!email.match(mailformat)) error.push("Email格式錯誤");
-                      }
-                    }
-
-                    dispatch("setStatus", {
-                      status_type: "error",
-                      item: error,
-                      error_type: "email"
+                    msg = "";
+                    mailformat = /^\w+([\.-]?\w+)*@gmail.com$/;
+                    if (!email) msg = "請填寫Email欄位";else if (email.length > 30) msg = "Email不能大於30位數";else if (!email.match(mailformat)) msg = "Email格式錯誤";
+                    commit("setStatus", {
+                      type: "email",
+                      msg: msg
                     }, {
                       root: true
                     });
 
-                  case 5:
+                  case 6:
                   case "end":
                     return _context7.stop();
                 }
@@ -20712,28 +21003,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }, _callee7);
           }));
 
-          function handleCheckEmail(_x13, _x14) {
-            return _handleCheckEmail.apply(this, arguments);
+          function checkEmail(_x12, _x13) {
+            return _checkEmail.apply(this, arguments);
           }
 
-          return handleCheckEmail;
+          return checkEmail;
         }(),
         // 名字
-        handleCheckName: function () {
-          var _handleCheckName = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee8(_ref12, _ref13) {
-            var dispatch, name, error;
+        checkName: function () {
+          var _checkName = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee8(_ref12, _ref13) {
+            var commit, name, msg;
             return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee8$(_context8) {
               while (1) {
                 switch (_context8.prev = _context8.next) {
                   case 0:
-                    dispatch = _ref12.dispatch;
+                    commit = _ref12.commit;
                     name = _ref13.name;
-                    error = [];
-                    if (name.length > 10) error.push("姓名最多10字元");
-                    dispatch("setStatus", {
-                      status_type: "error",
-                      item: error,
-                      error_type: "name"
+                    msg = "";
+                    if (name.length > 10) msg = "姓名最多10字元";
+                    commit("setStatus", {
+                      type: "name",
+                      msg: msg
                     }, {
                       root: true
                     });
@@ -20746,40 +21036,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }, _callee8);
           }));
 
-          function handleCheckName(_x15, _x16) {
-            return _handleCheckName.apply(this, arguments);
+          function checkName(_x14, _x15) {
+            return _checkName.apply(this, arguments);
           }
 
-          return handleCheckName;
+          return checkName;
         }(),
         // 電話
-        handleCheckPhone: function () {
-          var _handleCheckPhone = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee9(_ref14, _ref15) {
-            var dispatch, phone, error, phoneformat;
+        checkPhone: function () {
+          var _checkPhone = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee9(_ref14, _ref15) {
+            var commit, phone, msg, phoneformat;
             return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee9$(_context9) {
               while (1) {
                 switch (_context9.prev = _context9.next) {
                   case 0:
-                    dispatch = _ref14.dispatch;
+                    commit = _ref14.commit;
                     phone = _ref15.phone;
-                    error = [];
-
-                    if (phone.length === 10 || phone.length === 9) {
-                      phoneformat = /0?\d{9}$/;
-                      if (!phone.match(phoneformat)) error.push("請輸入正確的手機號");
-                    } else {
-                      error.push("請輸入10位或9位數字");
-                    }
-
-                    dispatch("setStatus", {
-                      status_type: "error",
-                      item: error,
-                      error_type: "phone"
+                    msg = "";
+                    phoneformat = /0?\d{9}$/;
+                    if (!phone) msg = "";else if (phone.length !== 10 || phone.length !== 9) msg = "請輸入10位或9位數字";else if (!phone.match(phoneformat)) msg = "請輸入正確的手機號";
+                    commit("setStatus", {
+                      type: "phone",
+                      msg: msg
                     }, {
                       root: true
                     });
 
-                  case 5:
+                  case 6:
                   case "end":
                     return _context9.stop();
                 }
@@ -20787,28 +21070,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }, _callee9);
           }));
 
-          function handleCheckPhone(_x17, _x18) {
-            return _handleCheckPhone.apply(this, arguments);
+          function checkPhone(_x16, _x17) {
+            return _checkPhone.apply(this, arguments);
           }
 
-          return handleCheckPhone;
+          return checkPhone;
         }(),
         // 地址
-        handleCheckAddress: function () {
-          var _handleCheckAddress = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee10(_ref16, _ref17) {
-            var dispatch, address, error;
+        checkAddress: function () {
+          var _checkAddress = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee10(_ref16, _ref17) {
+            var commit, address, msg;
             return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee10$(_context10) {
               while (1) {
                 switch (_context10.prev = _context10.next) {
                   case 0:
-                    dispatch = _ref16.dispatch;
+                    commit = _ref16.commit;
                     address = _ref17.address;
-                    error = [];
-                    if (address.length > 50) error.push("地址最多50字元");
-                    dispatch("setStatus", {
-                      status_type: "error",
-                      item: error,
-                      error_type: "address"
+                    msg = "";
+                    if (address.length > 50) msg = "地址最多50字元";
+                    commit("setStatus", {
+                      type: "address",
+                      msg: msg
                     }, {
                       root: true
                     });
@@ -20821,19 +21103,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }, _callee10);
           }));
 
-          function handleCheckAddress(_x19, _x20) {
-            return _handleCheckAddress.apply(this, arguments);
+          function checkAddress(_x18, _x19) {
+            return _checkAddress.apply(this, arguments);
           }
 
-          return handleCheckAddress;
+          return checkAddress;
         }()
       }
     },
     admin: {
       actions: {
-        handleGetUserMember: function () {
-          var _handleGetUserMember = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee11() {
-            var res;
+        getUserMember: function () {
+          var _getUserMember = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee11() {
+            var _yield$apiGetUserMemb, all_user_info;
+
             return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee11$(_context11) {
               while (1) {
                 switch (_context11.prev = _context11.next) {
@@ -20842,10 +21125,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     return (0,_api_api__WEBPACK_IMPORTED_MODULE_1__.apiGetUserMember)();
 
                   case 2:
-                    res = _context11.sent;
-                    return _context11.abrupt("return", res.data.all_user_info);
+                    _yield$apiGetUserMemb = _context11.sent;
+                    all_user_info = _yield$apiGetUserMemb.all_user_info;
+                    return _context11.abrupt("return", all_user_info ? all_user_info : []);
 
-                  case 4:
+                  case 5:
                   case "end":
                     return _context11.stop();
                 }
@@ -20853,128 +21137,82 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }, _callee11);
           }));
 
-          function handleGetUserMember() {
-            return _handleGetUserMember.apply(this, arguments);
+          function getUserMember() {
+            return _getUserMember.apply(this, arguments);
           }
 
-          return handleGetUserMember;
+          return getUserMember;
         }(),
-        handleCreateUserMember: function () {
-          var _handleCreateUserMember = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee12(_ref18, data) {
-            var rootState, dispatch, commit, res;
+        createUserMember: function () {
+          var _createUserMember = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee12(_ref18, data) {
+            var rootState, dispatch, commit;
             return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee12$(_context12) {
               while (1) {
                 switch (_context12.prev = _context12.next) {
                   case 0:
                     rootState = _ref18.rootState, dispatch = _ref18.dispatch, commit = _ref18.commit;
                     _context12.next = 3;
-                    return dispatch("handleCheckAccount", {
+                    return Promise.all([dispatch("checkAccount", {
                       account: data.account
-                    });
+                    }), dispatch("checkPassword", {
+                      password: data.password
+                    }), dispatch("checkEmail", {
+                      email: data.email
+                    })]);
 
                   case 3:
-                    _context12.next = 5;
-                    return dispatch("handleCheckPassword", {
-                      password: data.password
-                    });
-
-                  case 5:
-                    _context12.next = 7;
-                    return dispatch("handleCheckEmail", {
-                      email: data.email
-                    });
-
-                  case 7:
                     if (!(rootState.status !== "error")) {
-                      _context12.next = 18;
+                      _context12.next = 6;
                       break;
                     }
 
-                    _context12.prev = 8;
-                    _context12.next = 11;
+                    _context12.next = 6;
                     return (0,_api_api__WEBPACK_IMPORTED_MODULE_1__.apiPostCreateUserMember)(data);
 
-                  case 11:
-                    res = _context12.sent;
-                    dispatch("setStatus", {
-                      status_type: res.data.status,
-                      item: res.data.status_obj
-                    }, {
-                      root: true
-                    });
-                    _context12.next = 18;
-                    break;
-
-                  case 15:
-                    _context12.prev = 15;
-                    _context12.t0 = _context12["catch"](8);
-                    commit("exceptionOccur", _context12.t0, {
-                      root: true
-                    });
-
-                  case 18:
+                  case 6:
                   case "end":
                     return _context12.stop();
                 }
               }
-            }, _callee12, null, [[8, 15]]);
+            }, _callee12);
           }));
 
-          function handleCreateUserMember(_x21, _x22) {
-            return _handleCreateUserMember.apply(this, arguments);
+          function createUserMember(_x20, _x21) {
+            return _createUserMember.apply(this, arguments);
           }
 
-          return handleCreateUserMember;
+          return createUserMember;
         }(),
-        handleUpdateUserMember: function () {
-          var _handleUpdateUserMember = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee13(_ref19, data) {
-            var dispatch, rootState, commit, res;
+        updateUserMember: function () {
+          var _updateUserMember = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee13(_ref19, data) {
+            var rootState, commit;
             return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee13$(_context13) {
               while (1) {
                 switch (_context13.prev = _context13.next) {
                   case 0:
-                    dispatch = _ref19.dispatch, rootState = _ref19.rootState, commit = _ref19.commit;
+                    rootState = _ref19.rootState, commit = _ref19.commit;
 
                     if (!(rootState.status !== "error")) {
-                      _context13.next = 12;
+                      _context13.next = 4;
                       break;
                     }
 
-                    _context13.prev = 2;
-                    _context13.next = 5;
+                    _context13.next = 4;
                     return (0,_api_api__WEBPACK_IMPORTED_MODULE_1__.apiPostUpdateUserMember)(data);
 
-                  case 5:
-                    res = _context13.sent;
-                    dispatch("setStatus", {
-                      status_type: res.data.status,
-                      item: res.data.status_obj
-                    }, {
-                      root: true
-                    });
-                    _context13.next = 12;
-                    break;
-
-                  case 9:
-                    _context13.prev = 9;
-                    _context13.t0 = _context13["catch"](2);
-                    commit("exceptionOccur", _context13.t0, {
-                      root: true
-                    });
-
-                  case 12:
+                  case 4:
                   case "end":
                     return _context13.stop();
                 }
               }
-            }, _callee13, null, [[2, 9]]);
+            }, _callee13);
           }));
 
-          function handleUpdateUserMember(_x23, _x24) {
-            return _handleUpdateUserMember.apply(this, arguments);
+          function updateUserMember(_x22, _x23) {
+            return _updateUserMember.apply(this, arguments);
           }
 
-          return handleUpdateUserMember;
+          return updateUserMember;
         }()
       }
     }
@@ -21001,6 +21239,30 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, "/* Make clicks pass-through */\n#nprogress {\n  pointer-events: none;\n}\n\n#nprogress .bar {\n  background: #29d;\n\n  position: fixed;\n  z-index: 1031;\n  top: 0;\n  left: 0;\n\n  width: 100%;\n  height: 2px;\n}\n\n/* Fancy blur effect */\n#nprogress .peg {\n  display: block;\n  position: absolute;\n  right: 0px;\n  width: 100px;\n  height: 100%;\n  box-shadow: 0 0 10px #29d, 0 0 5px #29d;\n  opacity: 1.0;\n  transform: rotate(3deg) translate(0px, -4px);\n}\n\n/* Remove these to get rid of the spinner */\n#nprogress .spinner {\n  display: block;\n  position: fixed;\n  z-index: 1031;\n  top: 15px;\n  right: 15px;\n}\n\n#nprogress .spinner-icon {\n  width: 18px;\n  height: 18px;\n  box-sizing: border-box;\n\n  border: solid 2px transparent;\n  border-top-color: #29d;\n  border-left-color: #29d;\n  border-radius: 50%;\n\n  -webkit-animation: nprogress-spinner 400ms linear infinite;\n          animation: nprogress-spinner 400ms linear infinite;\n}\n\n.nprogress-custom-parent {\n  overflow: hidden;\n  position: relative;\n}\n\n.nprogress-custom-parent #nprogress .spinner,\n.nprogress-custom-parent #nprogress .bar {\n  position: absolute;\n}\n\n@-webkit-keyframes nprogress-spinner {\n  0%   { -webkit-transform: rotate(0deg); }\n  100% { -webkit-transform: rotate(360deg); }\n}\n@keyframes nprogress-spinner {\n  0%   { transform: rotate(0deg); }\n  100% { transform: rotate(360deg); }\n}\n\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Objects/AlertBox.vue?vue&type=style&index=0&id=7c04e2f5&scoped=true&lang=css":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Objects/AlertBox.vue?vue&type=style&index=0&id=7c04e2f5&scoped=true&lang=css ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.alert-box[data-v-7c04e2f5] {\r\n  width: 300px;\r\n  /* padding: 0.5rem 0; */\r\n  /* margin: 0.25rem 0; */\r\n  border-color: transparent;\r\n  border-style: solid;\r\n  border-left: 1px;\r\n  border-right: 1px;\n}\n.alert-box.success[data-v-7c04e2f5] {\r\n  color: #155724;\r\n  background-color: #d4edda;\r\n  border-color: #c3e6cb;\n}\n.alert-box.error[data-v-7c04e2f5] {\r\n  color: #721c24;\r\n  background-color: #f8d7da;\r\n  border-color: #f5c6cb;\n}\n.slidedown-enter-active[data-v-7c04e2f5],\r\n.slidedown-leave-active[data-v-7c04e2f5] {\r\n  transition: all 0.5s linear;\n}\n.slidedown-enter-to[data-v-7c04e2f5],\r\n.slidedown-leave-from[data-v-7c04e2f5] {\r\n  opacity: 1;\r\n  transform: translateY(0);\n}\n.slidedown-enter-from[data-v-7c04e2f5],\r\n.slidedown-leave-to[data-v-7c04e2f5] {\r\n  opacity: 0;\r\n  transform: translateY(-20px);\n}\n.slidedown-move[data-v-7c04e2f5] {\r\n  transition: all 1s;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -22583,6 +22845,36 @@ var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMP
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Objects/AlertBox.vue?vue&type=style&index=0&id=7c04e2f5&scoped=true&lang=css":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Objects/AlertBox.vue?vue&type=style&index=0&id=7c04e2f5&scoped=true&lang=css ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_10_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_10_use_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AlertBox_vue_vue_type_style_index_0_id_7c04e2f5_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-10.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10.use[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AlertBox.vue?vue&type=style&index=0&id=7c04e2f5&scoped=true&lang=css */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Objects/AlertBox.vue?vue&type=style&index=0&id=7c04e2f5&scoped=true&lang=css");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_10_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_10_use_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AlertBox_vue_vue_type_style_index_0_id_7c04e2f5_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_10_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_10_use_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AlertBox_vue_vue_type_style_index_0_id_7c04e2f5_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js":
 /*!****************************************************************************!*\
   !*** ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js ***!
@@ -22859,6 +23151,104 @@ module.exports = function (list, options) {
     lastIdentifiers = newLastIdentifiers;
   };
 };
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/dist/exportHelper.js":
+/*!******************************************************!*\
+  !*** ./node_modules/vue-loader/dist/exportHelper.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+// runtime helper for setting properties on components
+// in a tree-shakable way
+exports["default"] = (sfc, props) => {
+    const target = sfc.__vccOpts || sfc;
+    for (const [key, val] of props) {
+        target[key] = val;
+    }
+    return target;
+};
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Objects/AlertBox.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/components/Objects/AlertBox.vue ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _AlertBox_vue_vue_type_template_id_7c04e2f5_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AlertBox.vue?vue&type=template&id=7c04e2f5&scoped=true */ "./resources/js/components/Objects/AlertBox.vue?vue&type=template&id=7c04e2f5&scoped=true");
+/* harmony import */ var _AlertBox_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AlertBox.vue?vue&type=script&lang=js */ "./resources/js/components/Objects/AlertBox.vue?vue&type=script&lang=js");
+/* harmony import */ var _AlertBox_vue_vue_type_style_index_0_id_7c04e2f5_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AlertBox.vue?vue&type=style&index=0&id=7c04e2f5&scoped=true&lang=css */ "./resources/js/components/Objects/AlertBox.vue?vue&type=style&index=0&id=7c04e2f5&scoped=true&lang=css");
+/* harmony import */ var C_wamp64_www_instrument_platform_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+
+
+const __exports__ = /*#__PURE__*/(0,C_wamp64_www_instrument_platform_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_AlertBox_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_AlertBox_vue_vue_type_template_id_7c04e2f5_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render],['__scopeId',"data-v-7c04e2f5"],['__file',"resources/js/components/Objects/AlertBox.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
+/***/ "./resources/js/components/Objects/AlertBox.vue?vue&type=script&lang=js":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/Objects/AlertBox.vue?vue&type=script&lang=js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AlertBox_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AlertBox_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AlertBox.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Objects/AlertBox.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
+/***/ "./resources/js/components/Objects/AlertBox.vue?vue&type=template&id=7c04e2f5&scoped=true":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/Objects/AlertBox.vue?vue&type=template&id=7c04e2f5&scoped=true ***!
+  \************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AlertBox_vue_vue_type_template_id_7c04e2f5_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AlertBox_vue_vue_type_template_id_7c04e2f5_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AlertBox.vue?vue&type=template&id=7c04e2f5&scoped=true */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Objects/AlertBox.vue?vue&type=template&id=7c04e2f5&scoped=true");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Objects/AlertBox.vue?vue&type=style&index=0&id=7c04e2f5&scoped=true&lang=css":
+/*!**************************************************************************************************************!*\
+  !*** ./resources/js/components/Objects/AlertBox.vue?vue&type=style&index=0&id=7c04e2f5&scoped=true&lang=css ***!
+  \**************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_10_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_10_use_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AlertBox_vue_vue_type_style_index_0_id_7c04e2f5_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-10.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10.use[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AlertBox.vue?vue&type=style&index=0&id=7c04e2f5&scoped=true&lang=css */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Objects/AlertBox.vue?vue&type=style&index=0&id=7c04e2f5&scoped=true&lang=css");
+
 
 /***/ }),
 
@@ -28184,7 +28574,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_components_Globals_Nav_vue":1,"resources_js_Pages_Home_vue":1,"resources_js_Pages_User_vue":1,"resources_js_components_User_Pages_Profile_vue":1,"resources_js_components_User_Pages_ShoppingCart_vue":1,"resources_js_components_User_Pages_ArticleCollection_vue":1,"resources_js_components_User_Pages_ShoppingRecord_vue":1,"resources_js_Pages_UserLogin_vue":1,"resources_js_components_Login_LoginForm_vue":1,"resources_js_components_Login_RegisterForm_vue":1,"resources_js_components_Globals_Loading_vue":1,"resources_js_Pages_Admin_vue":1,"resources_js_components_Admin_members_AdminMembers_vue":1,"resources_js_components_Admin_members_CreateMember_vue":1,"resources_js_components_Admin_members_UpdateMember_vue":1,"resources_js_components_Admin_articles_AdminArticles_vue":1,"resources_js_components_Admin_articles_CreateArticle_vue":1,"resources_js_components_Admin_articles_UpdateArticle_vue":1,"resources_js_components_Admin_products_AdminProducts_vue":1,"resources_js_components_Admin_products_CreateProduct_vue":1,"resources_js_components_Admin_products_UpdateProduct_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_components_Nav_Nav_vue":1,"resources_js_Pages_Home_vue":1,"resources_js_Pages_User_vue":1,"resources_js_SubPages_User_Profile_vue":1,"resources_js_SubPages_User_ShoppingCart_vue":1,"resources_js_SubPages_User_ArticleCollection_vue":1,"resources_js_SubPages_User_ShoppingRecord_vue":1,"resources_js_Pages_UserLogin_vue":1,"resources_js_SubPages_Login_LoginForm_vue":1,"resources_js_SubPages_Login_RegisterForm_vue":1,"resources_js_components_Loading_Loading_vue":1,"resources_js_Pages_Admin_vue":1,"resources_js_SubPages_Admin_members_AdminMembers_vue":1,"resources_js_SubPages_Admin_members_CreateMember_vue":1,"resources_js_SubPages_Admin_members_UpdateMember_vue":1,"resources_js_SubPages_Admin_articles_AdminArticles_vue":1,"resources_js_SubPages_Admin_articles_CreateArticle_vue":1,"resources_js_SubPages_Admin_articles_UpdateArticle_vue":1,"resources_js_SubPages_Admin_products_AdminProducts_vue":1,"resources_js_SubPages_Admin_products_CreateProduct_vue":1,"resources_js_SubPages_Admin_products_UpdateProduct_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

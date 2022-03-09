@@ -16,16 +16,17 @@ class UserMemberController extends UserGlobalController
     }
     public function getOwnProfile(Request $request)
     {
+        // dd();
         $account = $request->user_info->account;
         $data = $this->get_own_profile($account);
-        return response()->json(['status' => 200, 'data' => $data]);
+        return response()->json(array_merge(['status' => 200], $data));
     }
     public function get_own_profile($account)
     {
         $token = parent::get_token($account);
-        DB::table('members')->where('account', $account)->update(['token' => $token,'updated_at'=>parent::get_datetime()]);
+        DB::table('members')->where('account', $account)->update(['token' => $token, 'updated_at' => parent::get_datetime()]);
         $user_info = $this->get_user_info($account);
-        return ['user_info'=>$user_info,'token'=>$token];
+        return ['user_info' => $user_info, 'token' => $token];
     }
     public function get_user_info($account)
     {
@@ -73,7 +74,7 @@ class UserMemberController extends UserGlobalController
             return response()->json(['status' => 400, 'msg' => '無效的登陸名或密碼']);
         }
         $data = $this->get_own_profile($account);
-        return response()->json(['status' => 200, 'msg' => '登入成功', 'data' => $data]);
+        return response()->json(array_merge(['status' => 200, 'msg' => '登入成功'], $data));
     }
     public function userRegister(CreateUserRequest $request)
     {
@@ -91,25 +92,22 @@ class UserMemberController extends UserGlobalController
             'email' => $email,
             'password' => password_hash($password, PASSWORD_DEFAULT),
             'token' => $token,
-            'created_at'=>$datetime,
-            'updated_at'=>$datetime,
+            'created_at' => $datetime,
+            'updated_at' => $datetime,
         ]);
         $user_info = $this->get_user_info($account);
-        return response()->json(['status' => 200, 'msg' => '註冊成功', 'data' => ['token' => $token, 'user_info' => $user_info]]);
+        return response()->json(['status' => 200, 'msg' => '註冊成功', 'token' => $token, 'user_info' => $user_info]);
     }
     public function userLogout(Request $request)
     {
-        $user = session('user');
-        $request->session()->forget('user');
-        Cookie::queue(Cookie::forget('user'));
-        Cookie::queue(Cookie::forget('token'));
-        DB::table('members')->where('account', $user)->update(['token' => NULL]);
+        $account = $request->user_info->account;
+        DB::table('members')->where('account', $account)->update(['token' => NULL]);
         return response()->json(['status' => 200, 'msg' => '登出成功']);
     }
 
 
-    
-    
+
+
     public function upLoadBase64Img(Request $request)
     {
         $img = $request->img_base64;
@@ -119,5 +117,4 @@ class UserMemberController extends UserGlobalController
         fwrite($fp, base64_decode($data[1]));
         fclose($fp);
     }
-    
 }

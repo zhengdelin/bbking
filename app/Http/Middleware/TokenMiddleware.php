@@ -29,11 +29,11 @@ class TokenMiddleware
             $token_time = strtotime('+7 Days',strtotime($user_info->updated_at));
             //如果現在時間比7天還長，表示登陸過期
             if ($token_time < strtotime('now')) {
-                return response()->json(['status' => 400, 'error' => '登陸過期 請重新登錄']);
+                return response()->json(['status' => 400, 'msg' => '登陸過期 請重新登錄']);
             }
             return $next($request);
         } else {
-            return response()->json(['status' => 400, 'error' => '驗證錯誤 請重新登錄']);
+            return response()->json(['status' => 400, 'msg' => '驗證錯誤 請重新登錄']);
         }
     }
 }

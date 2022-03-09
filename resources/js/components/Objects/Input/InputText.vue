@@ -9,7 +9,7 @@
       @input="$emit('update:modelValue',$event.targe.value)" 
       -->
       <input
-        class="w-full"
+        class="w-full h-[40px] border-gray-500 border-opacity-50 border-[1px] border-solid rounded-[10px] pl-4"
         type="text"
         v-bind="attrs"
         ref="field"
@@ -65,10 +65,5 @@ export default {
 </script>
 
 <style>
-.input_text input {
-  height: 40px;
-  border: rgb(128, 128, 128, 0.5) solid 1px;
-  border-radius: 10px;
-  padding-left: 1rem;
-}
+
 </style>

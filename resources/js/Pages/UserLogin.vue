@@ -8,43 +8,28 @@
         ></v-lr-control-box>
         <hr />
         <router-view class="my-3"></router-view>
-        <!-- <v-error v-if="error" :error="error"></v-error> -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { computed } from "@vue/runtime-core";
 import LRControlBoxVue from "../components/Login/LRControlBox.vue";
+import { useRoute } from "vue-router";
 export default {
-  data() {
-    return {
-      error: "",
-    };
-  },
   components: {
     "v-lr-control-box": LRControlBoxVue,
   },
-  computed: {
-    login_register() {
-      let path = this.$route.fullPath;
+  setup() {
+    const route = useRoute();
+    const login_register = computed(() => {
+      let path = route.fullPath;
       path = path.substr(path.lastIndexOf("/") + 1);
       return path;
-    },
+    });
+    return { login_register };
   },
-  methods: {
-  },
-
-  //   beforeRouteEnter(to, from,next) {
-  //     axios.get("/getCsrfToken").then((res) => {
-  //       let csrf_token = res.data.csrf_token;
-  //       next (vm=>{
-  //           vm.csrf_token=csrf_token;
-  //           console.log(vm.csrf_token);
-
-  //       })
-  //     });
-  //   },
 };
 </script>
 
@@ -57,8 +42,8 @@ export default {
   overflow: scroll;
 } */
 .login-register-container {
-  margin:auto;
-  padding:1rem 0;
+  margin: auto;
+  padding: 1rem 0;
 }
 .login-register-box {
   /* position: absolute;

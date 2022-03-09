@@ -8,7 +8,7 @@ import store from "../store/index";
 
 // console.log(...admin_routes);
 
-async function Auth(to, from) {
+function Auth(to, from) {
     // console.log(!store._state.data.user);
     if (to.name === "user_login") {
         return true;
@@ -42,7 +42,7 @@ export const router = createRouter({
             },
             components: {
                 nav: () =>
-                    import ("../components/Globals/Nav"),
+                    import ("../components/Nav/Nav"),
                 // default: () =>
                 //     import ('../Pages/Home')
                 default: () =>
@@ -54,7 +54,7 @@ export const router = createRouter({
             name: "user",
             components: {
                 nav: () =>
-                    import ("../components/Globals/Nav"),
+                    import ("../components/Nav/Nav"),
                 default: () =>
                     import ("../Pages/User"),
             },
@@ -74,7 +74,7 @@ export const router = createRouter({
                         title: "會員專區-個人資料",
                     },
                     component: () =>
-                        import ("../components/User/Pages/Profile"),
+                        import ("../SubPages/User/Profile"),
                 },
                 {
                     path: "shopping-cart",
@@ -83,7 +83,8 @@ export const router = createRouter({
                         title: "會員專區-購物車",
                     },
                     component: () =>
-                        import ("../components/User/Pages/ShoppingCart"),
+                        import ("../SubPages/User/ShoppingCart"),
+
                 },
                 {
                     path: "article-collection",
@@ -92,7 +93,7 @@ export const router = createRouter({
                         title: "會員專區-珍藏文章",
                     },
                     component: () =>
-                        import ("../components/User/Pages/ArticleCollection"),
+                        import ("../SubPages/User/ArticleCollection"),
                 },
                 {
                     path: "shopping-record",
@@ -100,8 +101,9 @@ export const router = createRouter({
                     meta: {
                         title: "會員專區-購物紀錄",
                     },
+
                     component: () =>
-                        import ("../components/User/Pages/ShoppingRecord"),
+                        import ("../SubPages/User/ShoppingRecord"),
                 },
             ],
         },
@@ -109,7 +111,7 @@ export const router = createRouter({
             path: "/user/login",
             components: {
                 nav: () =>
-                    import ("../components/Globals/Nav"),
+                    import ("../components/Nav/Nav"),
                 default: () =>
                     import ("../Pages/UserLogin"),
             },
@@ -120,7 +122,7 @@ export const router = createRouter({
                         title: "會員專區-登入",
                     },
                     component: () =>
-                        import ("../components/Login/LoginForm"),
+                        import ("../SubPages/Login/LoginForm"),
                 },
                 {
                     path: "/user/register",
@@ -129,7 +131,7 @@ export const router = createRouter({
                         title: "會員專區-註冊",
                     },
                     component: () =>
-                        import ("../components/Login/RegisterForm"),
+                        import ("../SubPages/Login/RegisterForm"),
                 },
             ],
             beforeEnter: (to, from) => {
@@ -143,7 +145,7 @@ export const router = createRouter({
                 title: "Oops!!出錯啦!!",
             },
             component: () =>
-                import ("../components/Globals/Loading"),
+                import ("../components/Loading/Loading"),
         },
         ...admin_routes,
         {
@@ -152,8 +154,7 @@ export const router = createRouter({
             meta: {
                 title: "not found"
             },
-            component: () =>
-                import ("../Pages/Home"),
+            redirect: "/"
         },
     ],
 });

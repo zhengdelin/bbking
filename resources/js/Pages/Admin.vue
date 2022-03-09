@@ -26,23 +26,17 @@
 </template>
 
 <script>
-import { computed, onMounted } from "@vue/runtime-core";
 import AdminNavVue from "../components/Admin/AdminNav.vue";
 import AdminHeaderVue from "../components/Admin/AdminHeader.vue";
-import LoadingVue from "../components/Globals/Loading.vue";
-import { useRouter } from "vue-router";
+import LoadingVue from "../components/Loading/Loading.vue";
+
 export default {
   components: { AdminNavVue, AdminHeaderVue, LoadingVue },
   setup() {
-    const router = useRouter();
-    const current_routename = computed(() => {
-      return router.currentRoute.value.name;
-    });
-    const to_keepalive = ["admin-members"];
-    onMounted(() => {
-      console.log("admin setup");
-    });
-    return { current_routename, to_keepalive };
+    // onMounted(() => {
+    //   console.log("admin setup");
+    // });
+    return {  };
   },
 };
 </script>           

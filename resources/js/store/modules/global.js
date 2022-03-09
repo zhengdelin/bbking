@@ -1,6 +1,8 @@
-import { apiPostUserLogout, apiGetOwnProfile } from "../../api/api";
+/* 處理全局state
 
-//全局
+設置userToken、userInfo、storage、清除user、
+設定error、設定api error、清除error
+ */
 export default {
     state: {
         user: "",
@@ -8,16 +10,16 @@ export default {
         is_login: false,
         user_info: {},
         status: "",
-        status_msg: "",
-        errors: {},
+        status_msgs: {},
         exception_error: false,
     },
     mutations: {
+        /* 設定user token 登入 */
         setUserToken: (state, token) => {
             state.token = token;
             state.is_login = true;
         },
-
+        /* 將token存至storage */
         saveToStorage: (state, { token, remember }) => {
             //remember false to sessionStorage
             //remember true to localStorage
@@ -25,43 +27,55 @@ export default {
                 // console.log('saveTOLocalStorage->token:', token);
                 localStorage.setItem("token", token);
             } else {
-                localStorage.removeItem('token')
+                localStorage.removeItem("token");
                 sessionStorage.setItem("token", token);
             }
         },
+        /* 設定user_info */
         setUserInfo(state, user_info) {
             state.user_info = user_info;
         },
+        /* 清除所有user */
         clearUser: (state) => {
             state.token = "";
             localStorage.removeItem("token");
             sessionStorage.removeItem("token");
             state.is_login = false;
         },
-
-        setErrors: (state, { error_type, item }) => {
-            // console.log("store.setErrors->", state, payload);
-            // const {} = payload;
-            state.status = "error";
-            state.errors[error_type] = item;
+        /* 設定全域status */
+        setStatus: (state, { msg, type = "api", status = "error" }) => {
+            state.status =
+                status === 200 ? "success" : status === 400 ? "error" : status;
+            state.status_msgs[type] = msg || "";
+            // console.log(
+            //     "setstatus->",
+            //     ",msg->",
+            //     msg,
+            //     "type->",
+            //     type,
+            //     "status->",
+            //     status,
+            //     state
+            // );
+            if (type !== "api") {
+                const num = Object.values(state.status_msgs).reduce(
+                    (acc, val) => {
+                        return acc + val.length;
+                    },
+                    0
+                );
+                // console.log("num->", num);
+                if (!num) state.status = "";
+            }
         },
-        setStatus: (state, { status, msg }) => {
-            // console.log("setStatus->", payload);
-            state.status = status;
-            state.status_msg = msg;
-        },
-        clearErrors: (state) => {
-            state.errors = {};
-        },
-        clearApiError: (state) => {
-            state.status_msg = "";
-        },
+        /* 清除error */
+        /* 清除所有狀態 */
         clearStatus: (state) => {
             // console.log("clearStatus");
             state.status = "";
-            state.status_msg = "";
-            state.errors = {};
+            state.status_msgs = {};
         },
+        /* 例外狀況 */
         exceptionOccur: (state, error) => {
             state.exception_error = true;
             console.log(
@@ -87,71 +101,14 @@ export default {
                 remember: remember,
             });
         },
-        //每次進來畫面時如果localstorage有token就請求token是否過期、正確
-        getUser: async({ commit, dispatch }) => {
-            const token = localStorage.getItem("token");
-            if (token) {
-                commit("setUserToken", token);
-                try {
-                    const res = await apiGetOwnProfile();
-                    // console.log("store.getUser->", token, res);
-                    if (res.data.status === 200) {
-                        //如果success,更新user狀態(token)
-                        dispatch("updateUserStatus", {
-                            token: res.data.data.token,
-                            user_info: res.data.data.user_info,
-                            remember: 1,
-                        });
-                    } else {
-                        //如果fail,清除user
-                        commit("clearUser");
-                    }
-                } catch (error) {
-                    commit("exceptionOccur", error);
-                }
-            }
-        },
-        userLogout: ({ commit }) => {
-            if (confirm("確認登出?")) {
-                try {
-                    apiPostUserLogout();
-                    commit("clearUser");
-                } catch (error) {
-                    commit("exceptionOccur", error);
-                }
-            }
-        },
-        setStatus: async({ commit, dispatch }, { status_type, item, error_type }) => {
-            //200表示成功
-            // console.log(payload);
-            if (status_type === 200) {
-                commit("clearErrors");
-                commit("setStatus", { status: "success", msg: item });
-            } else {
-                //error 表示前端攔截的error
-                if (status_type === "error") {
-                    commit("setErrors", { error_type: error_type, item: item });
-                    commit("clearApiError");
-                } else if (status_type === 400) {
-                    //400表示後端回傳的error
-                    commit("clearErrors");
-                    commit("setStatus", { status: "error", msg: item });
-                }
-                dispatch("confirmErrorStatus");
-            }
-        },
-        confirmErrorStatus: async({ state, commit }) => {
-            let arr = [];
-            arr = Object.values(state.errors).map((item) => item.length);
-            const num = arr.reduce((a, b) => a + b, 0);
-            // console.log("confirmErrorStatus", arr, state);
-            if (!num) commit("clearStatus");
-        },
     },
     getters: {
         getToken: (state) => {
             // console.log('getUser');
             return state.token;
         },
+        getStatus: (state) => {
+            return state.status;
+        }
     },
 };

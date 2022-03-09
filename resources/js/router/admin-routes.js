@@ -16,9 +16,10 @@ export const admin_routes = [{
             meta: {
                 title: "後台管理-會員"
             },
+            props: true,
             name: 'admin-members',
             component: () =>
-                import ("../components/Admin/members/AdminMembers")
+                import ("../SubPages/Admin/members/AdminMembers")
         },
         //新增會員
         {
@@ -28,7 +29,7 @@ export const admin_routes = [{
             },
             name: 'admin-members-create',
             component: () =>
-                import ("../components/Admin/members/CreateMember")
+                import ("../SubPages/Admin/members/CreateMember")
         },
         //編輯會員資料
         {
@@ -39,7 +40,7 @@ export const admin_routes = [{
             props: true,
             name: 'admin-members-update',
             component: () =>
-                import ("../components/Admin/members/UpdateMember")
+                import ("../SubPages/Admin/members/UpdateMember")
         },
         //文章首頁
         {
@@ -49,7 +50,7 @@ export const admin_routes = [{
             },
             name: "admin-articles",
             component: () =>
-                import ("../components/Admin/articles/AdminArticles"),
+                import ("../SubPages/Admin/articles/AdminArticles"),
         },
         //新增文章
         {
@@ -59,7 +60,7 @@ export const admin_routes = [{
             },
             name: "admin-articles-create",
             component: () =>
-                import ("../components/Admin/articles/CreateArticle")
+                import ("../SubPages/Admin/articles/CreateArticle")
         },
         //編輯文章
         {
@@ -67,9 +68,10 @@ export const admin_routes = [{
             meta: {
                 title: "後台管理-編輯文章"
             },
+            props: true,
             name: "admin-articles-update",
             component: () =>
-                import ("../components/Admin/articles/UpdateArticle")
+                import ("../SubPages/Admin/articles/UpdateArticle")
         },
         //產品首頁
         {
@@ -79,7 +81,7 @@ export const admin_routes = [{
             },
             name: "admin-products",
             component: () =>
-                import ("../components/Admin/products/AdminProducts")
+                import ("../SubPages/Admin/products/AdminProducts")
         },
         //新增產品
         {
@@ -89,7 +91,7 @@ export const admin_routes = [{
             },
             name: "admin-products-create",
             component: () =>
-                import ("../components/Admin/products/CreateProduct")
+                import ("../SubPages/Admin/products/CreateProduct")
         },
         //編輯產品
         {
@@ -97,9 +99,9 @@ export const admin_routes = [{
             meta: {
                 title: "後台管理-編輯產品"
             },
-            name: "admin-articles-update",
+            name: "admin-products-update",
             component: () =>
-                import ("../components/Admin/products/UpdateProduct")
+                import ("../SubPages/Admin/products/UpdateProduct")
         },
     ]
 }, ]

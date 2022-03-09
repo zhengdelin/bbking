@@ -14,13 +14,13 @@ class UserAdminController extends UserGlobalController
     {
         $all_user_info = DB::select("SELECT id,account, name, email, phone, address, (Select name from roles where id = role_id) as role, active FROM members where role_id < 2");
         // dd($all_user_info);
-        return response()->json(['status' => 200, 'all_user_info' => $all_user_info]);
+        return response()->json(['status' => 200,'msg'=>'成功取得會員', 'all_user_info' => $all_user_info]);
     }
     public function createUserMember(CreateUserRequest $request)
     {
         $account = $request->account;
         if (parent::checkAccountExist($account)) {
-            return response()->json(['status' => 'api_error', 'status_obj' => ['帳號已被註冊']]);
+            return response()->json(['status' => 200, 'msg' => '帳號已被註冊']);
         };
         $email = $request->email;
         $password = $request->password;

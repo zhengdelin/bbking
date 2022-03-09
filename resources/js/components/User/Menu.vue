@@ -18,7 +18,7 @@
     <router-link :to="{ name: 'user_shopping_record' }" class="w-full">
       <div class="py-2 text-center">購買紀錄</div>
     </router-link>
-    <div class="logout absolute bottom-0 mb-4" @click="logout">登出</div>
+    <div class="logout absolute bottom-0 mb-4" @click="handleLogout">登出</div>
     <!-- <div v-if="" ref="mobile"></div> -->
   </div>
 </template>
@@ -33,9 +33,11 @@ export default {
     const router = useRouter();
     const { state,dispatch } = useStore();
 
-    const logout = async () => {
-      dispatch("userLogout");
-      if (!state.is_login) router.push({ name: "user_login" });
+    const handleLogout = async () => {
+      dispatch("userHandler/logout").then(()=>{
+
+        if (!state.is_login) router.push({ name: "user_login" });
+      })
     };
     const user = ref(state.user_info.account);
 
@@ -47,7 +49,7 @@ export default {
       }, 500);
     });
 
-    return { user, show_user, logout };
+    return { user, show_user, handleLogout };
   },
 };
 </script>

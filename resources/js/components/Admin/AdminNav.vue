@@ -49,7 +49,7 @@
 
 <script>
 import { reactive, ref } from "@vue/reactivity";
-import AdminMenuItemVue from "../Objects/Admin/AdminMenuItem.vue";
+import AdminMenuItemVue from "./AdminMenuItem.vue";
 
 export default {
   components: {

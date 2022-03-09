@@ -1,10 +1,9 @@
 <template>
   <div class="flex-cc text-center w-full">
     <router-link
-      :to="{ name: 'user_login'}"
+      :to="{ name: 'user_login' }"
       class="w-full font-bold login-register-option"
       :class="{ 'opt-selected': login_register === 'login' }"
-      @click="routeChange"
     >
       登入
     </router-link>
@@ -12,7 +11,6 @@
       :to="{ name: 'user_register' }"
       class="w-full font-bold login-register-option"
       :class="{ 'opt-selected': login_register === 'register' }"
-      @click="routeChange"
     >
       註冊
     </router-link>
@@ -20,38 +18,16 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { computed } from "@vue/runtime-core";
+
 export default {
-  
   props: {
     login_register: String,
   },
-  data() {
-    return {
-      // login_register: "login",
-    };
+  setup(props) {
+    const login_register = computed(() => props.login_register);
+    return { login_register };
   },
-  computed:{
-    csrf_token() {
-      axios.get("/getCsrfToken").then((res) => {
-          return res.data.csrf_token;
-      });
-    },
-  },
-  methods: {
-    routeChange(){
-      this.$emit('routeChange', []);
-    }
-  },
-  mounted() {},
-  // beforeRouteEnter(to, from, next) {
-  //   // ...
-  //   console.log('123')
-  //   next(vm=>{
-
-  //     vm.Select();
-  //   })
-  // },
 };
 </script>
 
