@@ -1,40 +1,48 @@
 <template>
-  <div class="flex flex-col">
-    <admin-title-vue title="文章一覽">
-      <template v-slot:button>
-        <router-link :to="{ name: 'admin-articles-create' }">
-          <create-button-vue target_text="文章"></create-button-vue>
-        </router-link>
-      </template>
-    </admin-title-vue>
-    <admin-table-vue :column_heads="column_heads" :datas="articles" :keys="keys">
-    </admin-table-vue>
-  </div>
+  <title-item title="文章一覽">
+    <template v-slot:button>
+      <router-link :to="{ name: 'admin-articles-create' }">
+        <create-button-vue target_text="文章"></create-button-vue>
+      </router-link>
+    </template>
+  </title-item>
+  <admin-table-vue
+    :datas="articles"
+    :keys="keys"
+    update_route_name="admin-articles-update"
+  >
+  </admin-table-vue>
 </template>
 <script>
-
-import { ref } from "@vue/runtime-core";
+import { computed, ref, watch } from "@vue/runtime-core";
 import { useStore } from "vuex";
 
-import AdminTableVue from '../../../components/Admin/AdminTable.vue';
-import AdminTitleVue from '../../../components/Admin/AdminTitle.vue';
-import CreateButtonVue from '../../../components/Objects/Button/CreateButton.vue';
+import AdminTableVue from "../../../components/Admin/AdminTable.vue";
+import CreateButtonVue from "../../../components/Objects/Button/CreateButton.vue";
+import { useRoute } from "vue-router";
+import TitleItem from '../../../components/Objects/TitleItem.vue';
 export default {
-  components: { AdminTitleVue, AdminTableVue, CreateButtonVue },
+  name: "AdminArticles",
+  components: {  AdminTableVue, CreateButtonVue, TitleItem },
   async setup() {
+    const route = useRoute();
     const { dispatch } = useStore();
-    const articles = ref(null);
     /* 取得資料 */
+    const articles = ref();
     const res = await dispatch("articleHandler/getArticles");
     articles.value = res;
-    /* 標頭 */
-    const column_heads = ref(["標題", "內容", "上次更新", "類別"]);
     //key
-    const keys = ref(["title", "content", "updated_at", "category"]);
-
+    const keys = ["title", "content", "category_name", "updated_at"];
+    //監控更新article
+    const update_article = computed(() => route.params.update_article);
+    watch(update_article, async () => {
+      if (update_article.value) {
+        const res = await dispatch("articleHandler/getArticles");
+        articles.value = res;
+      }
+    });
     return {
       articles,
-      column_heads,
       keys,
     };
   },

@@ -1,7 +1,8 @@
 <template>
-  <div class="input_text">
+  <div>
     <div class="font-bold">
-      {{ props.title }}
+      <span v-if="required" class="text-red-500">* </span>
+      <span class="font-MicrosoftJhengHei">{{ title }}</span>
     </div>
     <div class="w-full py-1">
       <!-- component v-model時
@@ -9,7 +10,13 @@
       @input="$emit('update:modelValue',$event.targe.value)" 
       -->
       <input
-        class="w-full h-[40px] border-gray-500 border-opacity-50 border-[1px] border-solid rounded-[10px] pl-4"
+        class="
+          w-full
+          h-[40px]
+          border-gray-500 border-opacity-50 border-[1px]
+          rounded-[10px]
+          pl-4
+        "
         type="text"
         v-bind="attrs"
         ref="field"
@@ -21,7 +28,7 @@
 </template>
 
 <script>
-import { onMounted, ref } from "@vue/runtime-core";
+import { computed, onMounted, ref } from "@vue/runtime-core";
 export default {
   inheritAttrs: false,
   props: {
@@ -37,6 +44,14 @@ export default {
       type: Boolean,
       default: true,
     },
+    isNumber: {
+      type: Boolean,
+      default: false,
+    },
+    required: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: {
     "update:modelValue": {
@@ -46,24 +61,24 @@ export default {
   },
   setup(props, { attrs, emit }) {
     //ref
-    const field = ref(null);
+    const field = ref();
     // data
-    // console.log("emits", emits);
+    const { title, trim, focus, isNumber } = props;
+    const required = computed(()=>props.required);
+    //emit
     const emitInput = (e) => {
-      if (props.trim) {
-        emit("update:modelValue", e.target.value.trim());
-      } else {
-        emit("update:modelValue", e.target.value);
-      }
+      let value = e.target.value;
+      if (trim) value = value.trim();
+      if (isNumber) value = value.replace(/[^0-9]/gi, "");
+      emit("update:modelValue", value);
     };
     onMounted(() => {
-      if (props.focus) field.value.focus();
+      if (focus) field.value.focus();
     });
-    return { props, attrs, field, emitInput };
+    return { title, attrs, required, field, emitInput };
   },
 };
 </script>
 
 <style>
-
 </style>

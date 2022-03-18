@@ -46,18 +46,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _vue_runtime_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @vue/runtime-core */ "./node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js");
+/* harmony import */ var _vue_runtime_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @vue/runtime-core */ "./node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     login_register: String
   },
   setup: function setup(props) {
-    var login_register = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+    var _useStore = (0,vuex__WEBPACK_IMPORTED_MODULE_0__.useStore)(),
+        commit = _useStore.commit;
+
+    var login_register = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
       return props.login_register;
     });
     return {
-      login_register: login_register
+      login_register: login_register,
+      commit: commit
     };
   }
 });
@@ -77,14 +83,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  id: "login-register-page",
-  "class": "flex-cc pt-1 h-full"
+  id: "login-register",
+  "class": "flex-cc flex-1 pt-1"
 };
 var _hoisted_2 = {
-  "class": "login-register-container w-[80%] md:w-[60%]"
+  "class": "w-[80%] md:w-[60%]"
 };
 var _hoisted_3 = {
-  "class": "login-register-box w-full p-3"
+  "class": "border-black border-2 rounded-[10px] w-full p-3"
 };
 
 var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
@@ -133,11 +139,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: {
-      name: 'user_login'
+      name: 'user-login'
     },
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["w-full font-bold login-register-option", {
       'opt-selected': $setup.login_register === 'login'
-    }])
+    }]),
+    onClick: _cache[0] || (_cache[0] = function ($event) {
+      return $setup.commit('clearStatus');
+    })
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_2];
@@ -149,11 +158,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* PROPS */
   , ["class"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: {
-      name: 'user_register'
+      name: 'user-register'
     },
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["w-full font-bold login-register-option", {
       'opt-selected': $setup.login_register === 'register'
-    }])
+    }]),
+    onClick: _cache[1] || (_cache[1] = function ($event) {
+      return $setup.commit('clearStatus');
+    })
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_3];
@@ -184,7 +196,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n::-webkit-scrollbar {\r\n  display: none;\n}\r\n\r\n/* #login-register-page {\r\n  overflow: scroll;\r\n} */\n.login-register-container {\r\n  margin: auto;\r\n  padding: 1rem 0;\n}\n.login-register-box {\r\n  /* position: absolute;\r\n  top: 0;\r\n  left: 0; */\r\n  /* font-size: 1.2rem; */\r\n  border: black 2px solid;\r\n  border-radius: 10px;\n}\n.login-register-form {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  display: flex;\r\n  flex-direction: column;\n}\n.login-register-form input[type=\"button\"] {\r\n  padding: 0.5rem 0.6rem;\r\n  width: 100%;\r\n  background-color: rgb(77, 7, 124);\r\n  color: white;\r\n  border: none;\r\n  border-radius: 5px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n::-webkit-scrollbar {\r\n  display: none;\n}\n#login-register input[type=\"button\"] {\r\n  padding: 0.5rem 0.6rem;\r\n  width: 100%;\r\n  background-color: rgb(77, 7, 124);\r\n  color: white;\r\n  border: none;\r\n  border-radius: 5px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

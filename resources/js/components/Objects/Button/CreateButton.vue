@@ -1,23 +1,11 @@
 <template>
-  <div
-    class="
-      flex
-      justify-center
-      py-[6px]
-      px-4
-       rounded-md
-      bg-blue-500
-      hover:bg-blue-400 hover:cursor-pointer
-    "
-  >
-    <div class="flex-ac">
-      <div class="text-white font-semibold">新增{{ target_text }}</div>
-    </div>
-  </div>
+  <button class="bg-blue-500 hover:bg-blue-400 hover:cursor-pointer text-white">
+    <svg-render-vue type="plus" class="mr-1"></svg-render-vue>
+    <span>新增{{ target_text }}</span>
+  </button>
 </template>
 
 <script>
-import { computed } from "@vue/runtime-core";
 export default {
   props: {
     target_text: {
@@ -26,9 +14,7 @@ export default {
     },
   },
   setup(props) {
-    const target_text = computed(() => {
-      return props.target_text;
-    });
+    const { target_text } = props;
     return { target_text };
   },
 };

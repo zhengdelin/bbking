@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en" class="h-full">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -9,13 +9,15 @@
     <title>首頁</title>
     {{-- <title>Xiang's music store</title> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.css">
+    {{-- <script src="https://kit.fontawesome.com/6b077ef8a7.js" crossorigin="anonymous"></script> --}}
     <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/tailwind.css') }}">
     <script src="{{url("assets/tinymce/tinymce.min.js")}}"></script>
+    {{-- <script defer src="/node_modules/@fortawesome/fontawesome-free/js/all.js"></script> --}}
     {{-- <script src="https://cdn.tiny.cloud/1/5t2tjtgqke985s15zhhrl58l64chd7xl72ermvbvdxeubdq2/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> --}}
 </head>
 
-<body class="h-full">
+<body>
     <div id="instrument_platform">
         <alert-box-vue></alert-box-vue>
         <router-view name="nav"></router-view>

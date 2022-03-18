@@ -1,29 +1,28 @@
-import { computed, createApp, watch } from "vue";
+import { computed, createApp, onMounted, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { router } from "./router/router";
-import AlertBoxVue from "./components/Objects/AlertBox"
-import store from "./store/index"
-
+import AlertBoxVue from "./components/Objects/AlertBox";
+import LoadingVue from "./components/Loading/Loading";
+import SvgRenderVue from "./components/Objects/SvgRender";
+import store from "./store/index";
+import "@fortawesome/fontawesome-free/js/all";
 const app = createApp({
-        components: { AlertBoxVue },
-        setup() {
-            const route = useRoute()
-            const router = useRouter()
-            Promise.all([store.dispatch('globalHandler/getUser'), store.dispatch("globalHandler/getCategories")])
-
-            // if (!store.state.is_login)
-            //     router.push({ name: 'home' })
-            const exception_error = computed(() => store.state.exception_error);
-            watch(exception_error, () => {
-                // console.log("exception_error occurs");
-                router.push({ name: "exception_error" })
-            })
-            watch(route, () => {
-                // store.commit('clearStatus')
-            })
-        },
-    })
-    // app.use(CKEditor);
+    components: { AlertBoxVue },
+    setup() {
+        const router = useRouter();
+        onMounted(async() => {
+            await Promise.all([
+                store.dispatch("globalHandler/getUser"),
+                store.dispatch("globalHandler/getCategories"),
+            ]);
+            // if (store.state.is_login && !store.state.is_init) {
+            //     router.push({ name: "init" });
+            // }
+        });
+    },
+});
+app.component("svg-render-vue", SvgRenderVue);
+app.component("loading-vue", LoadingVue);
 app.use(store);
 app.use(router);
-app.mount('#instrument_platform');
+app.mount("#instrument_platform");

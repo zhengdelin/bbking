@@ -1,5 +1,5 @@
 <template>
-  <div class="input_single_checkbox">
+  <div class="input_single_checkbox w-full">
     <div class="py-1">
       <!-- component v-model時
       要加:value = "attrs.modelValue",

@@ -1,28 +1,24 @@
 <template>
-  <div class="login-register-form sm:w-[80%] lg:w-[60%]">
-    <alert-box class="mb-1"></alert-box>
-
+  <div class="sm:w-[80%] lg:w-[60%] m-auto py-1">
     <input-text
-      title="帳號"
+      :title="TITLE.account"
+      :focus="true"
+      :required="true"
       v-model.trim="account"
       placeholder="account"
-      :value="account"
-      focus
-      :valueChange="commit('clearStatus')"
+      @change="commit('clearStatus')"
     ></input-text>
     <input-text
-      title="密碼"
-      v-model.trim="password"
-      :value="password"
+      :title="TITLE.password"
+      :required="true"
       type="password"
+      v-model.trim="password"
       placeholder="password"
-      :valueChange="commit('clearStatus')"
+      @change="commit('clearStatus')"
     ></input-text>
-    <div class="w-full sm:px-2 pb-2">
-      <input type="checkbox" name="remember" v-model="remember" />
-      <label class="ps-1" for="remember">保持登入</label>
-    </div>
-    <div class="w-full flex-jc hover:cursor-pointer">
+    <input-single-checkbox title="保持登入" v-model="remember">
+    </input-single-checkbox>
+    <div class="w-full flex-jc hover:cursor-pointer mt-1 font-bold">
       <input type="button" value="登入" @click="handleLogin()" />
     </div>
   </div>
@@ -30,14 +26,16 @@
 
 <script>
 import InputText from "../../components/Objects/Input/InputText.vue";
-import AlertBox from "../../components/Objects/AlertBox.vue";
 import { reactive, toRefs } from "@vue/reactivity";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import { TITLE } from "../../TITLE";
+import InputSingleCheckbox from "../../components/Objects/Input/InputSingleCheckbox.vue";
+
 export default {
   components: {
-    AlertBox,
     InputText,
+    InputSingleCheckbox,
   },
   setup() {
     const { dispatch, state, commit } = useStore();
@@ -53,7 +51,7 @@ export default {
       await dispatch("userHandler/login", login_data).then(() => {
         // console.log('loginForm->',state);
         if (state.is_login) {
-          router.push({ name: "user" });
+          router.push("/user");
         }
       });
     };
@@ -61,6 +59,7 @@ export default {
       ...toRefs(login_data),
       handleLogin,
       commit,
+      TITLE,
     };
   },
 };

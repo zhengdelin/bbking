@@ -1,24 +1,24 @@
 <template>
-  <div id="nav" class="w-100">
+  <div id="nav">
     <div
       class="
         flex
         items-center
-        justify-center sm:justify-start
+        justify-center md:justify-start
       "
     >
       <v-mobile-nav-btn
-        class="sm:hidden"
+        class="md:hidden"
         @click="mobileNavSwitch()"
       ></v-mobile-nav-btn>
       <v-nav-logo></v-nav-logo>
-      <div class="hidden sm:block ms-5">
+      <div class="hidden md:block ms-5">
         <v-nav-box class=""></v-nav-box>
       </div>
       <v-nav-icon></v-nav-icon>
     </div>
     <transition name="slide">
-      <v-nav-box class="sm:hidden" v-if="mobile_nav_toggle"></v-nav-box>
+      <v-nav-box class="md:hidden" v-if="mobile_nav_toggle"></v-nav-box>
     </transition>
   </div>
 </template>

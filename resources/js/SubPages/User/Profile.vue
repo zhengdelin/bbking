@@ -1,65 +1,69 @@
-w<template>
-  <div class="w-full" v-if="show">
-    <div class="flex-ac sm:pb-2">
-      <h1 class="font-bold m-0 w-1/3">會員專區</h1>
-      <div class="w-2/3 flex justify-end">
+<template>
+  <div>
+    {{user_info}}
+    <title-item title="會員專區">
+      <template #return_router>
+        <router-link :to="{ name: 'user' }" class="md:hidden text-blue-500">
+          <svg-render-vue type="return" size="lg"></svg-render-vue>
+        </router-link>
+      </template>
+      <template #button>
         <edit-button @click="toEdit" v-if="read_only"></edit-button>
-        <div class="flex" v-else>
+        <template v-else>
           <cancel-button @click="cancel"></cancel-button>
-          <save-button @click="save"></save-button>
-        </div>
-        <return-button class="ml-2 md:hidden" route_name="user"></return-button>
-      </div>
-    </div>
-
-    <alert-box class="mb-1"></alert-box>
-    <div class="grid grid-cols-2 gap-4 pt-2 sm:p-0">
-      <div>
-        <input-text
-          title="姓名"
-          v-model.trim="user_info.name"
-          placeholder="姓名"
-          :readonly="read_only"
-        ></input-text>
-      </div>
-      <div>
-        <input-text
-          title="手機號碼"
-          v-model.trim="user_info.phone"
-          :readonly="read_only"
-          placeholder="手機號碼"
-        ></input-text>
-      </div>
-      <div>
-        <input-text
-          title="帳號"
-          v-model.trim="user_info.account"
-          :readonly="read_only"
-        ></input-text>
-      </div>
-      <div>
-        <input-text
-          title="Email"
-          v-model.trim="user_info.email"
-          :readonly="read_only"
-        ></input-text>
-      </div>
-      <div class="col-span-2">
+          <save-button @click="handleUpdateOwnProfile"></save-button>
+        </template>
+      </template>
+    </title-item>
+    <div class="grid gap-3 pt-2 sm:p-0">
+      <input-text
+        title="姓名"
+        v-model.trim="user_info.name"
+        placeholder="姓名"
+        :readonly="read_only"
+        @change="dispatch('userHandler/checkName',user_info.name)"
+      ></input-text>
+      <input-text
+        title="手機號碼"
+        v-model.trim="user_info.phone"
+        :readonly="read_only"
+        placeholder="手機號碼"
+        @change="dispatch('userHandler/checkPhone',user_info.phone)"
+      ></input-text>
+      <input-text
+        title="帳號"
+        v-model.trim="user_info.account"
+        :readonly="read_only"
+        :required="!read_only"
+        @change="dispatch('userHandler/checkAccount',user_info.account)"
+      ></input-text>
+      <input-text
+        title="Email"
+        v-model.trim="user_info.email"
+        :readonly="read_only"
+        :required="!read_only"
+        @change="dispatch('userHandler/checkEmail',user_info.email)"
+      ></input-text>
+      <!-- <input-text
+        title="地址"
+        v-model.trim="user_info.address"
+        :readonly="read_only"
+        @change="dispatch('userHandler/checkAddress',user_info.address)"
+      ></input-text> -->
+      <div class="md:col-span-2">
         <input-textarea
           title="地址"
           v-model.trim="user_info.address"
           :readonly="read_only"
           rows="4"
+          @change="dispatch('userHandler/checkAddress',user_info.address)"
         ></input-textarea>
       </div>
     </div>
-    <hr class="sm:me-2" />
-    <change-pas></change-pas>
   </div>
 </template>
 
 <script>
-import axios from "axios";
 import InputTextarea from "../../components/Objects/Input/InputTextarea.vue";
 import InputText from "../../components/Objects/Input/InputText.vue";
 import EditButton from "../../components/Objects/Button/EditButton.vue";
@@ -67,10 +71,10 @@ import SaveButton from "../../components/Objects/Button/SaveButton.vue";
 import CancelButton from "../../components/Objects/Button/CancelButton.vue";
 import ReturnButton from "../../components/Objects/Button/ReturnButton.vue";
 import ChangePas from "../../components/User/ChangePas.vue";
-import AlertBox from "../../components/Objects/AlertBox.vue";
 import { ref } from "@vue/reactivity";
-import { onMounted } from "@vue/runtime-core";
+import { computed, nextTick, onMounted } from "@vue/runtime-core";
 import { useStore } from "vuex";
+import TitleItem from "../../components/Objects/TitleItem.vue";
 export default {
   components: {
     InputTextarea,
@@ -78,77 +82,52 @@ export default {
     EditButton,
     SaveButton,
     CancelButton,
-    AlertBox,
     ReturnButton,
     ChangePas,
+    TitleItem,
   },
   setup() {
-    const { state, dispatch } = useStore();
+    const { state, dispatch,commit } = useStore();
     //data
     const show = ref(false);
     const read_only = ref(true);
-    const user_info = ref({ ...state.user_info });
-
-    const compare = () => {
-      // if (this.name != this.old_name) return true;
-      // if (this.account != this.old_account) return true;
-      // if (this.email != this.old_email) return true;
-      // if (this.phone != this.old_phone) return true;
-      // if (this.address != this.old_address) return true;
-      // return false;
-      console.log(
-        JSON.stringify(user_info.value) === JSON.stringify(state.user_info)
-      );
-      if (user_info === old_user_info) {
-        return false;
-      }
-      return true;
-    };
+    const state_user_info = computed(() => state.user_info);
+    const user_info = ref();
+    user_info.value = { ...state_user_info.value };
+    //進入編輯
     const toEdit = () => {
       read_only.value = false;
     };
-    const save = () => {
-      if (this.status !== "error") {
-        if (this.compare()) {
-          axios
-            .post("/saveUserInfo", {
-              id: this.id,
-              name: this.name,
-              account: this.account,
-              email: this.email,
-              phone: this.phone,
-              address: this.address,
-            })
-            .then((res) => {
-              this.status = res.data.status;
-              this.status_object = res.data.status_object;
-              if (res.data.status !== "error") {
-                this.replaceOldUserInfo();
-                this.read_only = true;
-              }
-            });
-        } else {
-          this.read_only = true;
-        }
-      } else {
-      }
+    //更新
+    const handleUpdateOwnProfile = async () => {
+      if (changed.value) {
+        await dispatch("userHandler/updateOwnProfile", user_info.value).then(() => {
+          if (state.status !== "error"){
+            commit("setUserInfo",user_info.value);
+            read_only.value = true;
+          }
+        });
+      } else read_only.value = true;
     };
+    //取消
     const cancel = () => {
-      // console.log(user_info,state.user_info);
-      user_info.value = state.user_info;
-      read_only.value = true;
+      nextTick(() => {
+        user_info.value = { ...state_user_info.value };
+        read_only.value = true;
+      });
     };
-    onMounted(() => {
-      setTimeout(() => {
-        show.value = true;
-      }, 300);
+    const changed = computed(() => {
+      return (
+        JSON.stringify(user_info.value) !==
+        JSON.stringify(state_user_info.value)
+      );
     });
     return {
       show,
       read_only,
       user_info,
       toEdit,
-      save,
+      handleUpdateOwnProfile,
       cancel,
       dispatch,
     };

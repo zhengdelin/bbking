@@ -14,7 +14,11 @@
 </template>
 
 <script>
-export default {};
+export default {
+  setup(){
+    // console.log('loading setup');
+  }
+};
 </script>
 
 <style scoped>

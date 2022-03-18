@@ -20,12 +20,8 @@
         "vue-loader": "^17.0.0"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-free": "^6.0.0",
         "@tinymce/tinymce-vue": "^4.0.6",
-        "@tiptap/extension-link": "^2.0.0-beta.36",
-        "@tiptap/extension-underline": "^2.0.0-beta.23",
-        "@tiptap/starter-kit": "^2.0.0-beta.183",
-        "@tiptap/vue-3": "^2.0.0-beta.90",
-        "fullpage.js": "^3.1.2",
         "nprogress": "^0.2.0",
         "tinymce": "^6.0.0",
         "vue-router": "^4.0.12",

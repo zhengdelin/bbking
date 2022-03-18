@@ -18,10 +18,13 @@ axios.interceptors.response.use(
     (response) => {
         const { data } = response;
         console.log(`${response.config.url}: response->`, response);
-        store.commit("setStatus", {
-            status: data.status,
-            msg: data.msg,
-        });
+        if (data.msg) {
+
+            store.commit("setStatus", {
+                status: data.status,
+                msg: data.msg,
+            });
+        }
         return data;
     },
     (error) => {

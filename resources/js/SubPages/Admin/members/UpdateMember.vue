@@ -1,33 +1,66 @@
 // 新增使用者
 <template>
-  <div class="flex flex-col">
-    <admin-page-title-vue
-      target="admin-members"
-      title="會員 - 編輯會員"
-    ></admin-page-title-vue>
-    <div class="flex flex-col">
-      <admin-title-vue title="會員資訊">
-        <template v-slot:button>
-          <save-button-vue @click="updateUserMember"></save-button-vue>
-        </template>
-      </admin-title-vue>
-      <admin-input-box-vue :input_cols="input_cols" :data_source="user_info">
-      </admin-input-box-vue>
-    </div>
-  </div>
+{{user_info}}
+  <title-item title="會員 - 編輯會員" return_to_route_name="admin-members">
+  </title-item>
+  <admin-title-vue title="會員資訊">
+    <template v-slot:button>
+      <save-button-vue @click="updateUserMember"></save-button-vue>
+    </template>
+  </admin-title-vue>
+  <admin-input-form-vue>
+    <template v-slot:form_items>
+      <div class="col-span-6 md:col-span-3 lg:col-span-2">
+        <input-text-vue
+          :title="TITLE['account']"
+          :trim="true"
+          :required="true"
+          :focus="true"
+          v-model="user_info['account']"
+          @change="dispatch('userHandler/checkAccount', user_info['account'])"
+        ></input-text-vue>
+      </div>
+      <div class="col-span-6 md:col-span-3 lg:col-span-2">
+        <input-text-vue
+          :title="TITLE['email']"
+          :trim="true"
+          :required="true"
+          v-model="user_info['email']"
+          @change="dispatch('userHandler/checkEmail', user_info['password'])"
+        ></input-text-vue>
+      </div>
+      <div
+        class="col-span-6 md:col-span-3 lg:col-span-2"
+        v-for="col in input_cols"
+        :key="col.model"
+      >
+        <input-text-vue
+          :title="TITLE[col.model]"
+          :trim="true"
+          v-model="user_info[col.model]"
+          @change="dispatch(col.func_call, user_info[col.model])"
+        ></input-text-vue>
+      </div>
+      <input-single-checkbox-vue
+        :title="TITLE.status"
+        v-model="user_info['status']"
+      ></input-single-checkbox-vue>
+    </template>
+  </admin-input-form-vue>
 </template>
 
 <script>
 import { reactive, ref } from "@vue/reactivity";
-import {  nextTick, watch } from "@vue/runtime-core";
 import { useRouter } from "vue-router";
-//components
-
-import AdminPageTitleVue from "../../../components/Admin/AdminPageTitle.vue";
-import AdminTitleVue from "../../../components/Admin/AdminTitle.vue";
-import AdminInputBoxVue from "../../../components/Admin/AdminInputBox.vue";
-import SaveButtonVue from "../../../components/Objects/Button/SaveButton.vue";
 import { useStore } from "vuex";
+//components
+import AdminInputFormVue from "../../../components/Admin/AdminInputForm.vue";
+import InputTextVue from "../../../components/Objects/Input/InputText.vue";
+import InputSingleCheckboxVue from "../../../components/Objects/Input/InputSingleCheckbox.vue";
+import SaveButtonVue from "../../../components/Objects/Button/SaveButton.vue";
+import { TITLE } from "../../../TITLE";
+import TitleItem from '../../../components/Objects/TitleItem.vue';
+import { computed, onMounted } from '@vue/runtime-core';
 
 export default {
   props: {
@@ -38,17 +71,21 @@ export default {
   },
   components: {
     SaveButtonVue,
-    AdminTitleVue,
-    AdminPageTitleVue,
-    AdminInputBoxVue,
+    AdminInputFormVue,
+    InputTextVue,
+    InputSingleCheckboxVue,
+    TitleItem,
   },
   setup(props) {
     const router = useRouter();
     const { dispatch, state } = useStore();
-    if (!props.info) {
-      router.push({ name: "admin-members" });
-    }
-    const user_info = ref(props.info ? JSON.parse(props.info) : {})
+    //info
+    const info = computed(()=>props.info);
+    //如果沒有info跳出
+    if (!props.info) router.push({ name: "admin-members" });
+    //掛載資料
+    const user_info = ref();
+    user_info.value = info.value ? JSON.parse(info.value) : {}
     // console.log('updatemember->',user_info);
 
     const updateUserMember = async () => {
@@ -60,49 +97,28 @@ export default {
         });
       }
     };
-
     const input_cols = reactive([
-      {
-        model: "account",
-        func_call: "userHandler/checkAccount",
-        func_datas: ["account"],
-      },
-      {
-        model: "email",
-        func_call: "userHandler/checkEmail",
-        func_datas: ["email"],
-      },
-
       {
         model: "name",
         func_call: "userHandler/checkName",
-        func_datas: ["name"],
       },
       {
         model: "phone",
         func_call: "userHandler/checkPhone",
-        func_datas: ["phone"],
       },
+
       {
         model: "address",
         func_call: "userHandler/checkAddress",
-        func_datas: ["address"],
-      },
-      {
-        model: "active",
-        component: "input-single-checkbox-vue",
       },
     ]);
-    watch(router.currentRoute, () => {
-      nextTick(() => {
-        // console.log(props.info);
-        user_info.value = props.info ? JSON.parse(props.info) : {};
-      });
-    });
+    
     return {
+      TITLE,
       user_info,
       input_cols,
       updateUserMember,
+      dispatch
     };
   },
 };

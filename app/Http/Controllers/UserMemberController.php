@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 
-class UserMemberController extends UserGlobalController
+class UserMemberController extends GlobalController
 {
     public function __construct()
     {
@@ -33,7 +33,7 @@ class UserMemberController extends UserGlobalController
         $user_info = DB::table('members')->select('id', 'name', 'account', 'email', 'phone', 'address', 'role_id')->where('account', $account)->first();
         return $user_info;
     }
-    public function updateUser(UpdateUserRequest $request)
+    public function updateOwnProfile(UpdateUserRequest $request)
     {
         $id = $request->id;
         $account = $request->account;
@@ -41,34 +41,24 @@ class UserMemberController extends UserGlobalController
         $email = $request->email;
         $phone = $request->phone;
         $address = $request->address;
-        $enable = $request->enable;
 
-        if (session('user') !== $account) {
-            if (parent::checkAccountExist($account)) {
-                // return response()->json(['status' => 'api_error', 'status_obj'=>["帳號已被註冊!!!"]]);
-                return response()->json(['status' => 400, 'msg' => '帳號已被註冊']);
-            }
-            Cookie::queue('user', $account, 43200);
-            session(['user' => $account]);
-        }
         DB::table('members')->where('id', $id)->update([
             'name' => $name,
             'phone' => $phone,
             'account' => $account,
             'email' => $email,
             'address' => $address,
-            'enable' => $enable
         ]);
         return response()->json(['status' => 200, 'msg' => '更改資料成功']);
         // return response()->json(['status' => 'success', 'status_obj' => ['更改資料成功!!!']]);
     }
-
+    /* 登入 */
     public function userLogin(Request $request)
     {
         // dd($request->all());
         $account = $request->account;
         $password = $request->password;
-        $user = DB::table('members')->where('account', $account)->first();
+        $user = DB::table('members')->where([['account', $account],['status',1]])->first();
         if (!$user || !password_verify($password, $user->password)) {
             // return response()->json(['status' => 'api_error', 'status_obj' => ['無效的登陸名或密碼']]);
             return response()->json(['status' => 400, 'msg' => '無效的登陸名或密碼']);
@@ -81,10 +71,6 @@ class UserMemberController extends UserGlobalController
         $account = $request->account;
         $email = $request->email;
         $password = $request->password;
-        if (parent::checkAccountExist($account)) {
-            // return response()->json(['status' => 'api_error', 'status_obj' => ['帳號已被註冊']]);
-            return response()->json(['status' => 400, 'msg' => '帳號已被註冊']);
-        }
         $token = parent::get_token($account);
         $datetime = parent::get_datetime();
         DB::table('members')->insert([
@@ -102,7 +88,7 @@ class UserMemberController extends UserGlobalController
     {
         $account = $request->user_info->account;
         DB::table('members')->where('account', $account)->update(['token' => NULL]);
-        return response()->json(['status' => 200, 'msg' => '登出成功']);
+        return response()->json(['status' => 200]);
     }
 
 

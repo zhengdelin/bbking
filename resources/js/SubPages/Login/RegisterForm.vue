@@ -1,20 +1,19 @@
 <template>
-  <div class="login-register-form sm:w-[80%] lg:w-[60%]">
-    <alert-box class="mb-1"></alert-box>
-
+  <div class="sm:w-[80%] lg:w-[60%]  m-auto py-1">
     <input-text
-      title="帳號"
-      placeholder="account"
+      :title="TITLE.account"
+      :focus="true"
+      :required="true"
       v-model.trim="account"
-      @change="dispatch('userHandler/checkAccount', { account })"
-      focus
-      ref="accountDOM"
+      placeholder="account"
+      @change="dispatch('userHandler/checkAccount', account )"
     ></input-text>
     <input-text
+      :title="TITLE.password"
+      :required="true"
       type="password"
-      placeholder="password"
-      title="密碼"
       v-model.trim="password"
+      placeholder="password"
       @change="
         dispatch('userHandler/checkPassword', {
           password,
@@ -38,14 +37,12 @@
       title="電子郵件"
       placeholder="email"
       v-model.trim="email"
-      @change="dispatch('userHandler/checkEmail', { email })"
+      @change="dispatch('userHandler/checkEmail', email )"
     ></input-text>
-    <div class="col px-sm-2 pb-2">
-      <input type="checkbox" name="remember" v-model="remember" />
-      <label class="ps-1" for="remember">保持登入</label>
-    </div>
-    <div class="col flex-jc">
-      <input type="button" value="註冊" @click="register" />
+    <input-single-checkbox title="保持登入" v-model="remember">
+    </input-single-checkbox>
+    <div class="w-full flex-jc hover:cursor-pointer mt-1">
+      <input type="button" value="註冊" @click="handleRegister()" />
     </div>
   </div>
 </template>
@@ -56,16 +53,17 @@ import AlertBox from "../../components/Objects/AlertBox.vue";
 import { reactive, ref, toRefs } from "@vue/reactivity";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import { TITLE } from '../../TITLE';
+import InputSingleCheckbox from '../../components/Objects/Input/InputSingleCheckbox.vue';
 
 export default {
   components: {
     AlertBox,
     InputText,
+    InputSingleCheckbox,
   },
   setup() {
     const { dispatch, state } = useStore();
-    // ref
-    const accountDOM = ref(null);
     //router
     const router = useRouter();
     //註冊資料
@@ -77,19 +75,17 @@ export default {
     });
     const check_password = ref("");
     //function
-
-    const register = async () => {
+    const handleRegister = async () => {
       await dispatch("userHandler/register", register_data);
-      
-      if (state.is_login) router.push({ name: "user" });
+      if (state.is_login) router.push("/user");
     };
     //更新狀態
     return {
-      accountDOM,
       ...toRefs(register_data),
       check_password,
-      register,
+      handleRegister,
       dispatch,
+      TITLE
     };
   },
 };

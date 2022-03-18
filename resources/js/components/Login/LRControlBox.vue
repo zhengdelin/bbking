@@ -1,16 +1,18 @@
 <template>
   <div class="flex-cc text-center w-full">
     <router-link
-      :to="{ name: 'user_login' }"
+      :to="{ name: 'user-login' }"
       class="w-full font-bold login-register-option"
       :class="{ 'opt-selected': login_register === 'login' }"
+      @click="commit('clearStatus')"
     >
       登入
     </router-link>
     <router-link
-      :to="{ name: 'user_register' }"
+      :to="{ name: 'user-register' }"
       class="w-full font-bold login-register-option"
       :class="{ 'opt-selected': login_register === 'register' }"
+      @click="commit('clearStatus')"
     >
       註冊
     </router-link>
@@ -19,14 +21,16 @@
 
 <script>
 import { computed } from "@vue/runtime-core";
+import { useStore } from "vuex";
 
 export default {
   props: {
     login_register: String,
   },
   setup(props) {
+    const { commit } = useStore();
     const login_register = computed(() => props.login_register);
-    return { login_register };
+    return { login_register, commit };
   },
 };
 </script>

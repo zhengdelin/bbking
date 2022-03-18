@@ -1,62 +1,57 @@
 <template>
-  <div id="navbox" class="flex-ac flex-col sm:flex-row w-full text-center">
-    <router-link :to="{ name: 'home' }" class=" border-b sm:border-0 border-gray-500"
-      >首頁</router-link
+  <div
+    class="
+      h-screen
+      md:h-auto
+      flex
+      align-center
+      flex-col
+      md:flex-row
+      w-full
+      text-center
+    "
+  >
+    <router-link
+      class="
+        border-b
+        md:border-0
+        border-gray-300
+        px-4
+        py-3
+        hover:bg-cyan-200
+        hover:bg-opacity-50
+        hover:rounded-lg
+        hover:text-purple-600
+        font-bold font-cwTeXYen
+        text-xl
+      "
+      v-for="item in nav"
+      :key="item.router_name"
+      :to="{ name: item.router_name }"
+      >{{ item.text }}</router-link
     >
-    <!-- <a href="/" class=" border-b sm:border-0 border-gray-500">首頁</a> -->
-    <a href="#" class=" border-b sm:border-0 border-gray-500">商品</a>
-    <a href="#" class=" border-b sm:border-0 border-gray-500">文章</a>
-    <router-link :to="{ name: 'user' }" class=" border-b sm:border-0 border-gray-500"
-      >會員專區</router-link
-    >
+    <!-- <a href="#" class="border-b sm:border-0 border-gray-500">商品</a>
+    <a href="#" class="border-b sm:border-0 border-gray-500">文章</a> -->
   </div>
 </template>
 
 <script>
-export default {};
+import { computed } from "@vue/runtime-core";
+import { useStore } from "vuex";
+export default {
+  setup(props) {
+    const { state } = useStore();
+    const is_login = computed(() => state.is_login);
+    const nav = computed(() => state.nav);
+    return { is_login, nav };
+  },
+};
 </script>
 
 <style scoped>
-#navbox {
-  height: 100vh;
-}
-
-#navbox > * {
-  color: black;
-  font-size: 1.2rem;
-  text-decoration: none;
-  padding: 1rem;
-  width: 100%;
-  /* display: inline-block; */
-}
-#navbox > a:hover {
-  background-color: rgba(193, 247, 247, 0.5);
-  font-weight: bold;
-}
 .router-link-active {
-  background-color: rgba(193, 247, 247, 0.5);
-  font-weight: bold;
-}
-
-@media all and (min-width: 576px) {
-  #navbox {
-    height: 50px;
-  }
-  #navbox > * {
-    padding: 0.5rem 1rem 0 1rem; /* 上右下左 */
-    width: auto;
-  }
-  #navbox > a:hover {
-    border-bottom: purple 2px solid;
-    color: purple;
-    font-weight: bold;
-    background-color: white;
-  }
-  .router-link-active {
-    background-color: white;
-    font-weight: normal;
-    border-bottom: rgb(200, 111, 241) 2px solid;
-    color: rgb(186, 37, 255) !important;
-  }
+  background-color: rgba(165, 243, 252, 0.5);
+  color: rgb(147, 51, 234);
+  border-radius: 0.5rem;
 }
 </style>

@@ -1,147 +1,116 @@
 <template>
-  <table class="text-center table-auto bg-white border-gray-900 break-words">
-    <thead class="border-b border-gray-100">
-      <tr class="divide-x divide-gray-100">
-        <th class="py-1">#</th>
-        <th v-for="head in heads" :key="head" class="py-1">
-          {{ head }}
-        </th>
-        <th class="py-1">操作</th>
-      </tr>
-    </thead>
-    <tbody class="divide-y divide-gray-200">
-      <tr
-        v-for="(data, index) in datas"
-        :key="data.id"
-        class="divide-x divide-gray-200"
-        :class="{ 'bg-gray-100': data.id % 2 == 1 }"
+  <div class="w-full">
+    <div class="admin_table overflow-x-auto">
+      <table
+        class="
+          text-center
+          table-auto
+          bg-white
+          border-gray-900
+          break-words
+          w-full
+          whitespace-nowrap
+        "
       >
-        <td class="py-2">{{ index + 1 }}</td>
-        <td
-          v-for="key in keys"
-          :key="key"
-          class="py-2 overflow-hidden text-ellipsis whitespace-nowrap"
-          :class="td_max_width"
+        <thead class="border-b border-gray-100">
+          <tr class="divide-x divide-gray-100">
+            <th class="py-2 px-3 w-6">#</th>
+            <template v-if="heads.length">
+              <th v-for="head in heads" :key="head" class="py-2 px-1">
+                {{ head }}
+              </th>
+            </template>
+            <template v-else>
+              <th v-for="key in keys" :key="key" class="py-2 px-1">
+                {{ TITLE[key] }}
+              </th>
+            </template>
+            <th class="py-2 px-3">操作</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          <tr
+            v-for="(data, index) in datas"
+            :key="data.id"
+            class="divide-x divide-gray-200"
+            :class="{ 'bg-gray-100': data.id % 2 == 1 }"
+          >
+            <td class="py-2">{{ index + 1 }}</td>
+            <td
+              v-for="key in keys"
+              :key="key"
+              class="
+                py-2
+                px-1
+                overflow-hidden
+                text-ellipsis
+                whitespace-nowrap
+                max-w-xs
+              "
+            >
+              {{ data[key] ? data[key] : "--" }}
+            </td>
+            <!-- slot將data傳出去供父元素調用 -->
+            <slot name="other_tbody" :data="data"></slot>
+            <td class="w-20">
+              <div class="flex justify-center px-1">
+                <router-link
+                  :to="{
+                    name: update_route_name,
+                    params: { info: JSON.stringify(data) },
+                  }"
+                  class="mr-1 md:mr-3 text-blue-500"
+                  v-if="update_route_name"
+                >
+                  <svg-render-vue type="edit"></svg-render-vue>
+                </router-link>
+                <div class="text-red-500">
+                  <svg-render-vue type="delete"></svg-render-vue>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <table-foot-vue
+      :total_pages="total_pages"
+      :current_page="current_page"
+      :toFirstPage="toFirstPage"
+      :toLastPage="toLastPage"
+      :toNextPage="toNextPage"
+      :toPreviousPage="toPreviousPage"
+    >
+      <template v-slot:page_control>
+        <select
+          v-model="current_page"
+          class="appearance-none px-3 py-1 hover:cursor-pointer"
         >
-          {{ data[key] ? data[key] : "--" }}
-        </td>
-        <td class="w-40">
-          <div class="flex scale-75">
-            <router-link
-              :to="{
-                name: edit_route_name,
-                params: { info: JSON.stringify(data) },
-              }"
-              class="mr-3"
-            >
-              <edit-button-vue></edit-button-vue>
-            </router-link>
-            <delete-button-vue></delete-button-vue>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-    <tfoot class="border-t border-gray-100">
-      <tr class="h-full">
-        <td class="py-4 pl-2" :colspan="keys.length - 1">
-          <div class="flex items-center justify-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              class="mx-1 rotate-180"
-              :class="{
-                ' hover:cursor-pointer': current_page !== 0,
-                ' fill-gray-500': current_page === 0,
-              }"
-              @click="toFirstPage"
-            >
-              <path
-                d="M0 3.795l2.995-2.98 11.132 11.185-11.132 11.186-2.995-2.981 8.167-8.205-8.167-8.205zm18.04 8.205l-8.167 8.205 2.995 2.98 11.132-11.185-11.132-11.186-2.995 2.98 8.167 8.206z"
-              />
-            </svg>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              class="mx-1 rotate-180"
-              :class="{
-                ' hover:cursor-pointer': current_page !== 0,
-                ' fill-gray-500': current_page === 0,
-              }"
-              @click="toPreviosPage"
-            >
-              <path d="M8.122 24l-4.122-4 8-8-8-8 4.122-4 11.878 12z" />
-            </svg>
-            <select
-              name="page"
-              id="page"
-              v-model="current_page"
-              class="appearance-none px-3 py-1 hover:cursor-pointer"
-            >
-              <option v-for="page in total_pages" :key="page" :value="page - 1">
-                {{ page }}
-              </option>
-            </select>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              class="mx-1"
-              :class="{
-                ' hover:cursor-pointer': current_page !== total_pages - 1,
-                ' fill-gray-500': current_page === total_pages - 1,
-              }"
-              @click="toNextPage"
-            >
-              <path d="M8.122 24l-4.122-4 8-8-8-8 4.122-4 11.878 12z" />
-            </svg>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              class="mx-1"
-              :class="{
-                ' hover:cursor-pointer': current_page !== total_pages - 1,
-                ' fill-gray-500': current_page === total_pages - 1,
-              }"
-              @click="toLastPage"
-            >
-              <path
-                d="M0 3.795l2.995-2.98 11.132 11.185-11.132 11.186-2.995-2.981 8.167-8.205-8.167-8.205zm18.04 8.205l-8.167 8.205 2.995 2.98 11.132-11.185-11.132-11.186-2.995 2.98 8.167 8.206z"
-              />
-            </svg>
-          </div>
-        </td>
-        <td class="py-4" colspan="2">
-          每頁顯示
-          <select name="per" id="per" v-model="per">
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="50">50</option>
-          </select>
-          筆
-        </td>
-        <td class="py-4">共{{ total_pages }}頁</td>
-      </tr>
-    </tfoot>
-  </table>
+          <option v-for="page in total_pages" :key="page" :value="page - 1">
+            {{ page }}
+          </option>
+        </select>
+      </template>
+      <template v-slot:per_control>
+        <select v-model="per">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+        </select>
+      </template>
+    </table-foot-vue>
+  </div>
 </template>
 
 <script>
 import { computed, ref, watch } from "@vue/runtime-core";
-import EditButtonVue from "../Objects/Button/EditButton.vue";
-import DeleteButtonVue from "../Objects/Button/DeleteButton.vue";
 import { useRouter } from "vue-router";
+import TableFootVue from "./Table/TableFoot.vue";
+import { TITLE } from "../../TITLE";
 
 export default {
   components: {
-    EditButtonVue,
-    DeleteButtonVue,
+    TableFootVue,
   },
   props: {
     column_heads: {
@@ -156,17 +125,15 @@ export default {
       type: Array,
       default: () => [],
     },
+    update_route_name: {
+      type: String,
+      default: "",
+    },
   },
   setup(props) {
     const router = useRouter();
-    //表頭
-    const heads = computed(() => {
-      return props.column_heads;
-    });
-    //鍵值順序
-    const keys = computed(() => {
-      return props.keys;
-    });
+    //表頭//鍵值順序//編輯的route
+    const { column_heads: heads, keys, update_route_name } = props;
     //第幾頁,總共幾頁,一頁幾個
     const current_page = ref(0);
     const per = ref(10);
@@ -179,7 +146,7 @@ export default {
       const end = start + per.value;
       return props.datas.slice(start, end);
     });
-    
+
     watch(per, () => {
       current_page.value =
         current_page.value >= total_pages.value
@@ -190,7 +157,7 @@ export default {
     const toFirstPage = () => {
       current_page.value = 0;
     };
-    const toPreviosPage = () => {
+    const toPreviousPage = () => {
       current_page.value =
         current_page.value === 0 ? 0 : current_page.value - 1;
     };
@@ -201,41 +168,47 @@ export default {
       current_page.value =
         current_page.value === total_pages.value - 1
           ? current_page.value
-          : total_pages.value - 1;
+          : current_page.value + 1;
     };
-    /* 編輯的route */
-    const edit_route_name = computed(() => {
-      // console.log("adminform,", router);
-      const cur_route_name = router.currentRoute.value.name;
-      return (
-        cur_route_name
-          .toString()
-          .replace("-update", "")
-          .replace("-create", "") + "-update"
-      );
-    });
     /*  */
     const td_max_width = computed(() => {
-      return `max-w-[${Math.floor(60 / keys.value.length)}rem]`;
+      const width = Math.floor(60 / keys.value.length);
+      return ` max-w-[${width}rem]`;
     });
+    // console.log("admintable", props.datas);
     return {
+      TITLE,
       heads,
       keys,
       datas,
       current_page,
       total_pages,
       per,
-      total_pages,
       toFirstPage,
-      toPreviosPage,
+      toPreviousPage,
       toLastPage,
       toNextPage,
-      edit_route_name,
-      td_max_width
+      update_route_name,
+      td_max_width,
     };
   },
 };
 </script>
 
 <style scoped>
+.admin_table::-webkit-scrollbar {
+  display: block;
+  height: 0.5rem;
+}
+.admin_table::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 10px;
+}
+.admin_table:hover::-webkit-scrollbar-thumb {
+  background-color: rgb(89, 52, 255);
+}
+.admin_table::-webkit-scrollbar-track {
+  background-color: #e5e7eb;
+  border-radius: 10px;
+}
 </style>

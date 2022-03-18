@@ -1,18 +1,37 @@
 <template>
   <transition name="slidedown">
     <div
-      class="flex flex-col items-center fixed left-1/2 top-[10px] -ml-[150px] z-50"
+      class="
+        flex flex-col
+        items-center
+        fixed
+        left-1/2
+        top-[10px]
+        -ml-[150px]
+        z-50
+      "
       v-if="status && msgs.length"
     >
       <transition-group name="slidedown">
         <div
-          class="alert-box border-x"
-          :class="getAlertBoxClass(index)"
+          class="alert-box border-x py-1"
+          :class="[
+            getAlertBoxClass(index),
+            { 'absolute rounded-[0.25rem!important]': alert_box_toggle },
+          ]"
+          @click="toggleAlertBox"
           v-for="(msg, index) in msgs"
           :key="index"
         >
           <ul class="font-semibold py-1 pl-10 list-disc">
-            <li>{{ `${status === "error" ? "錯誤 : " : ""}${msg}` }}</li>
+            <li class="relative">
+              {{ `${status === "error" ? "錯誤 : " : ""}${msg}` }}
+              <span
+                class="absolute right-4"
+                v-if="alert_box_toggle && index === 0"
+                >{{ msgs.length }}</span
+              >
+            </li>
           </ul>
         </div>
       </transition-group>
@@ -21,11 +40,13 @@
 </template>
 
 <script>
-import { computed, watch } from "@vue/runtime-core";
+import { computed, ref, watch } from "@vue/runtime-core";
 import { useStore } from "vuex";
+import { useRoute } from "vue-router";
 export default {
   setup() {
-    const { state,commit } = useStore();
+    const { state, commit } = useStore();
+    const route = useRoute();
     const errors = {
       // account
       account1: "帳號欄位不能為空",
@@ -49,20 +70,21 @@ export default {
       //address
       address1: "地址最多50字元",
     };
+    const alert_box_toggle = ref(false);
     const status = computed(() => state.status);
     const msgs = computed(() => {
       // console.log(state);
       return Object.values(state.status_msgs).filter((val) => val);
     });
-    const getBorder = (index) => {
-      return index === 0 && index === msgs.value.length - 1
-        ? "border-y"
-        : index === 0
-        ? "border-t"
-        : index === msgs.value.length - 1
-        ? "border-b"
-        : "";
-    };
+    // const getBorder = (index) => {
+    //   return index === 0 && index === msgs.value.length - 1
+    //     ? "border-y"
+    //     : index === 0
+    //     ? "border-t"
+    //     : index === msgs.value.length - 1
+    //     ? "border-b"
+    //     : "";
+    // };
     const getBorderRadius = (index) => {
       return index === 0 && index === msgs.value.length - 1
         ? "rounded-[0.25rem]"
@@ -74,26 +96,42 @@ export default {
     };
     const getPadding = (index) => {
       return index === 0 && index === msgs.value.length - 1
-        ? "pt-1"
+        ? ""
         : index === 0
-        ? "pb-[0.994px] pt-1"
+        ? "pb-[0.994px]"
         : index === msgs.value.length - 1
-        ? "pt-[0.994px] pb-1"
+        ? "pt-[0.994px]"
         : "py-[0.994px]";
     };
     const getAlertBoxClass = (index) => {
-      return `${status.value} ${getBorder(index)} ${getBorderRadius(
-        index
-      )} ${getPadding(index)}`;
+      return `${status.value} ${getBorderRadius(index)}`;
     };
-    watch(status,(val)=>{
-      if(val==='success'){
+    watch(msgs, (val) => {
+      // console.log("status", status, status === "success");
+      // alert_box_toggle.value = false;
+      if (msgs.value.length && status.value === "success") {
         setTimeout(() => {
-          commit('clearStatus');
+          commit("clearStatus");
+        }, 3000);
+      } else if (msgs.value.length > 1 && status.value === "error") {
+        // console.log("alert_box_toggle", alert_box_toggle);
+        if (alert_box_toggle.value) {
+          alert_box_toggle.value=false;
+        }
+        setTimeout(() => {
+          alert_box_toggle.value=true;
         }, 2000);
+      } else if (msgs.value.length <= 1) {
+        alert_box_toggle.value = false;
       }
-    })
-    return { msgs, status, getAlertBoxClass };
+
+      // console.log("status", status);
+    });
+    const toggleAlertBox = () => {
+      if (msgs.value.length > 1)
+        alert_box_toggle.value = !alert_box_toggle.value;
+    };
+    return { msgs, status, alert_box_toggle, getAlertBoxClass, toggleAlertBox };
   },
 };
 </script>
@@ -107,6 +145,10 @@ export default {
   border-style: solid;
   border-left: 1px;
   border-right: 1px;
+}
+.alert-box:first-of-type {
+  position: static !important;
+  z-index: 20;
 }
 .alert-box.success {
   color: #155724;
@@ -133,6 +175,6 @@ export default {
   transform: translateY(-20px);
 }
 .slidedown-move {
-  transition: all 1s;
+  transition: all 0.75s;
 }
 </style>

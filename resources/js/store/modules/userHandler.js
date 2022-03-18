@@ -1,10 +1,11 @@
 import {
-    apiPostCreateUserMember,
+    apiGetUserMember,
     apiPostUserLogin,
     apiPostUserRegister,
-    apiGetUserMember,
-    apiPostUpdateUserMember,
     apiPostUserLogout,
+    apiPostUpdateOwnProfile,
+    apiPostCreateUserMember,
+    apiPostUpdateUserMember,
 } from "../../api/api";
 
 export default {
@@ -41,33 +42,33 @@ export default {
             }
         },
         /* 登出 */
-        logout: async({ commit }) => {
+        logout: async({ commit, dispatch }) => {
             if (confirm("確認登出?")) {
                 await apiPostUserLogout().then(() => {
                     commit("clearUser", {}, { root: true });
+                    dispatch("addRoute", {}, { root: true });
                 });
             }
         },
-        // updateUser: async({ rootState, dispatch }, data) => {
-        //     if (rootState.status !== "error") {
-        //         const res = await apiPostUpdataUser(data);
-        //         dispatch(
-        //             "setStatus", {
-        //                 status_type: res.data.status,
-        //                 item: res.data.msg,
-        //             }, { root: true }
-        //         );
-        //         if (res.data.status === 200) return true;
-        //     }
-        //     return false;
-        // },
+        updateOwnProfile: async({ rootState, dispatch }, data) => {
+            await Promise.all([
+                dispatch("checkAccount", data.account),
+                dispatch("checkEmail", data.email),
+                dispatch("checkName", data.name),
+                dispatch("checkPhone", data.phone),
+                dispatch("checkAddress", data.address),
+            ]);
+            if (rootState.status !== "error") {
+                await apiPostUpdateOwnProfile(data);
+            }
+        },
     },
     getters: {},
     modules: {
-        check_userinfo_format: {
+        check__format: {
             actions: {
                 //帳號
-                checkAccount: async({ commit }, { account }) => {
+                checkAccount: async({ commit }, account) => {
                     let msg = "";
                     const accountformat = /^\w+([\.-]?\w+)*/;
                     if (!account) msg = "帳號欄位不能為空";
@@ -82,7 +83,7 @@ export default {
                     );
                 },
                 //密碼
-                checkPassword: async({ dispatch, commit }, { password, check_password }) => {
+                checkPassword: async({ dispatch, commit }, { password, check_password = undefined }) => {
                     let msg = "";
                     if (!password) msg = "密碼欄位不能為空";
                     else if (password.length > 30) msg = "密碼不能大於30位數";
@@ -114,7 +115,7 @@ export default {
                     );
                 },
                 // email
-                checkEmail: async({ commit }, { email }) => {
+                checkEmail: async({ commit }, email) => {
                     let msg = "";
                     const mailformat = /^\w+([\.-]?\w+)*@gmail.com$/;
                     if (!email) msg = "請填寫Email欄位";
@@ -128,7 +129,7 @@ export default {
                     );
                 },
                 // 名字
-                checkName: async({ commit }, { name }) => {
+                checkName: async({ commit }, name) => {
                     let msg = "";
                     if (name.length > 10) msg = "姓名最多10字元";
                     commit(
@@ -139,14 +140,13 @@ export default {
                     );
                 },
                 // 電話
-                checkPhone: async({ commit }, { phone }) => {
+                checkPhone: async({ commit }, phone) => {
                     let msg = "";
-                    const phoneformat = /0?\d{9}$/;
-                    if (!phone) msg = "";
-                    else if (phone.length !== 10 || phone.length !== 9)
-                        msg = "請輸入10位或9位數字";
-                    else if (!phone.match(phoneformat))
-                        msg = "請輸入正確的手機號";
+                    const phoneformat = /[0-9]{8,10}/;
+                    if (phone) {
+                        if (!phone.toString().match(phoneformat))
+                            msg = "請輸入正確的手機號";
+                    }
                     commit(
                         "setStatus", {
                             type: "phone",
@@ -155,7 +155,7 @@ export default {
                     );
                 },
                 // 地址
-                checkAddress: async({ commit }, { address }) => {
+                checkAddress: async({ commit }, address) => {
                     let msg = "";
                     if (address.length > 50) msg = "地址最多50字元";
                     commit(
@@ -173,25 +173,30 @@ export default {
                     const { all_user_info } = await apiGetUserMember();
                     return all_user_info ? all_user_info : [];
                 },
-                createUserMember: async({ rootState, dispatch, commit },
-                    data
-                ) => {
+                createUserMember: async({ rootState, dispatch }, data) => {
                     // console.log("createUser", data);
                     await Promise.all([
-                        dispatch("checkAccount", {
-                            account: data.account,
-                        }),
+                        dispatch("checkAccount", data.account),
                         dispatch("checkPassword", {
                             password: data.password,
                         }),
-                        dispatch("checkEmail", { email: data.email }),
+                        dispatch("checkEmail", data.email),
+                        dispatch("checkName", data.name),
+                        dispatch("checkPhone", data.phone),
+                        dispatch("checkAddress", data.address),
                     ]);
                     if (rootState.status !== "error") {
                         await apiPostCreateUserMember(data);
                     }
                 },
-                updateUserMember: async({ rootState, commit }, data) => {
-                    // console.log("handleUpdateUserMember", data);
+                updateUserMember: async({ rootState }, data) => {
+                    await Promise.all([
+                        dispatch("checkAccount", data.account),
+                        dispatch("checkEmail", data.email),
+                        dispatch("checkName", data.name),
+                        dispatch("checkPhone", data.phone),
+                        dispatch("checkAddress", data.address),
+                    ]);
                     if (rootState.status !== "error") {
                         await apiPostUpdateUserMember(data);
                     }

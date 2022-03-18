@@ -3,61 +3,55 @@
 @import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
 @import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);
 @import url(https://fonts.googleapis.com/earlyaccess/cwtexming.css);
-* {
-    font-family: 'cwTeXKai', serif;
-    /* font-family: 'cwTeXYen', sans-serif; */
-    /* font-family: 'cwTeXFangSong', serif; */
-    /* font-family: 'Noto Sans TC', sans-serif; */
-    /* font-family: 'cwTeXMing', serif; */
-}
-
-
-/* body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-} */
-
-.font-cwTeXKai {
-    font-family: 'cwTeXKai', serif;
-}
-
-.font-cwTeXFangSong {
-    font-family: 'cwTeXFangSong', serif !important;
-}
-
-.font-cwTeXYen {
-    font-family: 'cwTeXYen', serif;
-}
-
-.font-NotoSansTC {
-    font-family: 'Noto Sans TC', serif;
-}
-
-.font-cwTeXMing {
-    font-family: 'cwTeXMing', serif;
-}
-
-.font-MicrosoftJhengHei {
-    font-family: 'Microsoft JhengHei', serif;
-}
-
 body {
     -ms-scroll-chaining: none;
-        overscroll-behavior: contain
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
+        overscroll-behavior: contain;
 }
 
 #instrument_platform {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    width: 100%;
-    min-height: 100%;
-    /* background: rgb(24, 25, 26); */
+    min-height: 100vh;
+    font-family: Arial, 'PingFang TC', 'Heiti TC', 'Micorsoft JhengHei', sans-serif;
 }
+
+.font-cwTeXKai {
+    font-family: "cwTeXKai", serif;
+}
+
+.font-cwTeXFangSong {
+    font-family: "cwTeXFangSong", serif !important;
+}
+
+.font-cwTeXYen {
+    font-family: "cwTeXYen", serif;
+}
+
+.font-NotoSansTC {
+    font-family: "Noto Sans TC", serif;
+}
+
+.font-cwTeXMing {
+    font-family: "cwTeXMing", serif;
+}
+
+.font-MicrosoftJhengHei {
+    font-family: "Microsoft JhengHei", serif;
+}
+
+::-webkit-scrollbar {
+    /* height: 0.5rem; */
+    width: 0;
+}
+
+
+/* ::-webkit-scrollbar-thumb {
+    background-color: rgba(85, 81, 81, 0.452);
+}
+
+::-webkit-scrollbar-track {
+    background-color: #e5e7eb;
+} */
 
 .flex-cc {
     display: flex;
@@ -101,7 +95,7 @@ a {
 }
 
 .border-bottom-gray {
-    border-bottom: 1px solid rgba(146, 131, 131, .5);
+    border-bottom: 1px solid rgba(146, 131, 131, 0.5);
 }
 
 #content {
@@ -164,7 +158,7 @@ a {
     transform: translateX(0);
 }
 
-@media all and (min-width:576px) {
+@media all and (min-width: 576px) {
     .w-sm-auto {
         width: auto !important;
     }
@@ -194,7 +188,7 @@ a {
     }
 }
 
-@media all and (min-width:768px) {
+@media all and (min-width: 768px) {
     .w-md-5 {
         width: 5% !important;
     }
@@ -215,7 +209,7 @@ a {
     } */
 }
 
-@media all and (min-width:992px) {
+@media all and (min-width: 992px) {
     .w-lg-60 {
         width: 60%;
     }
@@ -224,7 +218,7 @@ a {
     }
 }
 
-@media all and (min-width:1200px) {
+@media all and (min-width: 1200px) {
     /* #content {
         padding-top: 4rem;
     } */
