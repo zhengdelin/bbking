@@ -8,7 +8,7 @@
             size="lg"
             :class="{
               ' hover:cursor-pointer': props.current_page !== 0,
-              ' text-gray-500': props.current_page === 0,
+              'hover:cursor-not-allowed  text-gray-500': props.current_page === 0,
             }"
             @click="props.toFirstPage"
           ></svg-render-vue>
@@ -17,7 +17,7 @@
             size="lg"
             :class="{
               ' hover:cursor-pointer': props.current_page !== 0,
-              ' text-gray-500': props.current_page === 0,
+              'hover:cursor-not-allowed text-gray-500': props.current_page === 0,
             }"
             @click="props.toPreviousPage"
           ></svg-render-vue>
@@ -27,7 +27,7 @@
             size="lg"
             :class="{
               ' hover:cursor-pointer': props.current_page !== props.total_pages - 1,
-              ' text-gray-500': props.current_page === props.total_pages - 1,
+              'hover:cursor-not-allowed  text-gray-500': props.current_page === props.total_pages - 1,
             }"
             @click="props.toNextPage"
           ></svg-render-vue>
@@ -36,7 +36,7 @@
             size="lg"
             :class="{
               ' hover:cursor-pointer': props.current_page !== props.total_pages - 1,
-              ' text-gray-500': props.current_page === props.total_pages - 1,
+              'hover:cursor-not-allowed  text-gray-500': props.current_page === props.total_pages - 1,
             }"
             @click="props.toLastPage"
           ></svg-render-vue>

@@ -1,13 +1,13 @@
 <template>
   <title-item
     return_to_route_name="admin-categories"
-    title="產品 - 編輯類別"
+    title="類別 - 編輯類別"
   ></title-item>
-  <admin-title-vue title="類別資訊">
+  <title-item title="類別資訊">
     <template v-slot:button>
       <save-button @click="handleUpdateCategory"></save-button>
     </template>
-  </admin-title-vue>
+  </title-item>
   <admin-input-form-vue class="mb-2">
     <template v-slot:form_items>
       <div class="col-span-6 md:col-span-3">
@@ -17,6 +17,14 @@
           :required="true"
           v-model="category.name"
           @change="dispatch('globalHandler/checkName', category.name)"
+        ></input-text-vue>
+      </div>
+      <div class="col-span-6 md:col-span-3" v-if="category.eng_name">
+        <input-text-vue
+          :title="TITLE.eng_name"
+          :required="true"
+          v-model="category.eng_name"
+          @change="dispatch('globalHandler/checkEngName', category.eng_name)"
         ></input-text-vue>
       </div>
       <div class="col-span-6 md:col-span-3" v-if="category.category_group_id">
@@ -38,9 +46,9 @@ import InputTextVue from "../../../components/Objects/Input/InputText.vue";
 import InputSelectVue from "../../../components/Objects/Input/InputSelect.vue";
 import { TITLE } from "../../../TITLE";
 import { useStore } from "vuex";
-import { computed, onMounted, reactive, ref } from "@vue/runtime-core";
+import { computed, ref } from "@vue/runtime-core";
 import { useRouter } from "vue-router";
-import TitleItem from "../../../components/Objects/TitleItem.vue";
+import TitleItem from "../../../components/Objects/Title/TitleItem.vue";
 
 export default {
   components: {
@@ -61,7 +69,7 @@ export default {
     const router = useRouter();
     /* 如果沒東西跳轉回去 */
     const info = computed(() => props.info);
-    if (!info.value) router.push({ name: "admin-products" });
+    if (!info.value) router.push({ name: "admin-categories" });
     //類別
     const category_groups = computed(() => state.globalHandler.category_groups);
     //類別資訊

@@ -1,8 +1,11 @@
 @import url(https://fonts.googleapis.com/earlyaccess/cwtexfangsong.css);
-@import url(https://fonts.googleapis.com/earlyaccess/cwtexkai.css);
 @import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
-@import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);
-@import url(https://fonts.googleapis.com/earlyaccess/cwtexming.css);
+/* @import url(https://fonts.googleapis.com/earlyaccess/cwtexkai.css); */
+
+/* @import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css); */
+
+/* @import url(https://fonts.googleapis.com/earlyaccess/cwtexming.css); */
+
 body {
     -ms-scroll-chaining: none;
         overscroll-behavior: contain;
@@ -12,7 +15,9 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    font-family: Arial, 'PingFang TC', 'Heiti TC', 'Micorsoft JhengHei', sans-serif;
+    font-family: Arial, "PingFang TC", "Heiti TC", "Micorsoft JhengHei",
+        sans-serif;
+    background-color: #f2f2f2;
 }
 
 .font-cwTeXKai {
@@ -40,18 +45,22 @@ body {
 }
 
 ::-webkit-scrollbar {
-    /* height: 0.5rem; */
-    width: 0;
+    height: 0.5rem;
+    width: 0.5rem;
 }
 
-
-/* ::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background-color: rgba(85, 81, 81, 0.452);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(38, 176, 255);
 }
 
 ::-webkit-scrollbar-track {
     background-color: #e5e7eb;
-} */
+}
 
 .flex-cc {
     display: flex;
@@ -108,7 +117,6 @@ body {
     padding-left: 0.5rem;
 }
 
-
 /* 動畫 */
 
 .roll-up-enter-active,
@@ -130,14 +138,16 @@ body {
 
 .fade-enter-active,
 .fade-leave-active {
-    transition: opacity 0.5s;
+    transition: opacity 1s;
+}
+
+.fade-enter-to,
+.fade-leave-from {
+    opacity: 1;
 }
 
 .fade-enter-from,
-.fade-leave-to
-/* .fade-leave-active below version 2.1.8 */
-
-{
+.fade-leave-to {
     opacity: 0;
 }
 
@@ -156,6 +166,18 @@ body {
 .leave-to-left-500-leave-from {
     opacity: 1;
     transform: translateX(0);
+}
+
+.fade-from-bottom-15px-enter-active {
+    transition: transform 1s, opacity 1s;
+}
+.fade-from-bottom-15px-enter-from {
+    transform: translateY(10px);
+    opacity: 0;
+}
+.fade-from-bottom-15px-enter-to {
+    transform: translateY(0);
+    opacity: 1;
 }
 
 @media all and (min-width: 576px) {
@@ -223,3 +245,4 @@ body {
         padding-top: 4rem;
     } */
 }
+

@@ -1,68 +1,67 @@
 import { createRouter, createWebHistory } from "vue-router";
-import NProgress from "nprogress";
-import "nprogress/nprogress.css";
-import store from "../store/index";
-// NProgress.inc(0.2);
-// NProgress.configure({ easing: 'linear', speed: 500, showSpinner: false, trickle: false })
 
-// function Auth(to, from) {
-//     // console.log(!store._state.data.user);
-//     if (to.name === "user-login") {
-//         return true;
-//     } else {
-//         if (!store._state.data.is_login) {
-//             // router.push({ name: 'user' })
-//             if (to.name !== "user-register") {
-//                 // alert('123')
-//                 router.push({
-//                     name: "user-login",
-//                 });
-//             }
-//             return true;
-//         } else {
-//             if (to.name === "user-register" || to.name === "user-login") {
-//                 router.push({
-//                     path: from.fullPath,
-//                 });
-//             }
-//             return true;
-//         }
-//     }
-// }
 export const router = createRouter({
     history: createWebHistory(),
     routes: [
         //首頁
         {
-            path: "/",
+            path: "",
+            alias: "/home",
             name: "home",
             meta: {
                 title: "比比王樂器行",
             },
             components: {
-                nav: () =>
-                    import ("../components/Nav/Nav"),
-                default: () =>
-                    import ("../Pages/Home"),
+                nav: () => import("../components/Global/Nav/Nav"),
+                default: () => import("../Pages/Home"),
+                footer: () => import("../components/Global/Footer/Footer"),
             },
+        },
+        /* 關於我們 */
+        {
+            path: "/about",
+
+            meta: {
+                title: "比比王樂器行 - 關於我們",
+            },
+            components: {
+                nav: () => import("../components/Global/Nav/Nav"),
+                default: () => import("../Pages/About.vue"),
+                footer: () => import("../components/Global/Footer/Footer"),
+            },
+            children: [
+                {
+                    path: "",
+                    name: "about",
+                    component: () => import("../SubPages/About/AboutList.vue"),
+                },
+                {
+                    path: ":id",
+                    name: "about-detail",
+                    component: () =>
+                        import("../SubPages/About/AboutDetail.vue"),
+                },
+            ],
         },
         //登入註冊
         {
             path: "/user/login",
+            name: "user-login-register",
             components: {
-                nav: () =>
-                    import ("../components/Nav/Nav"),
-                default: () =>
-                    import ("../Pages/UserLogin"),
+                nav: () => import("../components/Global/Nav/Nav"),
+                default: () => import("../Pages/UserLogin"),
             },
-            children: [{
+            beforeEnter(to, from) {
+                sessionStorage.setItem("redirect", from.fullPath);
+            },
+            children: [
+                {
                     path: "",
                     name: "user-login",
                     meta: {
                         title: "會員專區-登入",
                     },
-                    component: () =>
-                        import ("../SubPages/Login/LoginForm"),
+                    component: () => import("../SubPages/Login/LoginForm"),
                 },
                 {
                     path: "/user/register",
@@ -70,43 +69,104 @@ export const router = createRouter({
                     meta: {
                         title: "會員專區-註冊",
                     },
-                    component: () =>
-                        import ("../SubPages/Login/RegisterForm"),
+                    component: () => import("../SubPages/Login/RegisterForm"),
+                },
+                {
+                    path: "/user/findpassword",
+                    name: "user-find-password",
+                    meta: {
+                        title: "會員專區-找回密碼",
+                    },
+                    component: () => import("../SubPages/Login/ForgetPassword"),
                 },
             ],
-            // beforeEnter: (to, from) => {
-            //     Auth(to, from);
-            // },
         },
         //文章
         {
-            path: "/articles",
-            name: "article",
-            meta: {
-                title: "比比王樂器行-文章資訊"
-            },
+            path: "/all-categories",
             components: {
-                nav: () =>
-                    import ("../components/Nav/Nav"),
-                default: () =>
-                    import ("../Pages/Article"),
+                nav: () => import("../components/Global/Nav/Nav"),
+                default: () => import("../Pages/AllCategories"),
             },
+            children: [
+                //文章類別
+                {
+                    path: "",
+                    name: "all-categories",
+                    meta: {
+                        title: "比比王樂器行-所有分類",
+                    },
+                    component: () =>
+                        import("../SubPages/Category/AllCategories"),
+                },
+                //文章依類別分組
+                {
+                    path: "/articles/:category*",
+                    meta: {
+                        title: "比比王樂器行-文章列表",
+                    },
+                    components: {
+                        tab_title_bar: () =>
+                            import("../components/Objects/Title/TabTitleBar"),
+                        default: () => import("../SubPages/Article"),
+                    },
+                    children: [
+                        {
+                            path: "",
+                            name: "article-list",
+                            component: () =>
+                                import("../SubPages/Article/Pages/ArticleList"),
+                        },
+                        //文章內文
+                        {
+                            path: ":id(\\d+)",
+                            name: "article-content",
+                            meta: {
+                                title: "比比王樂器行-文章內容",
+                            },
+                            component: () =>
+                                import(
+                                    "../SubPages/Article/Pages/ArticleContent"
+                                ),
+                        },
+                    ],
+                },
 
+                //產品列表
+                {
+                    path: "/products/:category?",
+                    meta: {
+                        title: "比比王樂器行-產品列表",
+                    },
+                    components: {
+                        tab_title_bar: () =>
+                            import("../components/Objects/Title/TabTitleBar"),
+                        default: () => import("../SubPages/Product"),
+                    },
+                    children: [
+                        {
+                            path: "",
+                            name: "product-list",
+                            component: () =>
+                                import("../SubPages/Product/Pages/ProductList"),
+                        },
+                        //產品內容
+                        {
+                            path: ":id(\\d+)",
+                            name: "product-detail",
+                            meta: {
+                                title: "比比王樂器行-產品內容",
+                            },
+                            component: () =>
+                                import(
+                                    "../SubPages/Product/Pages/ProductDetail"
+                                ),
+                        },
+                    ],
+                },
+            ],
         },
-        //文章類別
-        {
-            path: "/articles/:category",
-            name: "article-category",
-            meta: {
-                title: "比比王樂器行-文章類別"
-            },
-            components: {
-                nav: () =>
-                    import ("../components/Nav/Nav"),
-                default: () =>
-                    import ("../Pages/Article"),
-            },
-        },
+
         //404
         {
             path: "/:pathMatch(.*)*",
@@ -114,13 +174,11 @@ export const router = createRouter({
             meta: {
                 title: "比比王樂器行",
             },
-            component: () =>
-                import ("../Pages/404"),
+            component: () => import("../Pages/404"),
         },
     ],
 });
 router.beforeEach((to, from) => {
-    NProgress.start();
     // if (from.path !== "/" && to.fullPath === "/") {
     //     window.location.assign(to.fullPath);
     // }
@@ -133,6 +191,5 @@ router.beforeEach((to, from) => {
     }
 });
 router.afterEach((to) => {
-    NProgress.done();
     window.scrollTo(0, 0);
 });

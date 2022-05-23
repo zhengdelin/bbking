@@ -1,14 +1,14 @@
 <template>
-  {{ category }}
+  <!-- {{ category }} -->
   <title-item
     return_to_route_name="admin-categories"
     :title="type === 'category' ? '產品 - 新增類別' : '產品 - 新增類別群組'"
   ></title-item>
-  <admin-title-vue :title="type === 'category' ? '類別' : '類別群組'">
+  <title-item :title="type === 'category' ? '類別' : '類別群組'">
     <template v-slot:button>
       <create-button-vue @click="handleCreateCategory"></create-button-vue>
     </template>
-  </admin-title-vue>
+  </title-item>
   <admin-input-form-vue class="mb-2">
     <template v-slot:form_items>
       <div class="col-span-6 md:col-span-3">
@@ -18,6 +18,14 @@
           :required="true"
           v-model="category.name"
           @change="dispatch('globalHandler/checkName', category.name)"
+        ></input-text-vue>
+      </div>
+      <div class="col-span-6 md:col-span-3" v-if="type === 'category'">
+        <input-text-vue
+          :title="TITLE.eng_name"
+          :required="true"
+          v-model="category.eng_name"
+          @change="dispatch('globalHandler/checkEngName', category.eng_name)"
         ></input-text-vue>
       </div>
       <div class="col-span-6 md:col-span-3" v-if="type === 'category'">
@@ -41,7 +49,7 @@ import { TITLE } from "../../../TITLE";
 import { useStore } from "vuex";
 import { computed, ref } from "@vue/runtime-core";
 import { useRoute, useRouter } from "vue-router";
-import TitleItem from '../../../components/Objects/TitleItem.vue';
+import TitleItem from '../../../components/Objects/Title/TitleItem.vue';
 
 export default {
   components: {
@@ -64,6 +72,7 @@ export default {
     //產品資訊
     const category = ref({
       name: "",
+      eng_name:'',
       category_group_id: "",
     });
     //新增產品

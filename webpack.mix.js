@@ -1,5 +1,5 @@
-const mix = require('laravel-mix');
-
+const mix = require("laravel-mix");
+const path  = require("path");
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -11,7 +11,14 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js').vue()
-    .postCss('resources/css/app.css', 'public/css', [])
-    .postCss('resources/css/tailwind.css', 'public/css', [require("tailwindcss")]);
+mix.js("resources/js/main.js", "public/js")
+    .vue()
+    .postCss("resources/css/app.css", "public/css", [])
+    .postCss("resources/css/tailwind.css", "public/css", [
+        require("tailwindcss"),
+    ])
+    .postCss("resources/css/svg.css", "public/css");
+mix.alias({
+    "@": path.join(__dirname, "resources/js"),
+});
 mix.disableNotifications();

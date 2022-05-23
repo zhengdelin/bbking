@@ -19,7 +19,7 @@ class TokenMiddleware
     public function handle(Request $request, Closure $next)
     {
         $token = $request->header('token');
-        $user_info = DB::table('members')->select('account', 'token', 'updated_at','role_id')->where('token', $token)->first();
+        $user_info = DB::table('members')->select('id','account', 'token', 'updated_at','role_id')->where('token', $token)->first();
         
         // dd(strtotime('+7 Days',strtotime($user_info->updated_at))>strtotime('now'));
         #將User資訊合併進去request，傳到後端

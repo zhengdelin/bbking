@@ -3,11 +3,11 @@
     return_to_route_name="admin-articles"
     title="文章 - 新增文章"
   ></title-item>
-  <admin-title-vue title="文章資訊">
+  <title-item title="文章資訊">
     <template v-slot:button>
       <create-button-vue @click="handleCreateArticle"></create-button-vue>
     </template>
-  </admin-title-vue>
+  </title-item>
   <admin-input-form-vue class="mb-2">
     <template v-slot:form_items>
       <div class="col-span-6 md:col-span-3">
@@ -30,7 +30,7 @@
       </div>
     </template>
   </admin-input-form-vue>
-  <tinymce-editor-vue :initial_value="article.content"></tinymce-editor-vue>
+  <tinymce-editor-vue placeholder="...請輸入文章內容"></tinymce-editor-vue>
 </template>
 
 <script>
@@ -45,7 +45,7 @@ import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { computed } from "@vue/runtime-core";
 import { TITLE } from "../../../TITLE";
-import TitleItem from "../../../components/Objects/TitleItem.vue";
+import TitleItem from "../../../components/Objects/Title/TitleItem.vue";
 
 export default {
   components: {
@@ -65,7 +65,7 @@ export default {
     const article = ref({
       title: "",
       category_id: "",
-      content: "",
+      content: ""
     });
     const handleCreateArticle = () => {
       article.value.content = tinymce.get("tinymce_editor").getContent();

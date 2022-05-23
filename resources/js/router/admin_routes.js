@@ -1,4 +1,4 @@
-export const admin_routes = [{
+export const admin_routes = {
     path: "/admin/members",
     name: "admin",
     meta: {
@@ -131,5 +131,64 @@ export const admin_routes = [{
             component: () =>
                 import ("../SubPages/Admin/categories/UpdateCategory"),
         },
+        //活動圖片
+        {
+            path: "/admin/activity_imgs",
+            meta: {
+                title: "後台管理-活動圖片檢視",
+            },
+            name: "admin-activity_imgs",
+            component: () =>
+                import ("../SubPages/Admin/activity_imgs/AdminActivityImgs"),
+        },
+        //新增活動圖片
+        {
+            path: "/admin/activity_imgs/create",
+            meta: {
+                title: "後台管理-新增活動圖片",
+            },
+            name: "admin-activity_imgs-create",
+            component: () =>
+                import ("../SubPages/Admin/activity_imgs/CreateActivityImg"),
+        },
+        //編輯活動圖片
+        {
+            path: "/admin/activity_imgs/update",
+            meta: {
+                title: "後台管理-編輯活動圖片",
+            },
+            props: true,
+            name: "admin-activity_imgs-update",
+            component: () =>
+                import ("../SubPages/Admin/activity_imgs/UpdateActivityImg"),
+        },
+        /* 所有店家資訊 */
+        {
+            path: "/admin/store_infos",
+            name: "admin-store_infos",
+            meta: {
+                title: "後台管理-店家資訊",
+            },
+            component: () => import("../SubPages/Admin/stores/AdminStoreInfos"),
+        },
+        {
+            path: "/admin/store_infos/create",
+            name: "admin-store_info-create",
+            meta: {
+                title: "後台管理-新增店家資訊",
+            },
+            component: () =>
+                import("../SubPages/Admin/stores/CreateStoreInfo"),
+        },
+        {
+            path: "/admin/store_infos/update",
+            name: "admin-store_info-update",
+            meta: {
+                title: "後台管理-更新店家資訊",
+            },
+            props: true,
+            component: () =>
+                import("../SubPages/Admin/stores/UpdateStoreInfo"),
+        },
     ],
-}, ];
+};

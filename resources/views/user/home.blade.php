@@ -7,23 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>首頁</title>
-    {{-- <title>Xiang's music store</title> --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.css">
-    {{-- <script src="https://kit.fontawesome.com/6b077ef8a7.js" crossorigin="anonymous"></script> --}}
     <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/tailwind.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/svg.css') }}">
     <script src="{{url("assets/tinymce/tinymce.min.js")}}"></script>
-    {{-- <script defer src="/node_modules/@fortawesome/fontawesome-free/js/all.js"></script> --}}
-    {{-- <script src="https://cdn.tiny.cloud/1/5t2tjtgqke985s15zhhrl58l64chd7xl72ermvbvdxeubdq2/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> --}}
 </head>
 
 <body>
-    <div id="instrument_platform">
-        <alert-box-vue></alert-box-vue>
-        <router-view name="nav"></router-view>
-        <router-view></router-view>
-    </div>
-    <script src="{{ asset('/js/app.js') }}"></script>
+    <div id="instrument_platform"></div>
+    <script src="{{ asset('/js/main.js') }}"></script>
 </body>
 
 </html>

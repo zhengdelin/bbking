@@ -38,7 +38,7 @@ import { useStore } from "vuex";
 import CreateButtonVue from "../../../components/Objects/Button/CreateButton.vue";
 import AdminTableVue from "../../../components/Admin/AdminTable.vue";
 import { useRoute } from "vue-router";
-import TitleItem from '../../../components/Objects/TitleItem.vue';
+import TitleItem from '../../../components/Objects/Title/TitleItem.vue';
 
 export default {
   name: "AdminCategories",
@@ -51,7 +51,7 @@ export default {
     const route = useRoute();
     const { dispatch, state } = useStore();
     //key
-    const keys = ["name", "category_group_name"];
+    const keys = ["name", "category_group_name","eng_name"];
     const categories = computed(() => {
       return [].concat(...Object.values(state.globalHandler.categories));
     });

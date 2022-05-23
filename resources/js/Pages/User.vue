@@ -1,67 +1,88 @@
 <template>
-    <div class="user flex flex-1 pt-3">
-        <div
-            :class="[
-                { 'hidden md:block': !is_now_user },
-                'w-full md:w-[16.666%]',
-            ]"
-        >
-            <transition name="fade">
-                <menu-container
+    <div class="user flex gap-5 py-5 px-6">
+        <transition name="fade">
+            <div
+                :class="[
+                    { 'hidden md:block': !is_now_user },
+                    'bg-white w-full md:w-[18%] ',
+                ]"
+            >
+                <MenuContainer
+                    top="top-20"
                     :enable_collapse="false"
-                    :title="`你好 ${username}`"
-                    class="h-full text-black border-0 md:border-r-[1.5px] border-gray-300 text-center"
+                    :title="username || '顧客'"
+                    class="h-[360px] md:h-full md:max-h-[461px] text-black text-center"
                     v-if="show"
                 >
-              
-                    <template #menu_item="{collapse_menu}">
-                        <menu-item
-                            v-for="list in user_menu_lists"
-                            :key="list.text"
-                            :item="list"
+                    <template #menu_item="{ collapse_menu }">
+                        <MenuItem
+                            v-for="item in user_menu_lists"
+                            :key="item.text"
+                            :item="item"
                             :collapse="collapse_menu"
-                            box_py="py-2"
-                        ></menu-item>
+                        />
+
                         <div
-                            class="w-full text-center absolute bottom-0 mb-4 hover:cursor-pointer hover:text-red-500 font-bold"
-                            @click="handleLogout"
+                            class="w-full px-2 text-center absolute bottom-0 mb-4 font-bold"
                         >
-                            登出
+                            <div
+                                class="border border-slate-300 rounded-sm py-1 duration-300 mb-4"
+                                v-hover="
+                                    'hover:cursor-pointer hover:bg-blue-500'
+                                "
+                                @click="editPassword.toggleShow()"
+                            >
+                                修改密碼
+                            </div>
+                            <div
+                                class="border border-slate-300 rounded-sm py-1 duration-300"
+                                v-hover="
+                                    'hover:cursor-pointer hover:bg-red-500 hover:border-red-500'
+                                "
+                                @click="handleLogout"
+                            >
+                                登出
+                            </div>
                         </div>
                     </template>
-                </menu-container>
-            </transition>
-        </div>
+                </MenuContainer>
+            </div>
+        </transition>
+
         <div
-            class="flex items-center justify-center w-full"
+            class="w-full min-h-[80vh] relative"
             :class="{ 'hidden md:flex': is_now_user }"
         >
-            <div
-                class="w-[95%] h-full md:py-2 px-4 border-0 md:border-[1px] border-gray-300 rounded-lg"
-            >
-                <router-view v-slot="{ Component }">
-                    <transition name="roll-up" mode="out-in">
-                        <component :is="Component" v-show="show"></component>
-                    </transition>
-                </router-view>
-            </div>
+            <RouterView v-slot="{ Component }">
+                <Transition name="fade-from-bottom-15px" mode="out-in">
+                    <KeepAlive>
+                        <component :is="Component" v-show="show" />
+                    </KeepAlive>
+                </Transition>
+            </RouterView>
+            <UpdatePassword ref="editPassword" />
         </div>
     </div>
 </template>
 
 <script>
 import { ref } from "@vue/reactivity";
-import { computed, onMounted } from "@vue/runtime-core";
+import { computed, defineAsyncComponent, onMounted } from "@vue/runtime-core";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
-import MenuContainer from "../components/Menu/MenuContainer.vue";
-import MenuItem from "../components/Menu/MenuItem.vue";
+import MenuContainer from "../components/Global/Menu/MenuContainer.vue";
+import MenuItem from "../components/Global/Menu/MenuItem.vue";
+import InMask from "../components/Global/Region/InMask.vue";
 export default {
     components: {
         MenuContainer,
         MenuItem,
+        InMask,
+        UpdatePassword: defineAsyncComponent(() =>
+            import("../components/User/User/UpdatePassword.vue")
+        ),
     },
-    setup() {
+    async setup() {
         const route = useRoute();
         const router = useRouter();
         const { state, dispatch } = useStore();
@@ -78,16 +99,12 @@ export default {
                 text: "個人資料",
             },
             {
-                route_name: "user-shopping_cart",
-                text: "購物車",
+                route_name: "user-orders",
+                text: "訂單查詢",
             },
             {
                 route_name: "user-article_collection",
                 text: "文章收藏",
-            },
-            {
-                route_name: "user-shopping_record",
-                text: "購買紀錄",
             },
         ];
         // console.log(user_menu_lists);
@@ -103,10 +120,26 @@ export default {
                 show.value = true;
             }, 300);
         });
-        return { show, is_now_user, username, user_menu_lists, handleLogout };
+
+        //取得訂單
+        //取得珍藏文章
+        await Promise.all([
+            dispatch("productHandler/getOrders"),
+            dispatch("articleHandler/getCollectedArticles"),
+        ]);
+
+        const editPassword = ref();
+
+        return {
+            show,
+            is_now_user,
+            username,
+            user_menu_lists,
+            handleLogout,
+            editPassword,
+        };
     },
 };
 </script>
 
-<style>
-</style>
+<style></style>

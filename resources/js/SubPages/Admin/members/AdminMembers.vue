@@ -21,7 +21,7 @@ import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import CreateButtonVue from "../../../components/Objects/Button/CreateButton.vue";
 import AdminTableVue from "../../../components/Admin/AdminTable.vue";
-import TitleItem from '../../../components/Objects/TitleItem.vue';
+import TitleItem from '../../../components/Objects/Title/TitleItem.vue';
 
 export default {
   name: "AdminMembers",
@@ -51,7 +51,7 @@ export default {
       "phone",
       "address",
       "role",
-      "status",
+      { name: "status", type: "boolean" },
     ];
     //取得資料
     const all_user_info = ref();

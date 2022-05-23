@@ -3,11 +3,11 @@
 {{user_info}}
   <title-item title="會員 - 編輯會員" return_to_route_name="admin-members">
   </title-item>
-  <admin-title-vue title="會員資訊">
+  <title-item title="會員資訊">
     <template v-slot:button>
       <save-button-vue @click="updateUserMember"></save-button-vue>
     </template>
-  </admin-title-vue>
+  </title-item>
   <admin-input-form-vue>
     <template v-slot:form_items>
       <div class="col-span-6 md:col-span-3 lg:col-span-2">
@@ -59,8 +59,8 @@ import InputTextVue from "../../../components/Objects/Input/InputText.vue";
 import InputSingleCheckboxVue from "../../../components/Objects/Input/InputSingleCheckbox.vue";
 import SaveButtonVue from "../../../components/Objects/Button/SaveButton.vue";
 import { TITLE } from "../../../TITLE";
-import TitleItem from '../../../components/Objects/TitleItem.vue';
-import { computed, onMounted } from '@vue/runtime-core';
+import TitleItem from '../../../components/Objects/Title/TitleItem.vue';
+import { computed } from '@vue/runtime-core';
 
 export default {
   props: {

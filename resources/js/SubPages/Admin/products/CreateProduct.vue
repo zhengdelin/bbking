@@ -1,17 +1,18 @@
 <template>
+{{product}}
   <title-item
     return_to_route_name="admin-products"
     title="產品 - 新增產品"
   ></title-item>
-  <admin-title-vue title="產品資訊">
+  <title-item title="產品資訊">
     <template v-slot:button>
       <create-button-vue @click="handleCreateProduct"></create-button-vue>
     </template>
-  </admin-title-vue>
+  </title-item>
   <admin-input-form-vue class="mb-2">
     <template v-slot:form_items>
       <div
-        class="col-span-6 md:col-span-3"
+        class="col-span-6 md:col-span-2"
         v-for="col in input_cols"
         :key="col.model"
       >
@@ -26,7 +27,7 @@
           "
         ></input-text-vue>
       </div>
-      <div class="col-span-6 md:col-span-3">
+      <div class="col-span-3 md:col-span-2">
         <input-select-vue
           :required="true"
           :title="TITLE.category"
@@ -34,6 +35,13 @@
           v-model="product.category_id"
           valChangeFun="globalHandler/checkCategory"
         ></input-select-vue>
+      </div>
+      <div class="col-span-3 md:col-span-1">
+        <input-single-checkbox
+          :required="true"
+          title="上架"
+          v-model="product.status"
+        ></input-single-checkbox>
       </div>
       <div class="col-span-6 md:col-span-3">
         <input-file-vue
@@ -45,6 +53,7 @@
       </div>
     </template>
   </admin-input-form-vue>
+  <tinymce-editor placeholder="...請輸入產品描述"></tinymce-editor>
 </template>
 
 <script>
@@ -57,7 +66,9 @@ import { TITLE } from "../../../TITLE";
 import { useStore } from "vuex";
 import { computed, reactive, ref } from "@vue/runtime-core";
 import { useRouter } from "vue-router";
-import TitleItem from "../../../components/Objects/TitleItem.vue";
+import TitleItem from "../../../components/Objects/Title/TitleItem.vue";
+import InputSingleCheckbox from '../../../components/Objects/Input/InputSingleCheckbox.vue';
+import TinymceEditor from '../../../components/Objects/TinymceEditor.vue';
 
 export default {
   components: {
@@ -67,6 +78,8 @@ export default {
     InputSelectVue,
     InputFileVue,
     TitleItem,
+    InputSingleCheckbox,
+    TinymceEditor,
   },
   setup() {
     const { dispatch, state } = useStore();
@@ -76,8 +89,10 @@ export default {
     //產品資訊
     const product = ref({
       name: "",
+      introduction:"",
       description: "",
       price: "",
+      status:true,
       category_id: "",
       image: "",
     });
@@ -90,18 +105,19 @@ export default {
         func_call: "productHandler/checkName",
       },
       {
+        model: "introduction",
+        func_call: "productHandler/checkIntroduction",
+      },
+      {
         model: "price",
         required: true,
         isNumber: true,
         func_call: "productHandler/checkPrice",
       },
-      {
-        model: "description",
-        func_call: "productHandler/checkDescription",
-      },
     ]);
     //新增產品
     const handleCreateProduct = () => {
+      product.value.description = tinymce.get("tinymce_editor").getContent();
       // console.log("handleCreateProduct", product);
       dispatch("productHandler/createProduct", product.value).then(() => {
         if (state.status !== "error")

@@ -1,29 +1,27 @@
 <template>
-  <div>
-    <transition name="fade">
-      <v-event-img-banner></v-event-img-banner>
-    </transition>
-  </div>
+    <div class="p-3">
+        <activity-img-banner></activity-img-banner>
+        <CategoryMenu class="bg-white" />
+    </div>
 </template>
 
 <script>
-import EventImgBannerVue from "../components/EventImgBanner.vue";
+import ActivityImgBanner from "../components/Global/ActivityImgBanner.vue";
 import { reactive, ref } from "@vue/reactivity";
 import { onMounted, onUnmounted } from "@vue/runtime-core";
+import AllCategories from "../SubPages/Category/AllCategories.vue";
+import CategoryMenu from "../components/Global/Menu/CategoryMenu.vue";
 
 export default {
-  components: {
-    "v-event-img-banner": EventImgBannerVue,
-  },
-  setup() {
-
-    onUnmounted(() => {
-      console.log("home onUnMounted");
-    });
-    return {  };
-  },
+    components: {
+        ActivityImgBanner,
+        AllCategories,
+        CategoryMenu,
+    },
+    setup() {
+        return {};
+    },
 };
 </script>
 
-<style>
-</style>
+<style></style>

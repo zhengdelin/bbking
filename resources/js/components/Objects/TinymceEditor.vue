@@ -1,5 +1,5 @@
 <template>
-    <div id="tinymce" class="bg-white">
+    <div class="bg-white no-tailwind-base">
         <transition name="fade">
             <div
                 id="tinymce_toolbar"
@@ -9,27 +9,33 @@
         </transition>
         <div
             id="tinymce_editor"
-            class="bg-white article-box min-h-[20rem]"
+            class="bg-white article-box min-h-[20rem] px-3 py-1"
             v-html="initial_value"
         ></div>
     </div>
 </template>
 
 <script>
-import { computed, onMounted, onUnmounted, ref } from "@vue/runtime-core";
+import { onMounted, ref, toRefs } from "@vue/runtime-core";
+import { onBeforeRouteLeave } from "vue-router";
 export default {
     props: {
         initial_value: {
             type: String,
-            default: "123",
+            default: "",
+        },
+        placeholder: {
+            type: String,
+            default: "...請輸入文字",
         },
     },
     setup(props) {
         const show = ref(false);
-        const initial_value = computed(() => props.initial_value);
+        const { initial_value, placeholder } = toRefs(props);
         const config = {
             selector: "#tinymce_editor",
             inline: true,
+            placeholder: placeholder.value,
             fixed_toolbar_container: "#tinymce_toolbar",
             toolbar_persist: true,
             language_url: "../../assets/tinymce/langs/zh_TW.js",
@@ -114,28 +120,14 @@ export default {
         };
         onMounted(() => {
             tinymce.init(config);
-            // console.log("tinymce->",props);
+            console.log("tinymce->", props);
             if (props.initial_value)
                 tinymce.get("tinymce_editor").setContent(props.initial_value);
             show.value = true;
         });
-        onUnmounted(() => {
-            // console.log("tinymce-onUnmounted");
+        onBeforeRouteLeave(() => {
             tinymce.get("tinymce_editor").destroy();
         });
-        // watch(route, () => {
-        //   // console.log(route);
-        //   if (
-        //     route.name.toString().indexOf("create") !== -1 ||
-        //     route.name.toString().indexOf("update") !== -1
-        //   ) {
-        //     nextTick(() => {
-        //       tinymce.init(config);
-        //     });
-        //   } else {
-        //     tinymce.get("tinymce_editor").destroy();
-        //   }
-        // });
         return { initial_value, show };
     },
 };
@@ -158,82 +150,8 @@ export default {
     border: 1px solid #ccc;
     border-top: 0;
 }
-.article-box {
-    padding: 0.5rem 1rem;
-}
-.article-box h1 {
-    display: block;
-    font-size: 2em;
-    margin-block-start: 0.67em;
-    margin-block-end: 0.67em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-}
-
-.article-box h2 {
-    display: block;
-    font-size: 1.5em;
-    margin-block-start: 0.83em;
-    margin-block-end: 0.83em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-}
-
-.article-box h3 {
-    display: block;
-    font-size: 1.17em;
-    margin-block-start: 1.2em;
-    margin-block-end: 0.8em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-}
-
-.article-box h4 {
-    display: block;
-    margin-block-start: 0.7em;
-    margin-block-end: 0.7em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-}
-
-.article-box h5 {
-    display: block;
-    font-size: 0.83em;
-    margin-block-start: 0.5em;
-    margin-block-end: 0.5em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-}
-
-.article-box h6 {
-    display: block;
-    font-size: 0.67em;
-    margin-block-start: 0.5em;
-    margin-block-end: 0.5em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-}
-.article-box blockquote {
-    display: block;
-    padding: 10px 20px;
-    margin: 0 0 20px 0;
-    font-size: 17.5px;
-    border-left: 5px solid rgb(161, 175, 194);
-}
-.article-box blockquote p {
-    margin: 0.5rem 0;
-}
-.article-box p {
-    display: block;
-    /* margin-block-start: 1em; */
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
+.mce-content-body:not([dir="rtl"])[data-mce-placeholder]:not(.mce-visualblocks)::before {
+    left: 15px !important;
+    top: 25px;
 }
 </style>

@@ -2,14 +2,15 @@ import {get, post } from "../baseAxios";
 
 //global
 
-export const getOwnProfile = () => get("user/member/getOwnProfile");
-export const postUpdateOwnProfile = (data) => post("user/member/updateOwnProfile", data);
+export const getOwnProfile = () => get("user/getOwnProfile");
+export const postUpdateOwnProfile = (data) => post("user/updateOwnProfile", data);
 
-export const postUserLogout = () => post("user/member/userLogout");
-export const postUserLogin = (data) => post("user/member/userLogin", data);
+export const postUserLogout = () => post("user/userLogout");
+export const postUserLogin = (data) => post("user/userLogin", data);
 export const postUserRegister = (data) =>
-    post("user/member/userRegister", data);
-
+    post("user/userRegister", data);
+export const postUpdatePassword = data=>post("user/updatePassword",data);
+export const postForgetPassword = data=>post("user/forgetPassword",data);
 //admin
 
 export const getUserMember = () => get("user/admin/getUserMember");

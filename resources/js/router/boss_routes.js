@@ -1,3 +1,3 @@
-export const boss_routes = [{
-
-}]
+export const boss_routes = [
+    
+];

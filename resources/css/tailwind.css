@@ -3,9 +3,31 @@
 @tailwind utilities;
 @layer components {
     button {
-        @apply px-3 py-[0.375rem] rounded-md;
+        @apply px-4 py-[0.375rem] rounded-[0.25rem] font-bold disabled:cursor-not-allowed;
     }
     button>* {
-        @apply font-semibold;
+        @apply font-bold;
+    }
+    .no-tailwind-base * {
+        font-size: revert;
+        font-weight: revert;
+        list-style: revert;
+        margin: revert;
+        padding: revert;
+        color: inherit;
+        text-decoration: inherit;
+    }
+    .article-box blockquote {
+        display: block;
+        padding: 10px 20px;
+        margin: 0 0 20px 0;
+        font-size: 17.5px;
+        border-left: 5px solid rgb(161, 175, 194);
+    }
+    .article-box blockquote p {
+        margin: 0.5rem 0;
+    }
+    .border-gray-300-sm{
+        @apply border border-gray-300 rounded-sm
     }
 }

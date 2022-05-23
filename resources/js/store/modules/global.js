@@ -2,7 +2,6 @@ import { router } from "../../router/router";
 import { after_login_routes } from "../../router/after_login_routes";
 import { admin_routes } from "../../router/admin_routes";
 import { boss_routes } from "../../router/boss_routes";
-import { useRoute } from "vue-router";
 /* 處理全局state
 
 設置userToken、userInfo、storage、清除user、
@@ -10,14 +9,13 @@ import { useRoute } from "vue-router";
  */
 export default {
     state: {
-        user: "",
         token: "",
         is_login: false,
         is_init: false,
         user_info: {},
         status: "",
+        success_msgs: [],
         status_msgs: {},
-        exception_error: false,
         keep_alive: [
             "AdminMembers",
             "AdminArticles",
@@ -27,19 +25,25 @@ export default {
         nav: {
             home: {
                 text: "首頁",
-                router_name: "home",
+                route: { name: "home" },
             },
-            article: {
-                text: '文章',
-                router_name: "article",
+            articles: {
+                text: "文章介紹",
+                route: { path:"/articles" },
+            },
+            products: {
+                text: "產品",
+                route: { path: "/products" },
+            },
+            about: {
+                text: "關於我們",
+                route: { name: "about" },
             },
             login: {
                 text: "登入",
-                router_name: "user-login",
+                route: { name: "user-login" },
             },
         },
-
-
     },
     mutations: {
         /* 設定user token 登入 */
@@ -72,48 +76,38 @@ export default {
         },
         /* 設定全域status */
         setStatus: (state, { msg = "", type = "api", status = "error" }) => {
+            /* 
+            msg:訊息，
+            type:錯誤類型，ex:account、password...、api
+            status:狀態，error,400,200
+             */
             state.status =
                 status === 200 ? "success" : status === 400 ? "error" : status;
-            state.status_msgs["api"] = "";
-            state.status_msgs[type] = msg;
-            // console.log(
-            //     "setstatus->",
-            //     ",msg->",
-            //     msg,
-            //     "type->",
-            //     type,
-            //     "status->",
-            //     status,
-            //     state
-            // );
-            if (type !== "api" && state.status_msgs) {
-                const num = Object.values(state.status_msgs).reduce(
-                    (acc, val) => {
-                        return acc + val.length;
-                    },
-                    0
-                );
-                // console.log("num->", num);
-                if (!num) state.status = "";
+            if (status === 200) {
+                state.success_msgs = [...state.success_msgs, msg];
+            } else {
+                state.status_msgs["api"] = "";
+                state.status_msgs[type] = msg;
+                if (type !== "api" && state.status_msgs) {
+                    const num = Object.values(state.status_msgs).reduce(
+                        (acc, val) => {
+                            return acc + val.length;
+                        },
+                        0
+                    );
+                    // console.log("num->", num);
+                    if (!num) state.status = "";
+                }
             }
+            
         },
         /* 清除error */
         /* 清除所有狀態 */
         clearStatus: (state) => {
-            // console.log("clearStatus");
+            // console.log("clearStatus",Date(new Date().getTime()));
             state.status = "";
             state.status_msgs = {};
-        },
-        /* 例外狀況 */
-        exceptionOccur: (state, error) => {
-            state.exception_error = true;
-            console.log(
-                "----------------------exceptionOccur---------------------------"
-            );
-            console.log(error);
-            console.log(
-                "----------------------exceptionOccur---------------------------"
-            );
+            state.success_msgs = [];
         },
         init: (state) => {
             state.is_init = true;
@@ -121,31 +115,43 @@ export default {
         unInit: (state) => {
             state.is_init = false;
         },
+        /* 設定導覽列 */
         setNav: (state, type) => {
             if (type === "init") {
                 delete state.nav.user;
                 if (state.nav.admin) delete state.nav.admin;
-                state.nav['login'] = {
+                state.nav["login"] = {
                     text: "登入",
-                    router_name: "user-login"
+                    route: { name: "user-login" },
                 };
             } else if (type === "login") {
                 delete state.nav.login;
                 state.nav["user"] = {
                     text: "會員專區",
-                    router_name: "user",
+                    route: { name: "user" },
                 };
             } else if (type === "admin") {
                 state.nav["admin"] = {
                     text: "後臺管理",
-                    router_name: "admin-members",
+                    route: { name: "admin-members" },
                 };
             }
         },
+        setArticleProductRoute: (state, first_category) => {
+            // state.nav.articles.route.path = "/articles/" + first_category;
+            // state.nav.products.route.path = "/products/" + first_category;
+        },
     },
     actions: {
+        //設定文章和產品的路由位置為第一個類別
+        setArticleProductRoute: async ({ commit }, first_category) => {
+            commit("setArticleProductRoute", first_category);
+        },
         //更新user狀態,包括token,storage,userinfo
-        updateUserStatus: async({ commit, dispatch }, { token, user_info, remember }) => {
+        updateUserStatus: async (
+            { commit, dispatch },
+            { token, user_info, remember }
+        ) => {
             // console.log('updateUserStatus->', token, user_info, remember);
             //state.token
             commit("setUserToken", token);
@@ -158,15 +164,15 @@ export default {
             });
             await dispatch("addRoute");
         },
-        addRoute: async({ state, commit }) => {
+        /* 添加路由 */
+        addRoute: async ({ state, commit }) => {
             const not_found_route = {
                 path: "/:pathMatch(.*)*",
                 name: "NotFound",
                 meta: {
                     title: "not found",
                 },
-                component: () =>
-                    import ("../../Pages/404"),
+                component: () => import("../../Pages/404"),
             };
             if (state.is_login) {
                 //先移除404
@@ -180,12 +186,12 @@ export default {
                     // console.log('addroute');
 
                     if (state.user_info.role_id >= 2) {
-                        if (state.user_info.role_id === 2)
-                            admin_routes.forEach((i) => router.addRoute(i));
-                        else if (state.user_info.role_id === 3)
-                            [...boss_routes, ...admin_routes].forEach((i) =>
-                                router.addRoute(i)
-                            );
+                        if (state.user_info.role_id === 3)
+                            admin_routes.children = [
+                                ...admin_routes.children,
+                                ...boss_routes,
+                            ];
+                        router.addRoute(admin_routes);
 
                         commit("setNav", "admin");
                     }
@@ -200,6 +206,25 @@ export default {
                 commit("setNav", "init");
             }
         },
+        /* 確認登陸狀況 未登錄就跳轉 */
+        checkIsLogin: ({ state, commit }) => {
+            if (!state.is_login) {
+                commit("setStatus", {
+                    type: "login",
+                    msg: "請先登入再進行操作",
+                });
+                router.push({ name: "user-login" });
+            }
+        },
+        /* 將圖片讀成base64 */
+        readImageAsDataUrl: ({}, file) =>
+            new Promise((resolve, reject) => {
+                /* new file reader */
+                let fileReader = new FileReader();
+                fileReader.readAsDataURL(file);
+                fileReader.onload = () => resolve(fileReader.result);
+                fileReader.onerror = (error) => reject(error);
+            }),
     },
     getters: {
         getToken: (state) => {
