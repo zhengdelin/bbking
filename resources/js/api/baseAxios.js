@@ -5,7 +5,7 @@ import "nprogress/nprogress.css";
 // NProgress.inc(0.2);
 // NProgress.configure({ easing: 'linear', speed: 500, showSpinner: false, trickle: false })
 
-axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
+axios.defaults.baseURL = "/api/";
 //設置請求超時
 // axios.defaults.timeout = 10000;
 //攔截request

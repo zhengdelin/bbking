@@ -20631,7 +20631,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
  // NProgress.inc(0.2);
 // NProgress.configure({ easing: 'linear', speed: 500, showSpinner: false, trickle: false })
 
-(axios__WEBPACK_IMPORTED_MODULE_1___default().defaults.baseURL) = "http://127.0.0.1:8000/api/"; //設置請求超時
+(axios__WEBPACK_IMPORTED_MODULE_1___default().defaults.baseURL) = "/api/"; //設置請求超時
 // axios.defaults.timeout = 10000;
 //攔截request
 
