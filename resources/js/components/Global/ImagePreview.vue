@@ -2,7 +2,7 @@
     <preview-button @click="toggleShowPreview"></preview-button>
     <InMask class="!fixed" v-show="toggle">
         <div
-            class="w-[90%] lg:w-[95%] h-[95%] bg-white rounded-lg p-3 relative"
+            class="w-[70vw] lg:w-[80vw] h-[70vh] bg-white rounded-lg p-3 relative"
         >
             <div
                 class="p-2 m-3 hover:cursor-pointer absolute top-0 left-0"

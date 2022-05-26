@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Product;
 use App\Http\Controllers\GlobalController;
 
 use App\Http\Requests\Product\CreateProductRequest;
+use App\Http\Requests\Product\OrderRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
 
 class ProductAdminController extends GlobalController
 {
@@ -73,5 +75,76 @@ class ProductAdminController extends GlobalController
             'status' => $status
         ]);
         return response()->json(['status' => 200, 'msg' => '成功更改產品']);
+    }
+    //取得訂單
+    public function getAllOrders()
+    {
+        $sql = "SELECT 
+                    a.id, a.product_price, a.total_price, a.delivery_fee, a.delivery_method, 
+                    a.address, a.pay_method, a.pay_account, a.name, a.email, a.phone, 
+                    d.name as buyer_name, d.email as buyer_email, d.phone as buyer_phone, a.note, a.status, a.order_time,
+                    CONCAT('['
+                      , IFNULL(
+                          GROUP_CONCAT(
+                            CONCAT('{', CHAR(34), 'order_id', CHAR(34), ':', b.order_id, ',')
+                            ,CONCAT(CHAR(34), 'product_id', CHAR(34), ':', b.product_id, ',')
+                            ,CONCAT(CHAR(34), 'name', CHAR(34), ':', CHAR(34), c.name, CHAR(34), ',')
+                            ,CONCAT(CHAR(34), 'image', CHAR(34), ':', CHAR(34), IFNULL(c.image,''), CHAR(34), ',')
+                            ,CONCAT(CHAR(34), 'price', CHAR(34), ':', c.price, ',')
+                            ,CONCAT(CHAR(34), 'amount', CHAR(34), ':', b.amount, '}'))                         
+                          ,'')
+                      , ']') as products 
+                      FROM `orders` AS a
+                      LEFT JOIN `order_record_products` AS b ON a.id = b.order_id
+                      LEFT JOIN `products` AS c ON b.product_id = c.id
+                      LEFT JOIN `members` AS d ON a.member_id = d.id
+                      WHERE  a.status != 0
+                      GROUP BY a.id;";
+        $orders = DB::select($sql);
+        for ($i = 0, $len = count($orders); $i < $len; $i++) {
+            $products = json_decode($orders[$i]->products);
+            // dd($products);
+            $orders[$i]->products = [];
+            //將該訂單的產品逐一加入
+            for ($j = 0, $l = count($products); $j < $l; $j++) {
+                // dd($products[$j]);
+                $item = parent::addImgLocation('product', NULL, $products[$j]);
+                $orders[$i]->products[] = $item;
+            }
+        }
+        return response()->json(["status" => 200, "orders" => $orders]);
+    }
+    public function updateOrder(OrderRequest $request, $order_id)
+    {
+        $address = $request->address;
+        $pay_account = $request->pay_account;
+        $name = $request->name;
+        $email = $request->email;
+        $phone = $request->phone;
+        $note = $request->note;
+        $order = DB::table("orders")->where([["id", $order_id], ["status", "!=", 0]])->first();
+        if (!$order)
+            return response()->json(["status" => 400, "msg" => "未找到可更新的訂單"]);
+
+        if ($order->status === 4)
+            return response()->json(["status" => 400, "msg" => "訂單已取消"]);
+
+
+        DB::table("orders")->where("id", $order_id)->update([
+            "address" => $address,
+            "pay_account" => $pay_account,
+            "name" => $name,
+            "email" => $email,
+            "phone" => $phone,
+            "note" => $note
+        ]);
+        return response()->json(["status" => 200, "msg" => "成功更新訂單"]);
+    }
+    public function updateOrderStatus(Request $request, $order_id, $status)
+    {
+        DB::table("orders")->where("id", $order_id)->update([
+            "status" => $status,
+        ]);
+        return response()->json(["status" => 200, "msg" => "更新訂單狀態成功"]);
     }
 }

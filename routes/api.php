@@ -81,7 +81,10 @@ Route::middleware('token_middleware')->group(function () {
         Route::get("product/admin/getProducts", [ProductAdminController::class, 'getProducts']); //取得所有產品
         Route::post("product/admin/createProduct", [ProductAdminController::class, 'createProduct']); //新增產品
         Route::post("product/admin/updateProduct", [ProductAdminController::class, 'updateProduct']); //更新產品
+        Route::get("admin/orders", [ProductAdminController::class, 'getAllOrders']); //取得所有產品
 
+        Route::patch("admin/order/{order_id}", [ProductAdminController::class, 'updateOrder']);
+        Route::put("admin/order/{order_id}/status/{status}", [ProductAdminController::class, 'updateOrderStatus']);
         /* admin global */
         Route::post("global/createCategory", [GlobalController::class, 'createCategory']); //新增類別
         Route::post("global/updateCategory", [GlobalController::class, 'updateCategory']); //更新類別

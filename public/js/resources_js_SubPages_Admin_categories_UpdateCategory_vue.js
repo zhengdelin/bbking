@@ -240,7 +240,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var _vue_reactivity__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @vue/reactivity */ "./node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js");
+/* harmony import */ var _vue_runtime_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @vue/runtime-core */ "./node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   inheritAttrs: false,
@@ -253,21 +261,23 @@ __webpack_require__.r(__webpack_exports__);
       type: Boolean,
       "default": false
     },
-    option_group: {
-      type: Object || Array,
-      "default": function _default() {
-        return [] || 0;
-      }
-    },
     options: {
-      type: Array,
+      type: [Array, Object],
       "default": function _default() {
         return [];
       }
     },
-    valChangeFun: {
+    labelKey: {
       type: String,
-      "default": ""
+      "default": "name"
+    },
+    valueKey: {
+      type: String,
+      "default": "id"
+    },
+    group: {
+      type: Boolean,
+      "default": false
     }
   },
   emits: {
@@ -279,30 +289,18 @@ __webpack_require__.r(__webpack_exports__);
   setup: function setup(props, _ref) {
     var attrs = _ref.attrs,
         emit = _ref.emit;
-
-    // console.log("inputSelect", props);
-    var _useStore = (0,vuex__WEBPACK_IMPORTED_MODULE_0__.useStore)(),
-        dispatch = _useStore.dispatch;
-
-    var title = props.title,
-        required = props.required,
-        options = props.options,
-        option_group = props.option_group,
-        valChangeFun = props.valChangeFun;
-
-    var emitInput = function emitInput(e) {
-      if (valChangeFun) dispatch(valChangeFun, e.target.value);
-      emit("update:modelValue", e.target.value);
-    };
-
-    return {
-      title: title,
-      required: required,
-      option_group: option_group,
-      options: options,
-      emitInput: emitInput,
-      attrs: attrs
-    };
+    console.log("inputSelect", props);
+    var modelValue = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_0__.computed)({
+      get: function get() {
+        return attrs.modelValue;
+      },
+      set: function set(val) {
+        emit("update:modelValue", val);
+      }
+    });
+    return _objectSpread(_objectSpread({}, (0,_vue_reactivity__WEBPACK_IMPORTED_MODULE_1__.toRefs)(props)), {}, {
+      modelValue: modelValue
+    });
   }
 });
 
@@ -320,6 +318,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _vue_runtime_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @vue/runtime-core */ "./node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js");
 /* harmony import */ var _vue_runtime_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @vue/runtime-core */ "./node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   inheritAttrs: false,
@@ -361,33 +365,40 @@ __webpack_require__.r(__webpack_exports__);
     //ref
     var field = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_0__.ref)(); // data
 
-    var title = props.title,
-        trim = props.trim,
-        focus = props.focus,
-        isNumber = props.isNumber,
-        type = props.type;
-    var required = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
-      return props.required;
-    }); //emit
+    var _toRefs = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_0__.toRefs)(props),
+        title = _toRefs.title,
+        trim = _toRefs.trim,
+        focus = _toRefs.focus,
+        isNumber = _toRefs.isNumber;
 
-    var emitInput = function emitInput(e) {
-      var value = e.target.value;
-      if (trim) value = value.trim();
-      if (isNumber) value = value.replace(/[^0-9]/gi, "");
-      emit("update:modelValue", value);
+    var placeholder = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
+      return "輸入" + title.value;
+    });
+    var modelValue = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_1__.computed)({
+      get: function get() {
+        return attrs.modelValue;
+      },
+      set: function set(val) {
+        return emit("update:modelValue", val);
+      }
+    }); // modelValue.value = attrs.modelValue;
+    //emit
+
+    var modelValueChange = function modelValueChange() {
+      if (trim.value) modelValue.value = modelValue.value.trim();
+      if (isNumber.value) modelValue.value = modelValue.value.replace(/[^0-9]/gi, ""); // emit("update:modelValue", modelValue.value);
     };
 
     (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_1__.onMounted)(function () {
-      if (focus) field.value.focus();
+      if (focus.value) field.value.focus();
     });
-    return {
-      title: title,
-      attrs: attrs,
-      required: required,
-      field: field,
-      emitInput: emitInput,
-      type: type
-    };
+    return _objectSpread(_objectSpread({
+      modelValue: modelValue,
+      placeholder: placeholder
+    }, (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_0__.toRefs)(props)), {}, {
+      modelValueChange: modelValueChange,
+      field: field
+    });
   }
 });
 
@@ -624,61 +635,59 @@ var _hoisted_2 = {
 var _hoisted_3 = {
   "class": "w-full py-1"
 };
-var _hoisted_4 = ["value"];
 
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
-  value: "",
-  disabled: ""
-}, "請選擇", -1
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  disabled: "",
+  value: ""
+}, "點擊選擇", -1
 /* HOISTED */
 );
 
-var _hoisted_6 = ["value"];
-var _hoisted_7 = ["label"];
-var _hoisted_8 = ["value"];
+var _hoisted_5 = ["value"];
+var _hoisted_6 = ["label"];
+var _hoisted_7 = ["value"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [$setup.required ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_2, "* ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.title), 1
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [$props.required ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_2, "* ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.title), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
-    "class": "font-bold w-full h-[40px] border-gray-500 border-opacity-50 border-[1px] border-solid rounded-[10px] pl-2",
-    value: $setup.attrs.modelValue,
-    onChange: _cache[0] || (_cache[0] = function () {
-      return $setup.emitInput && $setup.emitInput.apply($setup, arguments);
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "class": "font-bold w-full border-gray-500 border-opacity-50 border-[1px] border-solid rounded-sm p-2",
+    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+      return $setup.modelValue = $event;
     })
-  }, [_hoisted_5, $setup.options.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+  }, [_hoisted_4, !$props.group ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 0
-  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.options, function (option) {
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.options, function (option) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
-      key: option.id,
-      value: option.id
-    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(option.name), 9
+      key: option[$props.valueKey],
+      value: option[$props.valueKey]
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(option[$props.labelKey]), 9
     /* TEXT, PROPS */
-    , _hoisted_6);
+    , _hoisted_5);
   }), 128
   /* KEYED_FRAGMENT */
   )) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 1
-  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.option_group, function (options, key) {
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.options, function (groupOptions, key) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("optgroup", {
       key: key,
       label: key
-    }, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(options, function (option) {
+    }, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(groupOptions, function (option) {
       return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
-        key: option.id,
-        value: option.id
-      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(option.name), 9
+        key: option[$props.valueKey],
+        value: option[$props.valueKey]
+      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(option[$props.labelKey]), 9
       /* TEXT, PROPS */
-      , _hoisted_8);
+      , _hoisted_7);
     }), 128
     /* KEYED_FRAGMENT */
     ))], 8
     /* PROPS */
-    , _hoisted_7);
+    , _hoisted_6);
   }), 128
   /* KEYED_FRAGMENT */
-  ))], 40
-  /* PROPS, HYDRATE_EVENTS */
-  , _hoisted_4)])], 64
+  ))], 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $setup.modelValue]])])], 64
   /* STABLE_FRAGMENT */
   );
 }
@@ -710,22 +719,25 @@ var _hoisted_3 = {
 var _hoisted_4 = {
   "class": "w-full py-1"
 };
-var _hoisted_5 = ["type", "value"];
+var _hoisted_5 = ["type", "placeholder", "required"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [$setup.required ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_2, "* ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.title), 1
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [$props.required ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_2, "* ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.title), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" component v-model時\r\n      要加:value = \"attrs.modelValue\",\r\n      @input=\"$emit('update:modelValue',$event.targe.value)\" \r\n      "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", (0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeProps)({
-    "class": "w-full h-[40px] border-gray-500 border-opacity-50 border-[1px] rounded-sm pl-4",
-    type: $setup.type || 'text'
-  }, $setup.attrs, {
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" component v-model時\r\n      要加:value = \"attrs.modelValue\",\r\n      @input=\"$emit('update:modelValue',$event.targe.value)\" \r\n      "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "class": "w-full h-[40px] placeholder:font-bold border-gray-500 border-opacity-50 border-[1px] rounded-sm pl-4",
+    type: $props.type || 'text',
     ref: "field",
-    value: $setup.attrs.modelValue,
-    onInput: _cache[0] || (_cache[0] = function () {
-      return $setup.emitInput && $setup.emitInput.apply($setup, arguments);
-    })
-  }), null, 16
-  /* FULL_PROPS */
-  , _hoisted_5)])]);
+    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+      return $setup.modelValue = $event;
+    }),
+    placeholder: $setup.placeholder,
+    onChange: _cache[1] || (_cache[1] = function () {
+      return $setup.modelValueChange && $setup.modelValueChange.apply($setup, arguments);
+    }),
+    required: $props.required
+  }, null, 40
+  /* PROPS, HYDRATE_EVENTS */
+  , _hoisted_5), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelDynamic, $setup.modelValue]])])]);
 }
 
 /***/ }),
@@ -758,7 +770,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     to: {
       name: $setup.return_to_route_name
     },
-    "class": "text-blue-500",
+    "class": "text-blue-500 px-2",
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return $setup.commit('clearStatus');
     })
@@ -780,57 +792,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* TEXT, CLASS */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "button")])]);
 }
-
-/***/ }),
-
-/***/ "./resources/js/TITLE.js":
-/*!*******************************!*\
-  !*** ./resources/js/TITLE.js ***!
-  \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "TITLE": () => (/* binding */ TITLE)
-/* harmony export */ });
-var TITLE = {
-  /*  */
-  account: "帳號",
-  password: "密碼",
-  check_password: "再次確認密碼",
-  email: "Email",
-  name: "名稱",
-  phone: "電話",
-  address: "地址",
-  code: "驗證碼",
-
-  /*  */
-  title: "標題",
-  content: "內容",
-
-  /*  */
-  category: "類別",
-  category_id: "類別",
-  category_name: "類別",
-  category_group: "類別群組",
-  category_group_id: "類別群組",
-  category_group_name: "類別群組",
-  eng_name: "英文名稱",
-  url: "網址",
-
-  /*  */
-  introduction: "簡介",
-  description: "描述",
-  price: "價格",
-  image: "圖片",
-
-  /*  */
-  updated_at: "上次更新",
-  status: "狀態",
-  logo: "Logo",
-  business_hours: "營業時間",
-  isHeadquarter: "為總公司"
-};
 
 /***/ }),
 

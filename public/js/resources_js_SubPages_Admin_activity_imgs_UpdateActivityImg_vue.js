@@ -573,6 +573,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _vue_runtime_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @vue/runtime-core */ "./node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js");
 /* harmony import */ var _vue_runtime_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @vue/runtime-core */ "./node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   inheritAttrs: false,
@@ -614,33 +620,40 @@ __webpack_require__.r(__webpack_exports__);
     //ref
     var field = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_0__.ref)(); // data
 
-    var title = props.title,
-        trim = props.trim,
-        focus = props.focus,
-        isNumber = props.isNumber,
-        type = props.type;
-    var required = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
-      return props.required;
-    }); //emit
+    var _toRefs = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_0__.toRefs)(props),
+        title = _toRefs.title,
+        trim = _toRefs.trim,
+        focus = _toRefs.focus,
+        isNumber = _toRefs.isNumber;
 
-    var emitInput = function emitInput(e) {
-      var value = e.target.value;
-      if (trim) value = value.trim();
-      if (isNumber) value = value.replace(/[^0-9]/gi, "");
-      emit("update:modelValue", value);
+    var placeholder = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
+      return "輸入" + title.value;
+    });
+    var modelValue = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_1__.computed)({
+      get: function get() {
+        return attrs.modelValue;
+      },
+      set: function set(val) {
+        return emit("update:modelValue", val);
+      }
+    }); // modelValue.value = attrs.modelValue;
+    //emit
+
+    var modelValueChange = function modelValueChange() {
+      if (trim.value) modelValue.value = modelValue.value.trim();
+      if (isNumber.value) modelValue.value = modelValue.value.replace(/[^0-9]/gi, ""); // emit("update:modelValue", modelValue.value);
     };
 
     (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_1__.onMounted)(function () {
-      if (focus) field.value.focus();
+      if (focus.value) field.value.focus();
     });
-    return {
-      title: title,
-      attrs: attrs,
-      required: required,
-      field: field,
-      emitInput: emitInput,
-      type: type
-    };
+    return _objectSpread(_objectSpread({
+      modelValue: modelValue,
+      placeholder: placeholder
+    }, (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_0__.toRefs)(props)), {}, {
+      modelValueChange: modelValueChange,
+      field: field
+    });
   }
 });
 
@@ -831,7 +844,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "w-[90%] lg:w-[95%] h-[95%] bg-white rounded-lg p-3 relative"
+  "class": "w-[70vw] lg:w-[80vw] h-[70vh] bg-white rounded-lg p-3 relative"
 };
 var _hoisted_2 = {
   "class": "h-full flex items-center justify-center"
@@ -1141,22 +1154,25 @@ var _hoisted_3 = {
 var _hoisted_4 = {
   "class": "w-full py-1"
 };
-var _hoisted_5 = ["type", "value"];
+var _hoisted_5 = ["type", "placeholder", "required"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [$setup.required ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_2, "* ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.title), 1
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [$props.required ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_2, "* ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.title), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" component v-model時\r\n      要加:value = \"attrs.modelValue\",\r\n      @input=\"$emit('update:modelValue',$event.targe.value)\" \r\n      "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", (0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeProps)({
-    "class": "w-full h-[40px] border-gray-500 border-opacity-50 border-[1px] rounded-sm pl-4",
-    type: $setup.type || 'text'
-  }, $setup.attrs, {
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" component v-model時\r\n      要加:value = \"attrs.modelValue\",\r\n      @input=\"$emit('update:modelValue',$event.targe.value)\" \r\n      "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "class": "w-full h-[40px] placeholder:font-bold border-gray-500 border-opacity-50 border-[1px] rounded-sm pl-4",
+    type: $props.type || 'text',
     ref: "field",
-    value: $setup.attrs.modelValue,
-    onInput: _cache[0] || (_cache[0] = function () {
-      return $setup.emitInput && $setup.emitInput.apply($setup, arguments);
-    })
-  }), null, 16
-  /* FULL_PROPS */
-  , _hoisted_5)])]);
+    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+      return $setup.modelValue = $event;
+    }),
+    placeholder: $setup.placeholder,
+    onChange: _cache[1] || (_cache[1] = function () {
+      return $setup.modelValueChange && $setup.modelValueChange.apply($setup, arguments);
+    }),
+    required: $props.required
+  }, null, 40
+  /* PROPS, HYDRATE_EVENTS */
+  , _hoisted_5), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelDynamic, $setup.modelValue]])])]);
 }
 
 /***/ }),
@@ -1189,7 +1205,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     to: {
       name: $setup.return_to_route_name
     },
-    "class": "text-blue-500",
+    "class": "text-blue-500 px-2",
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return $setup.commit('clearStatus');
     })

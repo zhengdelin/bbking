@@ -1,16 +1,17 @@
 <template>
     <div>
-        <div class="font-bold">
+        <div class="font-bold mb-3" v-if="title">
             <span v-if="required" class="text-red-500">* </span>
             <span class="font-MicrosoftJhengHei">{{ title }}</span>
         </div>
-        <div class="w-full py-1">
+        <div class="w-full">
             <textarea
                 class="placeholder:font-bold"
                 v-model="modelValue"
                 ref="field"
                 rows="3"
                 :placeholder="placeholder"
+                :readonly="readonly"
                 @input="onInput"
             />
         </div>
@@ -18,7 +19,7 @@
 </template>
 
 <script>
-import { computed, nextTick, onMounted, ref, toRefs } from "vue";
+import { computed, onMounted, ref, toRefs } from "vue";
 
 export default {
     props: {
@@ -35,13 +36,14 @@ export default {
             default: false,
         },
         placeholder: { type: String, default: "" },
+        readonly: { type: Boolean, default: false },
     },
     emits: ["update:modelValue"],
     setup(props, { attrs, emit }) {
         //ref
         const field = ref();
         // data
-        const { title, focus, required, placeholder } = toRefs(props);
+        const { title, focus, required, placeholder, readonly } = toRefs(props);
 
         const modelValue = computed({
             get: () => attrs.modelValue,
@@ -62,7 +64,7 @@ export default {
             }
         });
 
-        return { title, required, field, modelValue, placeholder, onInput };
+        return { title, required, field, modelValue, placeholder, onInput, readonly };
     },
 };
 </script>

@@ -18,16 +18,15 @@
                 >{{ product.name }}</router-link
             >
         </div>
-        <FormattedPrice :price="product.price" class="col-span-1"/>
+        <FormattedPrice :price="product.price" class="col-span-1" />
     </div>
 </template>
 
 <script>
 import { computed } from "@vue/runtime-core";
-import { useRoute } from "vue-router";
-import FormattedPrice from './FormattedPrice.vue';
+import FormattedPrice from "./FormattedPrice.vue";
 export default {
-  components: { FormattedPrice },
+    components: { FormattedPrice },
     props: {
         product: {
             type: Object,
@@ -36,10 +35,10 @@ export default {
     },
     setup(props) {
         const product = computed(() => props.product);
-        const route = useRoute();
-        const path = computed(()=>route.path)
-        const productPath = computed(() => path.value + "/" + product.value.id);
-        return { product, path, productPath };
+        const productPath = computed(
+            () => `/products/${product.value.eng_name}/${product.value.id}`
+        );
+        return { product, productPath };
     },
 };
 </script>

@@ -117,8 +117,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _vue_runtime_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @vue/runtime-core */ "./node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js");
-/* harmony import */ var _vue_runtime_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @vue/runtime-core */ "./node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js");
+/* harmony import */ var _vue_runtime_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @vue/runtime-core */ "./node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js");
+/* harmony import */ var _vue_runtime_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @vue/runtime-core */ "./node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js");
 /* harmony import */ var _Table_TableFoot_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Table/TableFoot.vue */ "./resources/js/components/Admin/Table/TableFoot.vue");
 /* harmony import */ var _TITLE__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../TITLE */ "./resources/js/TITLE.js");
 /* harmony import */ var _Global_ImagePreview_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Global/ImagePreview.vue */ "./resources/js/components/Global/ImagePreview.vue");
@@ -167,20 +167,30 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     //表頭//鍵值順序//編輯的route
     var header_columns = props.column_heads,
         keys = props.keys,
-        update_route_name = props.update_route_name; //第幾頁,總共幾頁,一頁幾個
+        update_route_name = props.update_route_name; //資料
 
-    var current_page = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_5__.ref)(0);
-    var per = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_5__.ref)(10);
-    var total_pages = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_6__.computed)(function () {
-      return Math.ceil(props.datas.length / per.value);
+    var rawData = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_5__.computed)(function () {
+      return props.datas;
+    });
+    var type = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_5__.computed)(function () {
+      return Object.prototype.toString.call(rawData.value);
+    });
+    var realData = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_5__.computed)(function () {
+      return type.value === "[object Object]" ? Object.values(rawData.value) : rawData.value;
+    }); //第幾頁,總共幾頁,一頁幾個
+
+    var current_page = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_6__.ref)(0);
+    var per = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_6__.ref)(10);
+    var total_pages = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_5__.computed)(function () {
+      return Math.ceil(realData.value.length / per.value);
     }); //目前資料
 
-    var datas = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_6__.computed)(function () {
+    var datas = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_5__.computed)(function () {
       var start = 0 + current_page.value * per.value;
       var end = start + per.value;
-      return props.datas.slice(start, end);
+      return realData.value.slice(start, end);
     });
-    (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_6__.watch)(per, function () {
+    (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_5__.watch)(per, function () {
       current_page.value = current_page.value >= total_pages.value ? total_pages.value - 1 : current_page.value;
     });
     /* 頁數控制 */
@@ -203,7 +213,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     /*  */
 
 
-    var td_max_width = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_6__.computed)(function () {
+    var td_max_width = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_5__.computed)(function () {
       var width = Math.floor(60 / keys.value.length);
       return " max-w-[".concat(width, "rem]");
     });
@@ -693,9 +703,9 @@ var _hoisted_16 = /*#__PURE__*/_withScopeId(function () {
 
 var _hoisted_17 = [_hoisted_14, _hoisted_15, _hoisted_16];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_table_header = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("table-header");
+  var _component_TableHeader = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("TableHeader");
 
-  var _component_table_column = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("table-column");
+  var _component_TableColumn = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("TableColumn");
 
   var _component_svg_render_vue = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("svg-render-vue");
 
@@ -703,7 +713,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_table_foot_vue = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("table-foot-vue");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_table_header, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TableHeader, {
     keys: $setup.keys,
     header_columns: $setup.header_columns
   }, null, 8
@@ -720,39 +730,48 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("td", {
         key: $setup.getKey(key),
         "class": "\\ py-2 px-1 overflow-hidden text-ellipsis whitespace-nowrap max-w-[15rem]"
-      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_table_column, {
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "column", {
         data: data[$setup.getKey(key)],
-        data_type: $setup.getDataType(key)
-      }, null, 8
-      /* PROPS */
-      , ["data", "data_type"])]);
+        dataKey: key
+      }, function () {
+        return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TableColumn, {
+          data: data[$setup.getKey(key)],
+          data_type: $setup.getDataType(key)
+        }, null, 8
+        /* PROPS */
+        , ["data", "data_type"])];
+      }, true)]);
     }), 128
     /* KEYED_FRAGMENT */
     )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" slot將data傳出去供父元素調用 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "other_tbody", {
       data: data
-    }, undefined, true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [$setup.update_route_name ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_router_link, {
-      key: 0,
-      to: {
-        name: $setup.update_route_name,
-        params: {
-          info: JSON.stringify(data)
-        }
-      },
-      "class": "mr-1 md:mr-3 text-blue-500"
-    }, {
-      "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-        return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_svg_render_vue, {
-          type: "edit"
-        })];
-      }),
-      _: 2
-      /* DYNAMIC */
+    }, undefined, true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "action", {
+      data: data
+    }, function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [$setup.update_route_name ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_router_link, {
+        key: 0,
+        to: {
+          name: $setup.update_route_name,
+          params: {
+            info: JSON.stringify(data)
+          }
+        },
+        "class": "mr-1 md:mr-3 text-blue-500"
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_svg_render_vue, {
+            type: "edit"
+          })];
+        }),
+        _: 2
+        /* DYNAMIC */
 
-    }, 1032
-    /* PROPS, DYNAMIC_SLOTS */
-    , ["to"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_svg_render_vue, {
-      type: "delete"
-    })])])])], 2
+      }, 1032
+      /* PROPS, DYNAMIC_SLOTS */
+      , ["to"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_svg_render_vue, {
+        type: "delete"
+      })])])])];
+    }, true)], 2
     /* CLASS */
     );
   }), 128
@@ -943,7 +962,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "w-[90%] lg:w-[95%] h-[95%] bg-white rounded-lg p-3 relative"
+  "class": "w-[70vw] lg:w-[80vw] h-[70vh] bg-white rounded-lg p-3 relative"
 };
 var _hoisted_2 = {
   "class": "h-full flex items-center justify-center"
@@ -1078,7 +1097,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     to: {
       name: $setup.return_to_route_name
     },
-    "class": "text-blue-500",
+    "class": "text-blue-500 px-2",
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return $setup.commit('clearStatus');
     })
@@ -1100,57 +1119,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* TEXT, CLASS */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "button")])]);
 }
-
-/***/ }),
-
-/***/ "./resources/js/TITLE.js":
-/*!*******************************!*\
-  !*** ./resources/js/TITLE.js ***!
-  \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "TITLE": () => (/* binding */ TITLE)
-/* harmony export */ });
-var TITLE = {
-  /*  */
-  account: "帳號",
-  password: "密碼",
-  check_password: "再次確認密碼",
-  email: "Email",
-  name: "名稱",
-  phone: "電話",
-  address: "地址",
-  code: "驗證碼",
-
-  /*  */
-  title: "標題",
-  content: "內容",
-
-  /*  */
-  category: "類別",
-  category_id: "類別",
-  category_name: "類別",
-  category_group: "類別群組",
-  category_group_id: "類別群組",
-  category_group_name: "類別群組",
-  eng_name: "英文名稱",
-  url: "網址",
-
-  /*  */
-  introduction: "簡介",
-  description: "描述",
-  price: "價格",
-  image: "圖片",
-
-  /*  */
-  updated_at: "上次更新",
-  status: "狀態",
-  logo: "Logo",
-  business_hours: "營業時間",
-  isHeadquarter: "為總公司"
-};
 
 /***/ }),
 

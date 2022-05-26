@@ -40,7 +40,7 @@ class ProductController extends GlobalController
             //將\n換成___n___
             $products[$i]->evaluations = parent::decodeAndReplace($evaluations);
             //取代回\n
-            for ($j=0, $l = count($products[$i]->evaluations); $j < $l; $j++) { 
+            for ($j = 0, $l = count($products[$i]->evaluations); $j < $l; $j++) {
                 $item = $products[$i]->evaluations[$j]->evaluation;
                 $products[$i]->evaluations[$j]->evaluation = parent::replace__n__($item);
             }
@@ -76,7 +76,7 @@ class ProductController extends GlobalController
         if ($product) {
             $product = $product[0];
             $product->evaluations = parent::decodeAndReplace($product->evaluations);
-            for ($j=0, $l = count($product->evaluations); $j < $l; $j++) { 
+            for ($j = 0, $l = count($product->evaluations); $j < $l; $j++) {
                 $item = $product->evaluations[$j]->evaluation;
                 $product->evaluations[$j]->evaluation = parent::replace__n__($item);
             }
@@ -264,7 +264,7 @@ class ProductController extends GlobalController
         for ($i = 0, $len = count($orders); $i < $len; $i++) {
             $products = parent::decodeAndReplace($orders[$i]->products);
             // dd($products);
-            
+
             for ($j = 0, $length = count($products); $j < $length; $j++) {
                 $item = $products[$j]->evaluation->evaluation;
                 $products[$j]->evaluation->evaluation = parent::replace__n__($item);
@@ -390,4 +390,6 @@ class ProductController extends GlobalController
             ]);
         return response()->json(['status' => 200, 'msg' => "已新增評價內容"]);
     }
+
+    
 }

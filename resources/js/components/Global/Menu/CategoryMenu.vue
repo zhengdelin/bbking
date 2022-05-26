@@ -3,7 +3,7 @@
         <menu-container
             :enable_collapse="false"
             :menu_tree="category_menu_lists"
-            class="z-[5] bg-white text-center md:text-left"
+            class="z-[5] bg-white text-center md:text-left h-full"
             :title="title"
         >
             <template #menu_item="{ collapse_menu }">

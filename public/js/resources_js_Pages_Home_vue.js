@@ -1401,11 +1401,7 @@ var _hoisted_1 = {
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_activity_img_banner = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("activity-img-banner");
 
-  var _component_CategoryMenu = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CategoryMenu");
-
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_activity_img_banner), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CategoryMenu, {
-    "class": "bg-white"
-  })]);
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_activity_img_banner), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <CategoryMenu class=\"bg-white\" /> ")]);
 }
 
 /***/ }),
@@ -1615,7 +1611,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_menu_container, {
     enable_collapse: false,
     menu_tree: $setup.category_menu_lists,
-    "class": "z-[5] bg-white text-center md:text-left",
+    "class": "z-[5] bg-white text-center md:text-left h-full",
     title: $setup.title
   }, {
     menu_item: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function (_ref) {
@@ -1838,7 +1834,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     to: {
       name: $setup.return_to_route_name
     },
-    "class": "text-blue-500",
+    "class": "text-blue-500 px-2",
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return $setup.commit('clearStatus');
     })

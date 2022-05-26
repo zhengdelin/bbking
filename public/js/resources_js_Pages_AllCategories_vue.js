@@ -1406,7 +1406,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_menu_container, {
     enable_collapse: false,
     menu_tree: $setup.category_menu_lists,
-    "class": "z-[5] bg-white text-center md:text-left",
+    "class": "z-[5] bg-white text-center md:text-left h-full",
     title: $setup.title
   }, {
     menu_item: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function (_ref) {

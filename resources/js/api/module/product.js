@@ -1,4 +1,4 @@
-import { get, post } from "../baseAxios";
+import { get, patch, post, put } from "../baseAxios";
 
 export const getProductsByCategory = (data) =>
     post("product/getProductsByCategory", data);
@@ -21,3 +21,7 @@ export const postCreateProduct = (data) =>
     post("product/admin/createProduct", data);
 export const postUpdateProduct = (data) =>
     post("product/admin/updateProduct", data);
+export const getAllOrders = () => get("admin/orders");
+export const putOrderStatus = ({ id, status }) =>
+    put(`admin/order/${id}/status/${status}`);
+export const patchOrder = (data) => patch(`admin/order/${data.id}`, data);

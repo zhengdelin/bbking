@@ -10,19 +10,20 @@
       @input="$emit('update:modelValue',$event.targe.value)" 
       -->
             <input
-                class="w-full h-[40px] border-gray-500 border-opacity-50 border-[1px] rounded-sm pl-4"
+                class="w-full h-[40px] placeholder:font-bold border-gray-500 border-opacity-50 border-[1px] rounded-sm pl-4"
                 :type="type || 'text'"
-                v-bind="attrs"
                 ref="field"
-                :value="attrs.modelValue"
-                @input="emitInput"
+                v-model="modelValue"
+                :placeholder="placeholder"
+                @change="modelValueChange"
+                :required="required"
             />
         </div>
     </div>
 </template>
 
 <script>
-import { computed, onMounted, ref } from "@vue/runtime-core";
+import { computed, onMounted, ref, toRefs } from "@vue/runtime-core";
 export default {
     inheritAttrs: false,
     props: {
@@ -61,19 +62,24 @@ export default {
         //ref
         const field = ref();
         // data
-        const { title, trim, focus, isNumber, type } = props;
-        const required = computed(() => props.required);
+        const { title, trim, focus, isNumber } = toRefs(props);
+        const placeholder = computed(() => "輸入" + title.value);
+        const modelValue = computed({
+            get: () => attrs.modelValue,
+            set: (val) => emit("update:modelValue", val),
+        });
+        // modelValue.value = attrs.modelValue;
         //emit
-        const emitInput = (e) => {
-            let value = e.target.value;
-            if (trim) value = value.trim();
-            if (isNumber) value = value.replace(/[^0-9]/gi, "");
-            emit("update:modelValue", value);
+        const modelValueChange = () => {
+            if (trim.value) modelValue.value = modelValue.value.trim();
+            if (isNumber.value)
+                modelValue.value = modelValue.value.replace(/[^0-9]/gi, "");
+            // emit("update:modelValue", modelValue.value);
         };
         onMounted(() => {
-            if (focus) field.value.focus();
+            if (focus.value) field.value.focus();
         });
-        return { title, attrs, required, field, emitInput, type };
+        return { modelValue, placeholder, ...toRefs(props), modelValueChange, field };
     },
 };
 </script>

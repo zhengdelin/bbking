@@ -190,5 +190,23 @@ export const admin_routes = {
             component: () =>
                 import("../SubPages/Admin/stores/UpdateStoreInfo"),
         },
+        {
+            path: "/admin/orders",
+            name: "admin-orders",
+            meta: {
+                title: "後台管理-訂單",
+            },
+            component: () =>
+                import("../SubPages/Admin/orders"),
+        },
+        {
+            path: "/admin/orders/:id",
+            name: "admin-orders-detail",
+            meta: {
+                title: "後台管理-訂單管理",
+            },
+            component: () =>
+                import("../SubPages/Admin/orders/OrderDetail"),
+        },
     ],
 };

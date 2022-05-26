@@ -23,20 +23,30 @@
                 ></input-text-vue>
             </div>
             <div class="col-span-6 md:col-span-3">
-                <input-select-vue
+                <InputSelectVue
                     :required="true"
                     :title="TITLE.category"
-                    :option_group="categories"
+                    :options="categories"
+                    group
                     v-model="article.category_id"
-                ></input-select-vue>
+                    @update:modelValue="
+                        dispatch(
+                            'globalHandler/checkCategory',
+                            article.category_id
+                        )
+                    "
+                />
             </div>
         </template>
     </admin-input-form-vue>
-    <tinymce-editor-vue :initial_value="article.content"></tinymce-editor-vue>
+    <TinymceEditor
+        v-model:content="article.content"
+        placeholder="...請輸入文章內容"
+    />
 </template>
 
 <script>
-import TinymceEditorVue from "../../../components/Objects/TinymceEditor.vue";
+import TinymceEditor from "../../../components/Objects/TinymceEditor.vue";
 import AdminInputFormVue from "../../../components/Admin/AdminInputForm.vue";
 import InputTextVue from "../../../components/Objects/Input/InputText.vue";
 import InputSelectVue from "../../../components/Objects/Input/InputSelect.vue";
@@ -45,14 +55,14 @@ import SaveButtonVue from "../../../components/Objects/Button/SaveButton.vue";
 import { ref } from "@vue/reactivity";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import { computed, onMounted } from "@vue/runtime-core";
+import { computed } from "@vue/runtime-core";
 import { TITLE } from "../../../TITLE";
 import TitleItem from "../../../components/Objects/Title/TitleItem.vue";
 
 export default {
     components: {
         SaveButtonVue,
-        TinymceEditorVue,
+        TinymceEditor,
         AdminInputFormVue,
         InputTextVue,
         InputSelectVue,
@@ -66,20 +76,21 @@ export default {
     },
     setup(props) {
         const router = useRouter();
-        const { dispatch, state } = useStore();
+        const { dispatch, state, getters } = useStore();
         //info
         const info = computed(() => props.info);
         /* 如果沒東西跳轉回去 */
         if (!info.value) router.push({ name: "admin-articles" });
         //類別
-        const categories = computed(() => state.globalHandler.categories);
+        const categories = computed(
+            () => getters["globalHandler/category_map_by_category_group"]
+        );
         //掛載資料
         const article = ref();
         article.value = info.value ? JSON.parse(info.value) : {};
         // console.log(article.value);
 
         const handleUpdateArticle = () => {
-            article.value.content = tinymce.get("tinymce_editor").getContent();
             dispatch("articleHandler/updateArticle", article.value).then(() => {
                 if (state.status !== "error")
                     router.push({

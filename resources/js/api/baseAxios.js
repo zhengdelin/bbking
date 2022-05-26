@@ -58,3 +58,10 @@ export const post = (url, data) => {
 export const get = async (url) => {
     return axios.get(url);
 };
+
+export const put = async (url, data) => {
+    return axios.put(url, data);
+};
+export const patch = async (url, data) => {
+    return axios.patch(url, data);
+};

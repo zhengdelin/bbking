@@ -352,6 +352,10 @@ __webpack_require__.r(__webpack_exports__);
     placeholder: {
       type: String,
       "default": ""
+    },
+    readonly: {
+      type: Boolean,
+      "default": false
     }
   },
   emits: ["update:modelValue"],
@@ -365,7 +369,8 @@ __webpack_require__.r(__webpack_exports__);
         title = _toRefs.title,
         focus = _toRefs.focus,
         required = _toRefs.required,
-        placeholder = _toRefs.placeholder;
+        placeholder = _toRefs.placeholder,
+        readonly = _toRefs.readonly;
 
     var modelValue = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)({
       get: function get() {
@@ -397,7 +402,8 @@ __webpack_require__.r(__webpack_exports__);
       field: field,
       modelValue: modelValue,
       placeholder: placeholder,
-      onInput: onInput
+      onInput: onInput,
+      readonly: readonly
     };
   }
 });
@@ -969,29 +975,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "mb-3"
+  key: 0,
+  "class": "font-bold text-sm mb-3"
 };
 var _hoisted_2 = {
-  "class": "font-bold text-sm"
-};
-var _hoisted_3 = {
   key: 0,
   "class": "text-red-500"
 };
-var _hoisted_4 = {
+var _hoisted_3 = {
   "class": "font-MicrosoftJhengHei"
 };
-var _hoisted_5 = ["readonly", "type", "placeholder", "required"];
+var _hoisted_4 = ["readonly", "type", "placeholder", "required"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_2, [$props.required ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_3, "* ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.title), 1
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [$props.title ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_1, [$props.required ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_2, "* ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.title), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     ref: "field",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $setup.modelValue = $event;
     }),
     readonly: $props.readonly,
-    "class": "placeholder:font-bold w-full border-gray-500 border-opacity-50 border-b rounded-sm py-1 focus:outline-none",
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(['placeholder:font-bold w-full border-gray-500 border-opacity-50 rounded-sm focus:outline-none', {
+      ' border-b-2 py-1 focus:border-blue-500': !$props.readonly
+    }]),
     type: $props.type,
     placeholder: $props.placeholder,
     onChange: _cache[1] || (_cache[1] = function () {
@@ -999,9 +1005,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     required: $props.required,
     autocomplete: "off"
-  }, null, 40
-  /* PROPS, HYDRATE_EVENTS */
-  , _hoisted_5), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelDynamic, $setup.modelValue]])]);
+  }, null, 42
+  /* CLASS, PROPS, HYDRATE_EVENTS */
+  , _hoisted_4), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelDynamic, $setup.modelValue]])]);
 }
 
 /***/ }),
@@ -1153,7 +1159,8 @@ var _withScopeId = function _withScopeId(n) {
 };
 
 var _hoisted_1 = {
-  "class": "font-bold"
+  key: 0,
+  "class": "font-bold mb-3"
 };
 var _hoisted_2 = {
   key: 0,
@@ -1163,13 +1170,13 @@ var _hoisted_3 = {
   "class": "font-MicrosoftJhengHei"
 };
 var _hoisted_4 = {
-  "class": "w-full py-1"
+  "class": "w-full"
 };
-var _hoisted_5 = ["placeholder"];
+var _hoisted_5 = ["placeholder", "readonly"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [$setup.required ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_2, "* ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.title), 1
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [$setup.title ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [$setup.required ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_2, "* ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.title), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
+  )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
     "class": "placeholder:font-bold",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $setup.modelValue = $event;
@@ -1177,6 +1184,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     ref: "field",
     rows: "3",
     placeholder: $setup.placeholder,
+    readonly: $setup.readonly,
     onInput: _cache[1] || (_cache[1] = function () {
       return $setup.onInput && $setup.onInput.apply($setup, arguments);
     })

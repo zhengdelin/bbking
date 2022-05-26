@@ -30,5 +30,16 @@ export const TITLE = {
     status: "狀態",
     logo:"Logo",
     business_hours:"營業時間",
-    isHeadquarter:"為總公司"
+    isHeadquarter:"為總公司",
+
+    product_price:"商品價格",
+    delivery_fee:"運費",
+    total_price:"總計",
+    delivery_method:"運送方式",
+    pay_method:"付款方式",
+    note:"備註",
+    receiver:"收件人",
+    receiver_email:"收件人Email",
+    receiver_phone:"收件人電話"
+
 };

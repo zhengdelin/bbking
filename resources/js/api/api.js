@@ -20,7 +20,7 @@ import {
     postUpdateArticle,
 } from "./module/article";
 import { getActivityImgs, getAllActivityImgs, getCategories, getAllStoreInfos, postCreateActivityImg, postCreateCategory, postUpdateActivityImg, postUpdateCategory, postCreateStoreInfo, postUpdateStoreInfo, getStoreInfos } from "./module/global";
-import { getCartByMember, getOrderById, getOrders, getProductById, getProducts, getProductsByCategory, postAddProductToCart, postCancelOrder, postCreateOrder, postCreateProduct, postDeleteCartProduct, postEvaluate, postRecoverOrder, postShoppingAgain, postUpdateProduct } from "./module/product";
+import { getAllOrders, getCartByMember, getOrderById, getOrders, getProductById, getProducts, getProductsByCategory, patchOrder, postAddProductToCart, postCancelOrder, postCreateOrder, postCreateProduct, postDeleteCartProduct, postEvaluate, postRecoverOrder, postShoppingAgain, postUpdateProduct, putOrderStatus } from "./module/product";
 
 /* global */
 export const apiGetCategories = getCategories;
@@ -76,3 +76,6 @@ export const apiPostEvaluate = postEvaluate;
 export const apiGetProducts = getProducts;
 export const apiPostCreateProduct = postCreateProduct;
 export const apiPostUpdateProduct = postUpdateProduct;
+export const apiGetAllOrders = getAllOrders;
+export const apiPutOrderStatus = putOrderStatus;
+export const apiPatchOrder = patchOrder;

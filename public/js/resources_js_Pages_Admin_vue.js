@@ -29,8 +29,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   setup: function setup() {
     var _useStore = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.useStore)(),
-        state = _useStore.state,
-        commit = _useStore.commit;
+        state = _useStore.state;
 
     var keep_alive = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_4__.computed)(function () {
       return state.keep_alive;
@@ -83,6 +82,10 @@ __webpack_require__.r(__webpack_exports__);
       text: "店家資訊",
       route_name: "admin-store_infos",
       svg_name: "store"
+    }, {
+      text: "訂單管理",
+      route_name: "admin-orders",
+      svg_name: "order"
     }];
     return {
       keep_alive: keep_alive,

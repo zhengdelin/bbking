@@ -253,9 +253,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _vue_runtime_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @vue/runtime-core */ "./node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm-bundler.js");
 /* harmony import */ var _FormattedPrice_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FormattedPrice.vue */ "./resources/js/components/User/Product/FormattedPrice.vue");
-
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -272,16 +270,11 @@ __webpack_require__.r(__webpack_exports__);
     var product = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
       return props.product;
     });
-    var route = (0,vue_router__WEBPACK_IMPORTED_MODULE_2__.useRoute)();
-    var path = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
-      return route.path;
-    });
     var productPath = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
-      return path.value + "/" + product.value.id;
+      return "/products/".concat(product.value.eng_name, "/").concat(product.value.id);
     });
     return {
       product: product,
-      path: path,
       productPath: productPath
     };
   }

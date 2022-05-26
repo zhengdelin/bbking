@@ -2,7 +2,7 @@
   <div class="flex items-center justify-between">
     <router-link
       :to="{ name: return_to_route_name }"
-      class="text-blue-500"
+      class="text-blue-500 px-2"
       @click="commit('clearStatus')"
       v-if="return_to_route_name"
     >

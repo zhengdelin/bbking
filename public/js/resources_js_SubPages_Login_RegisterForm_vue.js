@@ -525,29 +525,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "mb-3"
+  key: 0,
+  "class": "font-bold text-sm mb-3"
 };
 var _hoisted_2 = {
-  "class": "font-bold text-sm"
-};
-var _hoisted_3 = {
   key: 0,
   "class": "text-red-500"
 };
-var _hoisted_4 = {
+var _hoisted_3 = {
   "class": "font-MicrosoftJhengHei"
 };
-var _hoisted_5 = ["readonly", "type", "placeholder", "required"];
+var _hoisted_4 = ["readonly", "type", "placeholder", "required"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_2, [$props.required ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_3, "* ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.title), 1
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [$props.title ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_1, [$props.required ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_2, "* ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.title), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     ref: "field",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $setup.modelValue = $event;
     }),
     readonly: $props.readonly,
-    "class": "placeholder:font-bold w-full border-gray-500 border-opacity-50 border-b rounded-sm py-1 focus:outline-none",
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(['placeholder:font-bold w-full border-gray-500 border-opacity-50 rounded-sm focus:outline-none', {
+      ' border-b-2 py-1 focus:border-blue-500': !$props.readonly
+    }]),
     type: $props.type,
     placeholder: $props.placeholder,
     onChange: _cache[1] || (_cache[1] = function () {
@@ -555,9 +555,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     required: $props.required,
     autocomplete: "off"
-  }, null, 40
-  /* PROPS, HYDRATE_EVENTS */
-  , _hoisted_5), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelDynamic, $setup.modelValue]])]);
+  }, null, 42
+  /* CLASS, PROPS, HYDRATE_EVENTS */
+  , _hoisted_4), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelDynamic, $setup.modelValue]])]);
 }
 
 /***/ }),
@@ -632,7 +632,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     to: {
       name: $setup.return_to_route_name
     },
-    "class": "text-blue-500",
+    "class": "text-blue-500 px-2",
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return $setup.commit('clearStatus');
     })
@@ -654,57 +654,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* TEXT, CLASS */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "button")])]);
 }
-
-/***/ }),
-
-/***/ "./resources/js/TITLE.js":
-/*!*******************************!*\
-  !*** ./resources/js/TITLE.js ***!
-  \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "TITLE": () => (/* binding */ TITLE)
-/* harmony export */ });
-var TITLE = {
-  /*  */
-  account: "帳號",
-  password: "密碼",
-  check_password: "再次確認密碼",
-  email: "Email",
-  name: "名稱",
-  phone: "電話",
-  address: "地址",
-  code: "驗證碼",
-
-  /*  */
-  title: "標題",
-  content: "內容",
-
-  /*  */
-  category: "類別",
-  category_id: "類別",
-  category_name: "類別",
-  category_group: "類別群組",
-  category_group_id: "類別群組",
-  category_group_name: "類別群組",
-  eng_name: "英文名稱",
-  url: "網址",
-
-  /*  */
-  introduction: "簡介",
-  description: "描述",
-  price: "價格",
-  image: "圖片",
-
-  /*  */
-  updated_at: "上次更新",
-  status: "狀態",
-  logo: "Logo",
-  business_hours: "營業時間",
-  isHeadquarter: "為總公司"
-};
 
 /***/ }),
 

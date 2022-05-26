@@ -108,6 +108,10 @@ __webpack_require__.r(__webpack_exports__);
     placeholder: {
       type: String,
       "default": ""
+    },
+    readonly: {
+      type: Boolean,
+      "default": false
     }
   },
   emits: ["update:modelValue"],
@@ -121,7 +125,8 @@ __webpack_require__.r(__webpack_exports__);
         title = _toRefs.title,
         focus = _toRefs.focus,
         required = _toRefs.required,
-        placeholder = _toRefs.placeholder;
+        placeholder = _toRefs.placeholder,
+        readonly = _toRefs.readonly;
 
     var modelValue = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)({
       get: function get() {
@@ -153,7 +158,8 @@ __webpack_require__.r(__webpack_exports__);
       field: field,
       modelValue: modelValue,
       placeholder: placeholder,
-      onInput: onInput
+      onInput: onInput,
+      readonly: readonly
     };
   }
 });
@@ -690,7 +696,8 @@ var _withScopeId = function _withScopeId(n) {
 };
 
 var _hoisted_1 = {
-  "class": "font-bold"
+  key: 0,
+  "class": "font-bold mb-3"
 };
 var _hoisted_2 = {
   key: 0,
@@ -700,13 +707,13 @@ var _hoisted_3 = {
   "class": "font-MicrosoftJhengHei"
 };
 var _hoisted_4 = {
-  "class": "w-full py-1"
+  "class": "w-full"
 };
-var _hoisted_5 = ["placeholder"];
+var _hoisted_5 = ["placeholder", "readonly"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [$setup.required ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_2, "* ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.title), 1
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [$setup.title ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [$setup.required ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_2, "* ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.title), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
+  )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
     "class": "placeholder:font-bold",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $setup.modelValue = $event;
@@ -714,6 +721,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     ref: "field",
     rows: "3",
     placeholder: $setup.placeholder,
+    readonly: $setup.readonly,
     onInput: _cache[1] || (_cache[1] = function () {
       return $setup.onInput && $setup.onInput.apply($setup, arguments);
     })
@@ -752,7 +760,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     to: {
       name: $setup.return_to_route_name
     },
-    "class": "text-blue-500",
+    "class": "text-blue-500 px-2",
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return $setup.commit('clearStatus');
     })

@@ -38,12 +38,12 @@ import MenuContainer from "../components/Global/Menu/MenuContainer.vue";
 import AdminHeaderVue from "../components/Admin/AdminHeader.vue";
 import MenuItem from "../components/Global/Menu/MenuItem.vue";
 import { useStore } from "vuex";
-import { computed, onMounted, onUnmounted } from "@vue/runtime-core";
+import { computed } from "@vue/runtime-core";
 
 export default {
     components: { MenuContainer, AdminHeaderVue, MenuItem },
     setup() {
-        const { state, commit } = useStore();
+        const { state } = useStore();
         const keep_alive = computed(() => state.keep_alive);
         const admin_menu_lists = [
             {
@@ -108,6 +108,11 @@ export default {
                 text: "店家資訊",
                 route_name: "admin-store_infos",
                 svg_name: "store",
+            },
+            {
+                text: "訂單管理",
+                route_name: "admin-orders",
+                svg_name: "order",
             },
         ];
 

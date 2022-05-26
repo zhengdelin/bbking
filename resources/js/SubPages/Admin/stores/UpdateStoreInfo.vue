@@ -53,10 +53,10 @@
             </div>
         </template>
     </admin-input-form-vue>
-    <tinymce-editor
-        :initial_value="store_info.description"
-        placeholder="...請輸入產品描述"
-    ></tinymce-editor>
+    <TinymceEditor
+        v-model:content="store_info.description"
+        placeholder="...輸入關於我們"
+    />
 </template>
 
 <script>
@@ -131,9 +131,6 @@ export default {
         //更新產品
         const handleUpdateStoreInfo = () => {
             //   console.log("handleUpdateStoreInfo", store_info);
-            store_info.value.description = tinymce
-                .get("tinymce_editor")
-                .getContent();
             dispatch("globalHandler/updateStoreInfo", store_info.value).then(() => {
                 if (state.status !== "error")
                     router.push({

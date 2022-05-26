@@ -274,15 +274,16 @@ class GlobalController extends BaseController
     public function addImgLocation($type, $items, $item, $key = 'image')
     {
         /* 三個參數，第二個為二維陣列或物件，第三個為一為 */
-        if (!empty($items)) {
+        if (!empty($items) && $items != NUll) {
             foreach ($items as $item) if ($item->$key) {
                 $item->$key = "/pictures/$type/" . $item->$key;
             }
+            return $items;
         } else if ($item) {
             if ($item->$key)
                 $item->$key = "/pictures/$type/" . $item->$key;
+            return $item;
         }
-        return $items;
     }
 
     public function get_token($text)

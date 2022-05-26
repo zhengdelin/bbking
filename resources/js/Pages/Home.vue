@@ -1,7 +1,7 @@
 <template>
     <div class="p-3">
         <activity-img-banner></activity-img-banner>
-        <CategoryMenu class="bg-white" />
+        <!-- <CategoryMenu class="bg-white" /> -->
     </div>
 </template>
 

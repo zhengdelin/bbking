@@ -53,9 +53,10 @@
             </div>
         </template>
     </admin-input-form-vue>
-    <tinymce-editor
-        placeholder="...請輸入關於我們"
-    ></tinymce-editor>
+    <TinymceEditor
+        v-model:content="store_info.description"
+        placeholder="...輸入關於我們"
+    />
 </template>
 
 <script>
@@ -69,7 +70,7 @@ import { reactive, ref } from "@vue/runtime-core";
 import { useRouter } from "vue-router";
 import InputSingleCheckbox from "../../../components/Objects/Input/InputSingleCheckbox.vue";
 import TinymceEditor from "../../../components/Objects/TinymceEditor.vue";
-import CreateButton from '../../../components/Objects/Button/CreateButton.vue';
+import CreateButton from "../../../components/Objects/Button/CreateButton.vue";
 
 export default {
     components: {
@@ -92,17 +93,17 @@ export default {
         const router = useRouter();
         //產品資訊
         const store_info = ref({
-            name:"",
-            eng_name:"",
-            url:"",
-            address:"",
-            phone:"",
-            email:"",
-            business_hours:"",
-            description:"",
-            logo:null,
-            isHeadquarter:false,
-            status:true,
+            name: "",
+            eng_name: "",
+            url: "",
+            address: "",
+            phone: "",
+            email: "",
+            business_hours: "",
+            description: "",
+            logo: null,
+            isHeadquarter: false,
+            status: true,
         });
         //欄位
         const input_cols = reactive([
@@ -110,7 +111,7 @@ export default {
                 model: "name",
                 focus: true,
                 required: true,
-                
+
                 func_call: "globalHandler/checkStoreInfoName",
             },
             {
@@ -130,22 +131,21 @@ export default {
             },
             {
                 model: "business_hours",
-                func_call:"globalHandler/checkStoreInfoBH"
+                func_call: "globalHandler/checkStoreInfoBH",
             },
         ]);
         //更新產品
         const handleCreateStoreInfo = () => {
             //   console.log("handleCreateStoreInfo", store_info);
-            store_info.value.description = tinymce
-                .get("tinymce_editor")
-                .getContent();
-            dispatch("globalHandler/createStoreInfo", store_info.value).then(() => {
-                if (state.status !== "error")
-                    router.push({
-                        name: "admin-store_infos",
-                        params: { update_store_info: true },
-                    });
-            });
+            dispatch("globalHandler/createStoreInfo", store_info.value).then(
+                () => {
+                    if (state.status !== "error")
+                        router.push({
+                            name: "admin-store_infos",
+                            params: { update_store_info: true },
+                        });
+                }
+            );
         };
         //file更改時，接受input file的物件
         const fileChange = (file) => {

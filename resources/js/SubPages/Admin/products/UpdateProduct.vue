@@ -30,13 +30,19 @@
                 ></input-text-vue>
             </div>
             <div class="col-span-3 md:col-span-2">
-                <input-select-vue
+                <InputSelectVue
                     :required="true"
                     :title="TITLE.category"
-                    :option_group="categories"
+                    :options="categories"
+                    group
                     v-model="product.category_id"
-                    valChangeFun="globalHandler/checkCategory"
-                ></input-select-vue>
+                    @update:modelValue="
+                        dispatch(
+                            'globalHandler/checkCategory',
+                            product.category_id
+                        )
+                    "
+                />
             </div>
             <div class="col-span-3 md:col-span-1">
                 <input-single-checkbox
@@ -56,10 +62,7 @@
             </div>
         </template>
     </admin-input-form-vue>
-    <tinymce-editor
-        :initial_value="product.description"
-        placeholder="...請輸入產品描述"
-    ></tinymce-editor>
+    <TinymceEditor v-model:content="product.description" placeholder="...請輸入產品描述" />
 </template>
 
 <script>
@@ -94,13 +97,14 @@ export default {
         },
     },
     setup(props) {
-        const { dispatch, state } = useStore();
+        const { dispatch, state, getters } = useStore();
         const router = useRouter();
         /* 如果沒東西跳轉回去 */
         const info = computed(() => props.info);
         if (!info.value) router.push({ name: "admin-products" });
         //類別
-        const categories = computed(() => state.globalHandler.categories);
+        const categories = computed(() => getters["globalHandler/category_map_by_category_group"]);
+        // console.log("categories",categories.value);
         //產品資訊
         const product = ref();
         product.value = info.value ? JSON.parse(info.value) : {};
@@ -127,10 +131,6 @@ export default {
         ]);
         //更新產品
         const handleUpdateProduct = () => {
-            //   console.log("handleUpdateProduct", product);
-            product.value.description = tinymce
-                .get("tinymce_editor")
-                .getContent();
             dispatch("productHandler/updateProduct", product.value).then(() => {
                 if (state.status !== "error")
                     router.push({
@@ -152,7 +152,7 @@ export default {
             input_cols,
             handleUpdateProduct,
             fileChange,
-            dispatch,
+            dispatch
         };
     },
 };

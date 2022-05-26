@@ -1,6 +1,6 @@
 <template>
-    <div class="mb-3">
-        <span class="font-bold text-sm">
+    <div>
+        <span class="font-bold text-sm mb-3" v-if="title">
             <span v-if="required" class="text-red-500">* </span>
             <span class="font-MicrosoftJhengHei">{{ title }}</span>
         </span>
@@ -9,7 +9,10 @@
             ref="field"
             v-model="modelValue"
             :readonly="readonly"
-            class="placeholder:font-bold w-full border-gray-500 border-opacity-50 border-b rounded-sm py-1 focus:outline-none"
+            :class="[
+                'placeholder:font-bold w-full border-gray-500 border-opacity-50 rounded-sm focus:outline-none',
+                { ' border-b-2 py-1 focus:border-blue-500': !readonly },
+            ]"
             :type="type"
             :placeholder="placeholder"
             @change="modelValueChange"

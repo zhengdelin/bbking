@@ -1,10 +1,12 @@
 import {
+    apiGetAllOrders,
     apiGetCartByMember,
     apiGetOrderById,
     apiGetOrders,
     apiGetProductById,
     apiGetProducts,
     apiGetProductsByCategory,
+    apiPatchOrder,
     apiPostAddProductToCart,
     apiPostCancelOrder,
     apiPostCreateOrder,
@@ -14,7 +16,9 @@ import {
     apiPostRecoverOrder,
     apiPostShoppingAgain,
     apiPostUpdateProduct,
+    apiPutOrderStatus,
 } from "../../api/api";
+import { checkFormat } from "../../compositions/check";
 
 export default {
     namespaced: true,
@@ -54,6 +58,7 @@ export default {
                 color: "text-red-500",
             },
         },
+        all_orders: [],
     },
     mutations: {
         setOrders: (state, orders) => {
@@ -64,7 +69,6 @@ export default {
         },
         setProductsByCategory: (state, { products, category }) => {
             products = products.reduce((acc, product) => {
-               
                 acc[product.id] = product;
                 return acc;
             }, {});
@@ -79,6 +83,9 @@ export default {
             //     return acc;
             // }, {});
             state.products_by_id[product_id] = product;
+        },
+        setAllOrders: (state, orders) => {
+            state.all_orders = orders
         },
     },
     actions: {
@@ -294,6 +301,41 @@ export default {
             const { status } = await apiPostEvaluate({ ...product, ...data });
             return status === 200;
         },
+        getAllOrders: async ({ commit }) => {
+            const { orders } = await apiGetAllOrders();
+            commit("setAllOrders", orders);
+        },
+        updateOrderStatus: async ({ dispatch }, data) => {
+            const { status } = await apiPutOrderStatus(data);
+            if (status === 400) await dispatch("getAllOrders");
+        },
+        updateOrder: async ({ dispatch, rootState }, data) => {
+            await Promise.all([
+                dispatch("checkReceiver", data.name),
+                dispatch("checkReceiverPhone", data.phone),
+                dispatch("checkReceiverEmail", data.email),
+            ]);
+            if (data.delivery_method === 1)
+                await dispatch("checkAddress", data.address);
+            if (rootState.status !== "error") {
+                const { status } = await apiPatchOrder(data);
+                if (status === 400) await dispatch("getAllOrders");
+                return status === 200;
+            }
+            return false;
+        },
+        checkReceiver: async (_, name) => {
+            checkFormat(name, { max: 10 }, { type: "receiver" });
+        },
+        checkReceiverPhone: async (_, phone) => {
+            checkFormat(phone, { regex: "phone" }, { type: "receiver_phone" });
+        },
+        checkReceiverEmail: async (_, email) => {
+            checkFormat(email, { max: 30 }, { type: "receiver_email" });
+        },
+        checkAddress: async (_address) => {
+            checkFormat(_address, { max: 50 }, { type: "address" });
+        },
     },
     getters: {
         getFormattedPrice: () => (price) => {
@@ -338,6 +380,30 @@ export default {
         getProduct: (state) => (id) => {
             // console.log("state",state);
             return state.products_by_id[id];
+        },
+        backendStatus: (state) => {
+            let status = JSON.parse(JSON.stringify(state.status));
+            status[3].label = "已出貨";
+            console.log(status, "status");
+            return status;
+        },
+        allOrdersById:state=>{
+            return state.all_orders.reduce((acc, val) => {
+                acc[val.id] = val;
+                return acc;
+            }, {});
+        },
+        allOrdersByStatus: (state) => {
+            return Object.values(state.all_orders).reduce((acc, val) => {
+                acc[val.status] = acc[val.status] || [];
+                acc[val.status].push(val);
+                return acc;
+            },{});
+        },
+        getAllOrdersByStatus: (state, getters) => (status) => {
+            return status
+                ? getters.allOrdersByStatus[status]
+                : state.all_orders;
         },
     },
     modules: {},

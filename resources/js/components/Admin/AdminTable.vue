@@ -7,10 +7,10 @@
                 <thead class="border-b border-gray-100">
                     <tr class="divide-x divide-gray-100">
                         <th class="py-2 px-3 w-6">#</th>
-                        <table-header
+                        <TableHeader
                             :keys="keys"
                             :header_columns="header_columns"
-                        ></table-header>
+                        />
                         <th class="py-2 px-3">操作</th>
                     </tr>
                 </thead>
@@ -27,34 +27,44 @@
                             :key="getKey(key)"
                             class="\ py-2 px-1 overflow-hidden text-ellipsis whitespace-nowrap max-w-[15rem]"
                         >
-                            <table-column
+                            <slot
+                                name="column"
                                 :data="data[getKey(key)]"
-                                :data_type="getDataType(key)"
-                            ></table-column>
+                                :dataKey="key"
+                            >
+                                <TableColumn
+                                    :data="data[getKey(key)]"
+                                    :data_type="getDataType(key)"
+                                />
+                            </slot>
                         </td>
                         <!-- slot將data傳出去供父元素調用 -->
                         <slot name="other_tbody" :data="data"></slot>
-                        <td class="w-20">
-                            <div class="flex justify-center px-1">
-                                <router-link
-                                    :to="{
-                                        name: update_route_name,
-                                        params: { info: JSON.stringify(data) },
-                                    }"
-                                    class="mr-1 md:mr-3 text-blue-500"
-                                    v-if="update_route_name"
-                                >
-                                    <svg-render-vue
-                                        type="edit"
-                                    ></svg-render-vue>
-                                </router-link>
-                                <div class="text-red-500">
-                                    <svg-render-vue
-                                        type="delete"
-                                    ></svg-render-vue>
+                        <slot name="action" :data="data">
+                            <td class="w-20">
+                                <div class="flex justify-center px-1">
+                                    <router-link
+                                        :to="{
+                                            name: update_route_name,
+                                            params: {
+                                                info: JSON.stringify(data),
+                                            },
+                                        }"
+                                        class="mr-1 md:mr-3 text-blue-500"
+                                        v-if="update_route_name"
+                                    >
+                                        <svg-render-vue
+                                            type="edit"
+                                        ></svg-render-vue>
+                                    </router-link>
+                                    <div class="text-red-500">
+                                        <svg-render-vue
+                                            type="delete"
+                                        ></svg-render-vue>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
+                            </td>
+                        </slot>
                     </tr>
                 </tbody>
             </table>
@@ -128,19 +138,29 @@ export default {
     setup(props) {
         //表頭//鍵值順序//編輯的route
         const { column_heads: header_columns, keys, update_route_name } = props;
+        //資料
+        const rawData = computed(() => props.datas);
+        const type = computed(() =>
+            Object.prototype.toString.call(rawData.value)
+        );
+        const realData = computed(() =>
+            type.value === "[object Object]"
+                ? Object.values(rawData.value)
+                : rawData.value
+        );
         //第幾頁,總共幾頁,一頁幾個
         const current_page = ref(0);
         const per = ref(10);
         const total_pages = computed(() => {
-            return Math.ceil(props.datas.length / per.value);
+            return Math.ceil(realData.value.length / per.value);
         });
+
         //目前資料
         const datas = computed(() => {
             const start = 0 + current_page.value * per.value;
             const end = start + per.value;
-            return props.datas.slice(start, end);
+            return realData.value.slice(start, end);
         });
-
         watch(per, () => {
             current_page.value =
                 current_page.value >= total_pages.value
