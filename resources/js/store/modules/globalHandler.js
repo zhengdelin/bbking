@@ -12,6 +12,8 @@ import {
     apiPostCreateStoreInfo,
     apiPostUpdateStoreInfo,
     apiGetStoreInfos,
+    apiGetSearch,
+    apiGetNews,
 } from "../../api/api";
 import { router } from "../../router/router";
 /*  取得類別、取得user
@@ -27,6 +29,7 @@ export default {
         category_groups: {},
         activity_imgs: {},
         store_infos: [],
+        news: null,
     },
     mutations: {
         setCategories: (state, { categories, category_groups = {} }) => {
@@ -43,6 +46,9 @@ export default {
                 return acc;
             }, {});
         },
+        setNews: (state, { articles, products }) => {
+            state.news = { articles, products };
+        },
     },
     actions: {
         /* 每次進來畫面時如果localstorage有token就請求token是否過期、正確 */
@@ -52,14 +58,13 @@ export default {
                 //如果有token將token放入state
                 commit("setUserToken", user_token, { root: true });
                 //向後端要求驗證token
-                const { token, user_info } = await apiGetOwnProfile();
+                const { status, user_info } = await apiGetOwnProfile();
                 // console.log("getUser->", user_info, token);
-                if (token && user_info) {
-                    //如果success,更新user狀態(token)
+                if (status === 200) {
+                    //如果success,更新user info
                     dispatch(
                         "updateUserStatus",
                         {
-                            token,
                             user_info,
                             remember: 1,
                         },
@@ -282,11 +287,28 @@ export default {
             ]);
             if (rootState.status !== "error") {
                 const form_data = new FormData();
-                for (const [key, value] of Object.entries(data))
+                let nData = JSON.parse(JSON.stringify(data)); 
+                if(typeof nData.logo === 'string'){
+                    delete nData.logo;
+                }
+                for (const [key, value] of Object.entries(nData))
                     form_data.append(key, value);
                 // console.log("createProduct", data, form_data.get("image"));
                 await apiPostUpdateStoreInfo(form_data);
             }
+        },
+        //搜尋
+        search: async (_, search) => {
+            const { products = [], articles = [] } = await apiGetSearch({
+                search,
+            });
+
+            return { products, articles };
+        },
+        //取得最新文章和產品
+        getNews: async ({ commit }) => {
+            const { articles = [], products = [] } = await apiGetNews();
+            commit("setNews", { articles, products });
         },
     },
     getters: {
@@ -311,7 +333,7 @@ export default {
                 // 層數 /articles => ['','articles']
                 const layer = path.value.split("/");
                 // console.log("url_base", layer);
-                if (path.value === "/all-categories") return "/products/";
+                if (path.value === "/") return "/products/";
                 else if (layer.length >= 3)
                     return path.value.substring(
                         0,

@@ -745,7 +745,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   setup: function setup(props, _ref) {
     var attrs = _ref.attrs,
         emit = _ref.emit;
-    console.log("inputSelect", props);
+    // console.log("inputSelect", props);
     var modelValue = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_0__.computed)({
       get: function get() {
         return attrs.modelValue;
@@ -1285,6 +1285,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     key: 0
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.options, function (option) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
+      "class": "font-bold",
       key: option[$props.valueKey],
       value: option[$props.valueKey]
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(option[$props.labelKey]), 9
@@ -1296,10 +1297,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     key: 1
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.options, function (groupOptions, key) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("optgroup", {
+      "class": "text-blue-500 font-bold",
       key: key,
       label: key
     }, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(groupOptions, function (option) {
       return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
+        "class": "text-black font-bold",
         key: option[$props.valueKey],
         value: option[$props.valueKey]
       }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(option[$props.labelKey]), 9

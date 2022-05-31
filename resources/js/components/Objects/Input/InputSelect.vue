@@ -11,6 +11,7 @@
             <option disabled value="">點擊選擇</option>
             <template v-if="!group">
                 <option
+                    class="font-bold"
                     v-for="option in options"
                     :key="option[valueKey]"
                     :value="option[valueKey]"
@@ -20,11 +21,13 @@
             </template>
             <template v-else>
                 <optgroup
+                class="text-blue-500 font-bold"
                     v-for="(groupOptions, key) in options"
                     :key="key"
                     :label="key"
                 >
                     <option
+                        class="text-black font-bold"
                         v-for="option in groupOptions"
                         :key="option[valueKey]"
                         :value="option[valueKey]"
@@ -66,7 +69,7 @@ export default {
         },
     },
     setup(props, { attrs, emit }) {
-        console.log("inputSelect", props);
+        // console.log("inputSelect", props);
         const modelValue = computed({
             get: () => attrs.modelValue,
             set: (val) => {

@@ -37,6 +37,7 @@ export default {
             "content",
             "category_name",
             "updated_at",
+            { name: "status", type: "boolean" },
         ];
         //監控更新article
         const update_article = computed(() => route.params.update_article);

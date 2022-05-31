@@ -8,6 +8,8 @@ export const TITLE = {
     phone: "電話",
     address: "地址",
     code:"驗證碼",
+    role:"身分",
+    role_id:"身分",
     /*  */
     title: "標題",
     content: "內容",

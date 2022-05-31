@@ -8,6 +8,7 @@ import {
     apiPostUpdateUserMember,
     apiPostUpdatePassword,
     apiPostForgetPassword,
+    apiGetRoles,
 } from "../../api/api";
 
 export default {
@@ -93,7 +94,10 @@ export default {
             else if (step === 3)
                 await dispatch("checkPassword", { password: data.password });
             if (rootState.status !== "error") {
-                const { status } = await apiPostForgetPassword({ ...data, step });
+                const { status } = await apiPostForgetPassword({
+                    ...data,
+                    step,
+                });
                 return status === 200;
             }
             return false;
@@ -212,7 +216,7 @@ export default {
                 // 地址
                 checkAddress: async ({ commit }, address) => {
                     let msg = "";
-                    if (address.length > 50) msg = "地址最多50字元";
+                    if (address && address.length > 50) msg = "地址最多50字元";
                     commit(
                         "setStatus",
                         {
@@ -257,6 +261,23 @@ export default {
                     if (rootState.status !== "error") {
                         await apiPostUpdateUserMember(data);
                     }
+                },
+            },
+        },
+        boss: {
+            state: {
+                roles: null,
+            },
+            mutations: {
+                setRoles: (state, roles) => {
+                    state.roles = roles;
+                    // console.log("state",state);
+                },
+            },
+            actions: {
+                getRoles: async ({commit}) => {
+                    const { roles } = await apiGetRoles();
+                    commit("setRoles", roles);
                 },
             },
         },

@@ -1,14 +1,14 @@
 <template>
-    <div class="border-b border-gray-300 rounded-md px-3 py-4">
+    <div class="border-b border-gray-300 rounded-md px-3 py-4 bg-white">
         <div class="flex">
             <router-link
                 :to="{
-                    path: `/articles/${article.category}/${article.id}`,
+                    path: articlePath,
                 }"
                 class="font-bold block mb-2 hover:text-indigo-500 w-[95%]"
                 >{{ article.title }}</router-link
             >
-            <CollectIcon v-model="isCollected" />
+            <CollectIcon v-if="collectable" v-model="isCollected" />
         </div>
 
         <div
@@ -33,10 +33,15 @@ export default {
             type: Object,
             default: () => {},
         },
+        collectable: {
+            type: Boolean,
+            default: true,
+        },
     },
     setup(props) {
         const { getters, dispatch } = useStore();
         const article = computed(() => props.article);
+        const collectable = computed(() => props.collectable);
         // console.log('article',article.value);
         const isCollected = computed({
             get: () =>
@@ -47,7 +52,10 @@ export default {
                     status: val,
                 }),
         });
-        return { article, isCollected };
+        const articlePath = computed(
+            () => `/articles/${article.value.category}/${article.value.id}`
+        );
+        return { article, isCollected, collectable, articlePath };
     },
 };
 </script>

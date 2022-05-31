@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full md:w-[16.666%]">
+    <div class="w-full md:w-[16.666%] min-h-[361px]">
         <menu-container
             :enable_collapse="false"
             :menu_tree="category_menu_lists"

@@ -5,8 +5,9 @@ namespace App\Http\Requests\Global;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rule;
 
-class CreateStoreInfoRequest extends FormRequest
+class StoreInfoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,6 +26,7 @@ class CreateStoreInfoRequest extends FormRequest
      */
     public function rules()
     {
+        // dd($this);
         return [
             'name' => "bail|required|max:20|string",
             'eng_name' => 'max:30|string|nullable',
@@ -32,17 +34,18 @@ class CreateStoreInfoRequest extends FormRequest
             'address' => 'max:50|string|nullable',
             'phone' => 'max:10|regex:/[0-9]{8,10}/|nullable',
             'email' => 'max:30|email',
-            'business_hours'=>'required|max:50|string',
+            'business_hours' => 'required|max:50|string',
             'description' => 'required|string',
-            'logo' => 'required|image',
-            'isHeadquarter'=>'required|boolean',
+            'logo' => ['image', Rule::requiredIf(!isset($this->old_image))],
+            'isHeadquarter' => 'required|boolean',
             'status' => 'required|boolean',
-        ];  
+            'old_image' => 'string'
+        ];
     }
     public function messages()
     {
         return [
-            'description.required'=>'請輸入關於我們'
+            'description.required' => '請輸入關於我們'
         ];
     }
     protected function prepareForValidation()

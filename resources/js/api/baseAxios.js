@@ -14,7 +14,7 @@ axios.interceptors.request.use(
         NProgress.start();
         const token = store.getters.getToken;
         config.headers.token = token;
-        // console.log(`${config.url}: request->`, config);
+        console.log(`${config.url}: request->`, config);
         return config;
     },
     (error) => {
@@ -55,8 +55,8 @@ axios.interceptors.response.use(
 export const post = (url, data) => {
     return axios.post(url, data);
 };
-export const get = async (url) => {
-    return axios.get(url);
+export const get = async (url, data) => {
+    return axios.get(url, { params: data });
 };
 
 export const put = async (url, data) => {
@@ -64,4 +64,8 @@ export const put = async (url, data) => {
 };
 export const patch = async (url, data) => {
     return axios.patch(url, data);
+};
+
+export const deleteRequest = async (url) => {
+    return axios.delete(url);
 };

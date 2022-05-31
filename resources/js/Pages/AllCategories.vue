@@ -37,7 +37,7 @@ import { useStore } from "vuex";
 
 export default {
     components: { CategoryMenu, TabTitleBar },
-    setup() {
+    async setup() {
         const route = useRoute();
         const { getters } = useStore();
         const category = computed(

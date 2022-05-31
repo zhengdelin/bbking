@@ -6,9 +6,10 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rule;
 
-class UpdateProductRequest extends FormRequest
+class ProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,32 +28,35 @@ class UpdateProductRequest extends FormRequest
      */
     public function rules()
     {
-        $changed = $this->name !=
-            DB::table('products')->where('id', $this->id ? $this->id : 1)->first()->name;
+        // dd($this);
+        $id = Route::getCurrentRoute()->parameter("id");
         return [
-            'id' => 'bail|required|numeric',
             'name' => [
                 'required', 'max:50', 'string',
-                Rule::notIn($changed ? DB::table('products')->pluck('name')->toArray() : [])
+                Rule::notIn($id
+                    ? DB::table('products')->where("id", "!=", $id)->pluck('name')->toArray()
+                    : [])
             ],
             'price' => 'required|numeric',
-            'introduction'=>'max:100|string|nullable',
-            'description'=>'string|nullable',
-            'old_image',"required|string|nullable",
-            'status'=>['required','boolean'],
-            'category_id' => ['required',Rule::in(DB::table('categories')->pluck('id')->toArray())],
+            'introduction' => 'max:100|string|nullable',
+            'description' => 'string|nullable',
+            'image' => 'exclude_if:hasOldImg,true|image|nullable',
+            'old_image' => "string|nullable",
+            'status' => ['required', 'boolean'],
+            'category_id' => ['required', Rule::in(DB::table('categories')->pluck('id')->toArray())],
         ];
     }
     protected function prepareForValidation()
     {
         $this->merge([
-            'status'=>filter_var($this->status,FILTER_VALIDATE_BOOLEAN,FILTER_NULL_ON_FAILURE)
+            'hasOldImg'=>isset($this->old_image),
+            'status' => filter_var($this->status, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE)
         ]);
     }
     public function messages()
     {
         return [
-            'name.not_in'=>'產品已存在'
+            'name.not_in' => '產品已存在'
         ];
     }
     protected function failedValidation(Validator $validator)

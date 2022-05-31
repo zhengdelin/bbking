@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Global\CreateStoreInfoRequest;
-use App\Http\Requests\Global\CreateActivityImgRequest;
+use App\Http\Requests\Global\ActivityImgRequest;
 use App\Http\Requests\Global\CreateCategoryRequest;
-use App\Http\Requests\Global\UpdateActivityImgRequest;
+use App\Http\Requests\Global\StoreInfoRequest;
 use App\Http\Requests\Global\UpdateCategoryRequest;
-use App\Http\Requests\Global\UpdateStoreInfoRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -66,9 +64,8 @@ class GlobalController extends BaseController
         }
     }
     /* 編輯類別 */
-    public function updateCategory(UpdateCategoryRequest $request)
+    public function updateCategory(UpdateCategoryRequest $request, $id)
     {
-        $id = $request->id;
         $name = $request->name;
         $type = $request->type;
         $category_group_id = $request->category_group_id;
@@ -100,7 +97,7 @@ class GlobalController extends BaseController
         return response()->json(['status' => 200, 'activity_imgs' => $activity_imgs]);
     }
     /* 新增活動圖片 */
-    public function createActivityImg(CreateActivityImgRequest $request)
+    public function createActivityImg(ActivityImgRequest $request)
     {
         $status = $request->status;
         $url = isset($request->url) ? $request->url : NULL;
@@ -118,9 +115,8 @@ class GlobalController extends BaseController
         return response()->json(['status' => 200, 'msg' => '新增活動圖片成功']);
     }
     /* 更新活動圖片 */
-    public function updateActivityImg(UpdateActivityImgRequest $request)
+    public function updateActivityImg(ActivityImgRequest $request, $id)
     {
-        $id = $request->id;
         $url = isset($request->url) ? $request->url : NULL;
         $status = $request->status;
         $img_name = $this->getFileName($request->old_image);
@@ -163,7 +159,7 @@ class GlobalController extends BaseController
         return response()->json(['status' => 200, 'store_infos' => $store_infos]);
     }
     /* 新增店面資訊 */
-    public function createStoreInfo(CreateStoreInfoRequest $request)
+    public function createStoreInfo(StoreInfoRequest $request)
     {
         $name = $request->name;
         $eng_name = isset($request->eng_name) ? $request->eng_name : '';
@@ -197,9 +193,8 @@ class GlobalController extends BaseController
         return response()->json(['status' => 200, 'msg' => '新增店面資訊成功']);
     }
     /* 更新店面資訊 */
-    public function updateStoreInfo(UpdateStoreInfoRequest $request)
+    public function updateStoreInfo(StoreInfoRequest $request, $id)
     {
-        $id = $request->id;
         $name = $request->name;
         $eng_name = isset($request->eng_name) ? $request->eng_name : '';
         $url = isset($request->url) ? $request->url : '';
@@ -293,6 +288,37 @@ class GlobalController extends BaseController
         return $token;
     }
 
+    public function search(Request $request)
+    {
+        $search = $request->search;
+        // dd($request);
+        if (!$search)
+            return response()->json(["status" => 400, "msg" => "查無內容"]);
+
+        $articles = DB::select("SELECT a.id, a.title, a.content, a.updated_at, a.category_id,
+                                (SELECT eng_name FROM `categories` WHERE id = a.category_id) AS category FROM `articles` AS a 
+                                 WHERE (a.title LIKE '%$search%' OR a.content LIKE '%$search%') AND a.status = 1;");
+        $products = DB::select("SELECT a.id, a.name, a.image, a.price,b.eng_name 
+                                FROM `products` AS a, `categories` AS b 
+                                WHERE (a.introduction LIKE '%$search%' OR a.description LIKE '%$search%' OR a.name LIKE '%$search%') 
+                                AND a.category_id = b.id AND a.status = 1;");
+        $this->addImgLocation('product', $products, NULL);
+
+        return response()->json(["status" => 200, "articles" => $articles, "products" => $products]);
+    }
+
+    public function getNews()
+    {
+        $articles = DB::select("SELECT a.id, a.title, a.content, a.updated_at, a.category_id,
+                                (SELECT eng_name FROM `categories` WHERE id = a.category_id) AS category FROM `articles` AS a 
+                                 WHERE a.status = 1 ORDER BY updated_at DESC LIMIT 5;");
+        $products = DB::select("SELECT a.id, a.name, a.image, a.price,b.eng_name 
+                                FROM `products` AS a, `categories` AS b 
+                                WHERE a.category_id = b.id AND a.status = 1 ORDER BY updated_at DESC LIMIT 5;");
+        $this->addImgLocation('product', $products, NULL);
+        return response()->json(["status" => 200, "articles" => $articles, "products" => $products]);
+    }
+
     public function test(Request $request)
     {
         // $sql = "SELECT 
@@ -347,7 +373,6 @@ class GlobalController extends BaseController
     public function replace__n__($item)
     {
         return preg_replace("/___n___/", "\n", $item);
-
     }
     public function getCsrfToken()
     {

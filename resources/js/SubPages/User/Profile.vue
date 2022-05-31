@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white p-5">
+    <div class="bg-white p-5 h-full">
         <!-- {{ user_info }} -->
         <TitleItem title="會員專區">
             <template #return_router>

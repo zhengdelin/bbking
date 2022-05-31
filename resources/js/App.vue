@@ -3,15 +3,15 @@
     <RouterView name="nav"></RouterView>
     <div class="flex-1 flex flex-col">
         <RouterView v-slot="{ Component }">
-        <template v-if="Component">
-            <Suspense :timeout="0">
-                <component :is="Component" class="flex-1"></component>
-                <template #fallback>
-                    <loading-vue></loading-vue>
-                </template>
-            </Suspense>
-        </template>
-    </RouterView>
+            <template v-if="Component">
+                <Suspense :timeout="0">
+                    <component :is="Component" class="flex-1"></component>
+                    <template #fallback>
+                        <loading-vue></loading-vue>
+                    </template>
+                </Suspense>
+            </template>
+        </RouterView>
     </div>
     <RouterView name="footer"></RouterView>
 </template>
@@ -25,12 +25,12 @@ export default {
     setup() {
         const { dispatch } = useStore();
         onMounted(async () => {
-            console.log('app onMounted');
+            console.log("app onMounted");
             await Promise.all([
                 dispatch("globalHandler/getUser"),
                 dispatch("globalHandler/getActivityImgs"),
                 dispatch("globalHandler/getCategories"),
-                dispatch("globalHandler/getStoreInfos")
+                dispatch("globalHandler/getStoreInfos"),
             ]);
         });
     },

@@ -29,7 +29,7 @@ export default {
             },
             articles: {
                 text: "文章介紹",
-                route: { path:"/articles" },
+                route: { path: "/articles" },
             },
             products: {
                 text: "產品",
@@ -99,7 +99,6 @@ export default {
                     if (!num) state.status = "";
                 }
             }
-            
         },
         /* 清除error */
         /* 清除所有狀態 */
@@ -150,18 +149,21 @@ export default {
         //更新user狀態,包括token,storage,userinfo
         updateUserStatus: async (
             { commit, dispatch },
-            { token, user_info, remember }
+            { token = null, user_info, remember }
         ) => {
             // console.log('updateUserStatus->', token, user_info, remember);
             //state.token
-            commit("setUserToken", token);
+            if (token) {
+                commit("setUserToken", token);
+                //localStorage or sessionStorage
+                commit("saveToStorage", {
+                    token: token,
+                    remember: remember,
+                });
+            }
             //state.userinfo
             commit("setUserInfo", user_info);
-            //localStorage or sessionStorage
-            commit("saveToStorage", {
-                token: token,
-                remember: remember,
-            });
+
             await dispatch("addRoute");
         },
         /* 添加路由 */

@@ -10,7 +10,7 @@
     </title-item>
     <admin-input-form-vue class="mb-2">
         <template v-slot:form_items>
-            <div class="col-span-6 md:col-span-3">
+            <div class="col-span-6">
                 <input-text-vue
                     :focus="true"
                     :trim="true"
@@ -37,6 +37,13 @@
                     "
                 />
             </div>
+            <div class="col-span-3">
+                <input-single-checkbox
+                    :required="true"
+                    title="開放顯示"
+                    v-model="article.status"
+                ></input-single-checkbox>
+            </div>
         </template>
     </admin-input-form-vue>
     <TinymceEditor
@@ -58,6 +65,7 @@ import { useRouter } from "vue-router";
 import { computed } from "@vue/runtime-core";
 import { TITLE } from "../../../TITLE";
 import TitleItem from "../../../components/Objects/Title/TitleItem.vue";
+import InputSingleCheckbox from '../../../components/Objects/Input/InputSingleCheckbox.vue';
 
 export default {
     components: {
@@ -67,6 +75,7 @@ export default {
         InputTextVue,
         InputSelectVue,
         TitleItem,
+        InputSingleCheckbox,
     },
     props: {
         info: {

@@ -59,7 +59,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               res = _context2.sent;
               articles.value = res; //key
 
-              keys = ["title", "content", "category_name", "updated_at"]; //監控更新article
+              keys = ["title", "content", "category_name", "updated_at", {
+                name: "status",
+                type: "boolean"
+              }]; //監控更新article
 
               update_article = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_7__.computed)(function () {
                 return route.params.update_article;

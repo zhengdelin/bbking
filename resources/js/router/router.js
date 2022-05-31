@@ -50,6 +50,7 @@ export const router = createRouter({
             components: {
                 nav: () => import("../components/Global/Nav/Nav"),
                 default: () => import("../Pages/UserLogin"),
+                footer: () => import("../components/Global/Footer/Footer"),
             },
             beforeEnter(to, from) {
                 sessionStorage.setItem("redirect", from.fullPath);
@@ -83,22 +84,23 @@ export const router = createRouter({
         },
         //文章
         {
-            path: "/all-categories",
+            // path: "/all-categories",
             components: {
                 nav: () => import("../components/Global/Nav/Nav"),
                 default: () => import("../Pages/AllCategories"),
+                footer: () => import("../components/Global/Footer/Footer"),
             },
             children: [
-                //文章類別
-                {
-                    path: "",
-                    name: "all-categories",
-                    meta: {
-                        title: "比比王樂器行-所有分類",
-                    },
-                    component: () =>
-                        import("../SubPages/Category/AllCategories"),
-                },
+                // //文章類別
+                // {
+                //     path: "",
+                //     name: "all-categories",
+                //     meta: {
+                //         title: "比比王樂器行-所有分類",
+                //     },
+                //     component: () =>
+                //         import("../SubPages/Category/AllCategories"),
+                // },
                 //文章依類別分組
                 {
                     path: "/articles/:category*",
@@ -166,7 +168,16 @@ export const router = createRouter({
                 },
             ],
         },
-
+        //搜尋
+        {
+            path:"/search",
+            name:"search",
+            components: {
+                nav: () => import("../components/Global/Nav/Nav"),
+                default: () => import("../Pages/Search"),
+                footer: () => import("../components/Global/Footer/Footer"),
+            },
+        },
         //404
         {
             path: "/:pathMatch(.*)*",
@@ -174,7 +185,11 @@ export const router = createRouter({
             meta: {
                 title: "比比王樂器行",
             },
-            component: () => import("../Pages/404"),
+            components: {
+                nav: () => import("../components/Global/Nav/Nav"),
+                default: () =>import("../Pages/404"),
+                footer: () => import("../components/Global/Footer/Footer"),
+            },
         },
     ],
 });

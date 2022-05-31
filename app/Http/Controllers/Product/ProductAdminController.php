@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\GlobalController;
 
-use App\Http\Requests\Product\CreateProductRequest;
 use App\Http\Requests\Product\OrderRequest;
-use App\Http\Requests\Product\UpdateProductRequest;
+use App\Http\Requests\Product\ProductRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 
@@ -18,7 +17,7 @@ class ProductAdminController extends GlobalController
         parent::addImgLocation('product', $products, NULL);
         return response()->json(['status' => 200, 'products' => $products]);
     }
-    public function createProduct(CreateProductRequest $request)
+    public function createProduct(ProductRequest $request)
     {
         $name = $request->name;
         $price = $request->price;
@@ -43,9 +42,8 @@ class ProductAdminController extends GlobalController
         ]);
         return response()->json(['status' => 200, 'msg' => '成功新增產品']);
     }
-    public function updateProduct(UpdateProductRequest $request)
+    public function updateProduct(ProductRequest $request, $id)
     {
-        $id = $request->id;
         $name = $request->name;
         $price = $request->price;
         $introduction = $request->introduction;

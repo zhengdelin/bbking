@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
-class UpdateArticleRequest extends FormRequest
+class ArticleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,7 +28,6 @@ class UpdateArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            'id'=>'bail|required|numeric',
             'title'=>'required|max:100|string',
             'content'=>'required|string',
             'category_id'=>['required',Rule::in(DB::table('categories')->pluck('id')->toArray())]
@@ -37,7 +36,6 @@ class UpdateArticleRequest extends FormRequest
     public function messages()
     {
         return [
-            'id.required'=>'缺少id',
             'title.required'=>'標題為必填欄位',
             'title.max'=>'標題最多100位元',
             'content.required'=>'缺少文章內容',

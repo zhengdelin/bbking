@@ -1,7 +1,7 @@
 // 主要活動區塊
 
 <template>
-    <div class="p-5">
+    <div>
         <swiper
             :modules="modules"
             :pagination="{ clickable: true }"

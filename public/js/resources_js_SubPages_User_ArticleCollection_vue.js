@@ -410,6 +410,10 @@ __webpack_require__.r(__webpack_exports__);
     article: {
       type: Object,
       "default": function _default() {}
+    },
+    collectable: {
+      type: Boolean,
+      "default": true
     }
   },
   setup: function setup(props) {
@@ -419,6 +423,9 @@ __webpack_require__.r(__webpack_exports__);
 
     var article = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_2__.computed)(function () {
       return props.article;
+    });
+    var collectable = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_2__.computed)(function () {
+      return props.collectable;
     }); // console.log('article',article.value);
 
     var isCollected = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_2__.computed)({
@@ -432,9 +439,14 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     });
+    var articlePath = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_2__.computed)(function () {
+      return "/articles/".concat(article.value.category, "/").concat(article.value.id);
+    });
     return {
       article: article,
-      isCollected: isCollected
+      isCollected: isCollected,
+      collectable: collectable,
+      articlePath: articlePath
     };
   }
 });
@@ -783,7 +795,7 @@ var _withScopeId = function _withScopeId(n) {
 };
 
 var _hoisted_1 = {
-  "class": "border-b border-gray-300 rounded-md px-3 py-4"
+  "class": "border-b border-gray-300 rounded-md px-3 py-4 bg-white"
 };
 var _hoisted_2 = {
   "class": "flex"
@@ -810,7 +822,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: {
-      path: "/articles/".concat($setup.article.category, "/").concat($setup.article.id)
+      path: $setup.articlePath
     },
     "class": "font-bold block mb-2 hover:text-indigo-500 w-[95%]"
   }, {
@@ -824,14 +836,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }, 8
   /* PROPS */
-  , ["to"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CollectIcon, {
+  , ["to"]), $setup.collectable ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_CollectIcon, {
+    key: 0,
     modelValue: $setup.isCollected,
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $setup.isCollected = $event;
     })
   }, null, 8
   /* PROPS */
-  , ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  , ["modelValue"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "article_banner_introduction mb-1",
     innerHTML: $setup.article.content
   }, null, 8

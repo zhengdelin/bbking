@@ -1,23 +1,17 @@
 <template>
-    <EmptyContainer :data="articles" >
+    <EmptyContainer :data="articles">
         <transition name="fade-from-bottom-15px">
-            <div v-if="show">
-                <div class="grid grid-cols-1 bg-white rounded-md">
-                    <ArticleListItem
-                        v-for="article in articles"
-                        :key="article.id"
-                        :article="article"
-                    />
-                </div>
-                <div class="bg-white rounded-md py-4 flex justify-center">
-                    <button class="border-gray-300 border-[1px] mx-2">
-                        上一頁
-                    </button>
-                    <button class="border-gray-300 border-[1px] mx-2">
-                        下一頁
-                    </button>
-                </div>
-            </div>
+            <PageContainer :data="articles" :per="5" v-show="show">
+                <template #default="{ data }">
+                    <div class="grid grid-cols-1 rounded-md">
+                        <ArticleListItem
+                            v-for="article in data"
+                            :key="article.id"
+                            :article="article"
+                        />
+                    </div>
+                </template>
+            </PageContainer>
         </transition>
         <template #emptyText>暫無文章</template>
     </EmptyContainer>
@@ -29,9 +23,10 @@ import { onBeforeRouteUpdate, useRoute } from "vue-router";
 import { useStore } from "vuex";
 import ArticleListItem from "../../../components/User/Article/ArticleListItem.vue";
 import EmptyContainer from "../../../components/Global/EmptyContainer.vue";
+import PageContainer from "../../../components/Global/PageContainer.vue";
 export default {
     name: "ArticleList",
-    components: { ArticleListItem, EmptyContainer },
+    components: { ArticleListItem, EmptyContainer, PageContainer },
     async setup() {
         const show = ref(false);
         onMounted(() => {

@@ -1,17 +1,19 @@
 <template>
     <EmptyContainer :data="products" class="relative">
         <transition name="fade-from-bottom-15px">
-            <template v-if="show">
-                <div
-                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-center bg-white p-3 min-h-[70vh]"
-                >
-                    <product-list-item
-                        v-for="product in products"
-                        :key="product.id"
-                        :product="product"
-                    />
-                </div>
-            </template>
+            <PageContainer :data="products" v-show="show">
+                <template #default="{ data }">
+                    <div
+                        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-white p-3 min-h-[70vh]"
+                    >
+                        <product-list-item
+                            v-for="product in data"
+                            :key="product.id"
+                            :product="product"
+                        />
+                    </div>
+                </template>
+            </PageContainer>
         </transition>
         <template #emptyText>暫無商品</template>
     </EmptyContainer>
@@ -23,9 +25,10 @@ import { onBeforeRouteUpdate, useRoute } from "vue-router";
 import { useStore } from "vuex";
 import ProductListItem from "../../../components/User/Product/ProductListItem.vue";
 import EmptyContainer from "../../../components/Global/EmptyContainer.vue";
+import PageContainer from "../../../components/Global/PageContainer.vue";
 
 export default {
-    components: { ProductListItem, EmptyContainer },
+    components: { ProductListItem, EmptyContainer, PageContainer },
     name: "ProductList",
     async setup() {
         const show = ref(false);
@@ -38,7 +41,7 @@ export default {
             () =>
                 route.params.category || getters["globalHandler/first_category"]
         );
-        console.log("category",route);
+        console.log("category", route);
         onBeforeRouteUpdate(async (to) => {
             show.value = false;
             /* 監控路由在產品之間切換 */

@@ -32,7 +32,15 @@
                     "
                 ></input-text-vue>
             </div>
-            <div class="col-span-6 md:col-span-3 lg:col-span-2">
+            <div class="col-span-3 md:col-span-2" v-if="role === 3">
+                <input-select
+                    required
+                    :title="TITLE.role_id"
+                    :options="roles"
+                    v-model="user_info.role_id"
+                ></input-select>
+            </div>
+            <div class="col-span-3">
                 <input-single-checkbox-vue
                     title="啟用"
                     v-model="user_info['status']"
@@ -53,6 +61,8 @@ import { TITLE } from "../../../TITLE";
 import InputTextVue from "../../../components/Objects/Input/InputText.vue";
 import InputSingleCheckboxVue from "../../../components/Objects/Input/InputSingleCheckbox.vue";
 import TitleItem from "../../../components/Objects/Title/TitleItem.vue";
+import { computed } from "@vue/runtime-core";
+import InputSelect from "../../../components/Objects/Input/InputSelect.vue";
 
 export default {
     components: {
@@ -61,8 +71,9 @@ export default {
         InputTextVue,
         InputSingleCheckboxVue,
         TitleItem,
+        InputSelect,
     },
-    setup() {
+    async setup() {
         const router = useRouter();
         const { dispatch, state } = useStore();
         const user_info = ref({
@@ -115,12 +126,23 @@ export default {
                 func_call: "userHandler/checkAddress",
             },
         ]);
+
+        const role = computed(() => state.user_info.role_id);
+        const roles = computed(() => state.userHandler.boss.roles);
+        if (role.value === 3) {
+            if (!roles.value) await dispatch("userHandler/getRoles");
+            user_info.value["role_id"] = 1;
+            // console.log("roles",state);
+        }
+        // console.log("role", role.value);
         return {
             TITLE,
             user_info,
             input_cols,
             createUser,
             dispatch,
+            role,
+            roles,
         };
     },
 };

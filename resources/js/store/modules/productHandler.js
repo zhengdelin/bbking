@@ -1,7 +1,6 @@
 import {
     apiGetAllOrders,
     apiGetCartByMember,
-    apiGetOrderById,
     apiGetOrders,
     apiGetProductById,
     apiGetProducts,
@@ -11,7 +10,7 @@ import {
     apiPostCancelOrder,
     apiPostCreateOrder,
     apiPostCreateProduct,
-    apiPostDeleteCartProduct,
+    apiDeleteCartProduct,
     apiPostEvaluate,
     apiPostRecoverOrder,
     apiPostShoppingAgain,
@@ -183,22 +182,19 @@ export default {
         /* 新增產品至購物車 */
         addProductToCart: async ({ dispatch, rootState }, data) => {
             if (rootState.is_login) {
-                data["member_id"] = rootState.user_info.id;
                 await apiPostAddProductToCart(data);
             } else dispatch("checkIsLogin", {}, { root: true });
         },
         /* 取得購物車內容 */
-        getCartByMember: async ({ rootState, commit }) => {
-            const { cart_product_infos } = await apiGetCartByMember({
-                member_id: rootState.user_info.id,
-            });
+        getCartByMember: async ({ commit }) => {
+            const { cart_product_infos } = await apiGetCartByMember();
             commit("setCarts", cart_product_infos);
         },
         /* 刪除購物車產品 */
         deleteCartProduct: async ({ dispatch }, data) => {
             if (confirm("確認要刪除此產品?")) {
-                console.log(data);
-                await apiPostDeleteCartProduct(data).then(() => {
+                // console.log(data);
+                await apiDeleteCartProduct(data).then(() => {
                     dispatch("getCartByMember");
                 });
             }

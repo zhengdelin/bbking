@@ -4,16 +4,14 @@ namespace App\Http\Controllers\Product;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\GlobalController;
-use App\Http\Requests\Product\AddProductToCartRequest;
 use App\Http\Requests\Product\OrderRequest;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends GlobalController
 {
     /* 依類別取得product list */
-    public function getProductsByCategory(Request $request)
+    public function getProductsByCategory(Request $request, $category)
     {
-        $category = $request->category;
         $sql = "SELECT a.id, a.name, a.image, a.introduction, a.description, a.price , b.eng_name,
                 CONCAT('[',
                     IFNULL(
@@ -50,9 +48,8 @@ class ProductController extends GlobalController
         return response()->json(['status' => 200, 'products' => $products]);
     }
     /* 依照id取得product detail */
-    public function getProductById(Request $request)
+    public function getProductById(Request $request, $product_id)
     {
-        $product_id = $request->product_id;
         $sql = "SELECT a.id, a.name, a.image, a.introduction, a.description, a.price , b.eng_name,
                 CONCAT('[',
                     IFNULL(
@@ -85,12 +82,10 @@ class ProductController extends GlobalController
         return response()->json(['status' => 200, 'product' => $product]);
     }
     /* 將產品新增進購物車 */
-    public function addProductToCart(AddProductToCartRequest $request)
+    public function addProductToCart(Request $request,$product_id, $amount)
     {
-        $member_id = $request->member_id;
-        $product_id = $request->product_id;
+        $member_id = $request->user_info->id;
         $order_id = $request->order_id;
-        $amount = $request->amount;
         /* 如果有order_id，表示由購物車介面直接點擊+-則直接更改購物車內容 */
         if ($order_id) {
             DB::table('order_record_products')
@@ -145,7 +140,7 @@ class ProductController extends GlobalController
     /* 取得購物車內容 */
     public function getCartByMember(Request $request)
     {
-        $member_id = $request->member_id;
+        $member_id = $request->user_info->id;
         /* 取得order id、product id、產品名稱、圖片、價格、數量、類別名稱 */
         $cart_product_infos = DB::select(
             "SELECT 
@@ -162,12 +157,18 @@ class ProductController extends GlobalController
             parent::addImgLocation('product', $cart_product_infos, NULL);
         return response()->json(['status' => 200, 'cart_product_infos' => $cart_product_infos]);
     }
-    public function deleteCartProduct(Request $request)
+    public function deleteCartProduct(Request $request, $product_id)
     {
-        $order_id = $request->order_id;
-        $product_id = $request->product_id;
-        DB::table('order_record_products')->where([['order_id', $order_id], ['product_id', $product_id]])->delete();
-        return response()->json(['status' => 200, 'msg' => '成功刪除產品']);
+        $user_id = $request->user_info->id;
+
+        $order = DB::select("SELECT a.id from `orders` AS a, `order_record_products` AS b WHERE a.id = b.order_id AND a.member_id = $user_id AND a.status = 0 and b.product_id = $product_id");
+        if(count($order)){
+            DB::table('order_record_products')->where([['order_id', $order[0]->id], ['product_id', $product_id]])->delete();
+            return response()->json(['status' => 200, 'msg' => '成功刪除產品']);
+        }else{
+            return response()->json(['status' => 200, 'msg' => '商品已刪除']);
+
+        }
     }
     /* 提交訂單 */
     public function createOrder(OrderRequest $request)
@@ -205,7 +206,7 @@ class ProductController extends GlobalController
     //取得使用者訂單紀錄
     public function getOrdersByMember(Request $request)
     {
-        $id = $request->user_info->id;
+        $user_id = $request->user_info->id;
         $sql = "SELECT 
                     a.id, a.product_price, a.total_price, a.delivery_fee, a.delivery_method, 
                     a.address, a.pay_method, a.name, a.email, a.phone, a.note, a.status, a.updated_time,
@@ -230,7 +231,7 @@ class ProductController extends GlobalController
                       LEFT JOIN `order_record_products` AS b ON a.id = b.order_id
                       LEFT JOIN `products` AS c ON b.product_id = c.id
                       LEFT JOIN `evaluations` AS d ON d.product_id = b.product_id AND d.member_id = a.member_id
-                      WHERE  a.member_id = $id AND a.status != 0
+                      WHERE  a.member_id = $user_id AND a.status != 0
                       GROUP BY a.id;";
         // $sql = "SELECT 
         // a.id, a.product_price, a.total_price, a.delivery_fee, a.delivery_method, 
@@ -317,32 +318,30 @@ class ProductController extends GlobalController
 
         return response()->json(['status' => 200, 'order' => $order]);
     } */
-    public function cancelOrder(Request $request)
+    public function cancelOrder(Request $request, $order_id)
     {
-        $order_id = $request->id;
         DB::table("orders")->where('id', $order_id)->update([
             "status" => 10
         ]);
         return response()->json(['status' => 200, "msg" => '成功取消訂單']);
     }
-    public function recoverOrder(Request $request)
+    public function recoverOrder(Request $request, $order_id)
     {
-        $order_id = $request->id;
         DB::table("orders")->where('id', $order_id)->update([
             "status" => 1
         ]);
         return response()->json(['status' => 200, "msg" => '成功恢復訂單']);
     }
     //再買一次
-    public function shoppingAgain(Request $request)
+    public function shoppingAgain(Request $request, $order_id)
     {
         $user_id = $request->user_info->id;
         //被加入的對象
-        $_order_id = $request->id;
+        $order_id = $request->id;
 
         $products = $request->products;
         if (!$products) {
-            $products = DB::table("order_record_products")->where("order_id", $_order_id)->first()->toArray();
+            $products = DB::table("order_record_products")->where("order_id", $order_id)->first()->toArray();
         }
         for ($i = 0, $len = count($products); $i < $len; $i++) {
             $item = $products[$i];
@@ -351,9 +350,8 @@ class ProductController extends GlobalController
         return response()->json(["status" => 200, "msg" => "成功將所有商品加入購物車"]);
     }
     //評價
-    public function evaluate(Request $request)
+    public function evaluate(Request $request, $product_id)
     {
-        $product_id = $request->product_id;
         $star = $request->star;
         $evaluation = $request->evaluation;
 

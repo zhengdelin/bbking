@@ -22,8 +22,9 @@ class UserMemberController extends GlobalController
     {
         // dd();
         $account = $request->user_info->account;
-        $data = $this->get_own_profile($account);
-        return response()->json(array_merge(['status' => 200], $data));
+        $user_info = $this->get_user_info($account);
+
+        return response()->json(['status' => 200, "user_info" => $user_info]);
     }
     public function get_own_profile($account)
     {
@@ -37,9 +38,8 @@ class UserMemberController extends GlobalController
         $user_info = DB::table('members')->select('id', 'name', 'account', 'email', 'phone', 'address', 'role_id')->where('account', $account)->first();
         return $user_info;
     }
-    public function updateOwnProfile(UpdateUserRequest $request)
+    public function updateOwnProfile(UpdateUserRequest $request, $id)
     {
-        $id = $request->id;
         $account = $request->account;
         $name = $request->name;
         $email = $request->email;

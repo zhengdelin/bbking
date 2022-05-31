@@ -113,7 +113,10 @@ export default {
         },
         //珍藏文章
         collectArticle: async ({ commit }, { article, status }) => {
-            apiPostCollectArticle({ ...article, status });
+            apiPostCollectArticle({
+                article_id: article.id,
+                status,
+            });
             commit("collectArticle", { id: article.id, status });
             // console.log("collectArticle", rootState, article);
         },
