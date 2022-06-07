@@ -1,12 +1,18 @@
 <template>
     <div class="nav-icon flex-cc gap-3 absolute right-2">
-        <RouterLink :to="{ name: 'search' }">
+        <RouterLink active-class="text-blue-500" :to="{ name: 'search' }">
             <svg-render-vue class="hover:text-blue-500" type="search" />
         </RouterLink>
-        <RouterLink :to="{ name: is_login ? 'user' : 'user-login' }">
+        <RouterLink
+            :active-class="is_login ? 'text-blue-500' : 'text-black'"
+            :to="{ name: is_login ? 'user' : 'user-login' }"
+        >
             <svg-render-vue class="hover:text-blue-500" type="user2" />
         </RouterLink>
-        <RouterLink :to="{ name: is_login ? 'shopping_cart' : 'user-login' }">
+        <RouterLink
+            :active-class="is_login ? 'text-blue-500' : 'text-black'"
+            :to="{ name: is_login ? 'shopping_cart' : 'user-login' }"
+        >
             <svg-render-vue class="hover:text-blue-500" type="product2" />
         </RouterLink>
     </div>
@@ -24,9 +30,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.router-link-active {
-    color: rgb(59, 130, 246);
-
-}
-</style>
+<style scoped></style>

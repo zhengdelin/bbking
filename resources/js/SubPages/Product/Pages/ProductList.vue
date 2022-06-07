@@ -41,7 +41,7 @@ export default {
             () =>
                 route.params.category || getters["globalHandler/first_category"]
         );
-        console.log("category", route);
+        // console.log("route", route);
         onBeforeRouteUpdate(async (to) => {
             show.value = false;
             /* 監控路由在產品之間切換 */

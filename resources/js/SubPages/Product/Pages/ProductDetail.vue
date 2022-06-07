@@ -17,7 +17,7 @@
                     </div>
                     <div class="flex">
                         <counter-item
-                            v-model:value="product.amount"
+                            v-model:value="amount"
                         ></counter-item>
                         <button
                             class="bg-orange-300 border border-pink-700 ml-5 text-pink-900 hover:bg-orange-500"

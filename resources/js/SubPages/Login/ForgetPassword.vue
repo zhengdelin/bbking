@@ -21,7 +21,7 @@
                         {{ interval + "s" }}
                     </button>
                 </template>
-                <button v-else type="button" class="flex-0" @click="sendEmail">
+                <button v-else type="button" class="flex-0 whitespace-nowrap" @click="sendEmail">
                     發送驗證碼
                 </button>
             </div>

@@ -103,7 +103,8 @@ export const router = createRouter({
                 // },
                 //文章依類別分組
                 {
-                    path: "/articles/:category*",
+                    path: "/articles/:category?",
+                    name: "articles",
                     meta: {
                         title: "比比王樂器行-文章列表",
                     },
@@ -137,6 +138,7 @@ export const router = createRouter({
                 //產品列表
                 {
                     path: "/products/:category?",
+                    name: "products",
                     meta: {
                         title: "比比王樂器行-產品列表",
                     },
@@ -170,8 +172,8 @@ export const router = createRouter({
         },
         //搜尋
         {
-            path:"/search",
-            name:"search",
+            path: "/search",
+            name: "search",
             components: {
                 nav: () => import("../components/Global/Nav/Nav"),
                 default: () => import("../Pages/Search"),
@@ -187,7 +189,7 @@ export const router = createRouter({
             },
             components: {
                 nav: () => import("../components/Global/Nav/Nav"),
-                default: () =>import("../Pages/404"),
+                default: () => import("../Pages/404"),
                 footer: () => import("../components/Global/Footer/Footer"),
             },
         },
