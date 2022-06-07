@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[53],{2053:(e,n,u)=>{u.r(n),u.d(n,{default:()=>a});var r=u(9200);const t={},a=(0,u(3744).Z)(t,[["render",function(e,n){var u=(0,r.up)("RouterView");return(0,r.wg)(),(0,r.j4)(u,null,{default:(0,r.w5)((function(e){var n=e.Component;return[((0,r.wg)(),(0,r.j4)((0,r.LL)(n),{class:"p-3"}))]})),_:1})}]])}}]);

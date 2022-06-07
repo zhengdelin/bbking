@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[384],{384:(e,r,u)=>{u.r(r),u.d(r,{default:()=>s});var n=u(9200);const t={};const s=(0,u(3744).Z)(t,[["render",function(e,r,u,t,s,c){var a=(0,n.up)("RouterView");return(0,n.wg)(),(0,n.j4)(a)}]])}}]);
