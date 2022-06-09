@@ -25,7 +25,7 @@ import { router } from "../../router/router";
 export default {
     namespaced: true,
     state: {
-        categories: {},
+        categories: [],
         category_groups: {},
         activity_imgs: {},
         store_infos: [],
@@ -362,7 +362,7 @@ export default {
             return list;
         },
         first_category: (state) => {
-            return state.categories[0].eng_name;
+            return state.categories[0]?.eng_name;
         },
 
         /* 總部 */
@@ -372,7 +372,7 @@ export default {
             )[0];
         },
         logo: (state, getters) => {
-            return getters.headquarter.logo;
+            return getters.headquarter?.logo;
         },
     },
 

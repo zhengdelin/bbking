@@ -27,7 +27,8 @@ class ArticleController extends GlobalController
         $article = DB::select("SELECT a.id, a.title, a.content, a.updated_at, a.category_id, 
                         (SELECT eng_name FROM `categories` WHERE id = a.category_id) AS category 
                         FROM `articles` AS a 
-                        WHERE a.id = $article_id AND a.status = 1;")[0];
+                        WHERE a.id = $article_id AND a.status = 1;");
+        if (count($article)) $article = $article[0];
         return response()->json(['status' => 200, 'article' => $article]);
     }
     public function collectArticle(Request $request, $article_id)
