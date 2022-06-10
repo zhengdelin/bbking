@@ -1,36 +1,34 @@
 <template>
     <div
-        class=" z-10 bg-zinc-600 text-white px-5 py-10 grid grid-cols-1 md:grid-cols-3 gap-4 items-center justify-items-center"
+        class="z-10 bg-zinc-600 text-white px-5 py-10 grid grid-cols-1 md:grid-cols-3 gap-4 items-center justify-items-center"
     >
         <div class="">
-            <span>© {{url}} | {{name}}</span>
+            <span>© {{ headquarter.url }} | {{ headquarter.name }}</span>
         </div>
         <div>
             <div>
                 地址：<a
-                    :href="`https://www.google.com/maps/place/${address}`"
+                    :href="`https://www.google.com/maps/place/${headquarter.address}`"
                     class="hover:text-blue-300 hover:underline"
                     target="black"
-                    >{{address}}</a
+                    >{{ headquarter.address }}</a
                 >
             </div>
-            <div>
-                營業時間：{{business_hours}}
-            </div>
+            <div>營業時間：{{ headquarter.business_hours }}</div>
         </div>
         <div>
             <div>
                 電話：<a
-                    :href="`tel:+${phone}`"
+                    :href="`tel:+${headquarter.phone}`"
                     class="hover:text-blue-300 hover:underline"
-                    >{{phone}}</a
+                    >{{ headquarter.phone }}</a
                 >
             </div>
             <div>
                 Email:<a
-                    :href="`mailto:${email}`"
+                    :href="`mailto:${headquarter.email}`"
                     class="hover:text-blue-300 hover:underline"
-                    >{{email}}</a
+                    >{{ headquarter.email }}</a
                 >
             </div>
         </div>
@@ -47,7 +45,7 @@ export default {
             () => getters["globalHandler/headquarter"]
         );
         // console.log(headquarter.value);
-        return { ...toRefs(headquarter.value) };
+        return { headquarter };
     },
 };
 </script>
