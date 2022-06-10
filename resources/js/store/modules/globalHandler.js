@@ -367,9 +367,9 @@ export default {
 
         /* 總部 */
         headquarter: (state) => {
-            return Object.values(state.store_infos).filter(
+            return Object.values(state.store_infos).find(
                 (i) => i.isHeadquarter
-            )[0];
+            ) || {};
         },
         logo: (state, getters) => {
             return getters.headquarter?.logo;

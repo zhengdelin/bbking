@@ -1,5 +1,5 @@
 const mix = require("laravel-mix");
-const path  = require("path");
+const path = require("path");
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -17,8 +17,9 @@ mix.js("resources/js/main.js", "public/js")
     .postCss("resources/css/tailwind.css", "public/css", [
         require("tailwindcss"),
     ])
-    .postCss("resources/css/svg.css", "public/css");
-mix.alias({
-    "@": path.join(__dirname, "resources/js"),
-});
-mix.disableNotifications();
+    .postCss("resources/css/svg.css", "public/css")
+    .alias({
+        "@": path.join(__dirname, "resources/js"),
+    })
+    .disableNotifications()
+    // .extract(["axios", "lodash", "vue", "vue-router", "vuex"]);

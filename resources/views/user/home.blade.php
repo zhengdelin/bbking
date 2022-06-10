@@ -10,7 +10,11 @@
     <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/tailwind.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/svg.css') }}">
-    <script src="{{url("assets/tinymce/tinymce.min.js")}}"></script>
+    <link href="https://fonts.googleapis.com/earlyaccess/cwtexfangsong.css?display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/earlyaccess/cwtexyen.css?display=swap" rel="stylesheet">
+
+
+    <script defer async src="{{ url('assets/tinymce/tinymce.min.js') }}"></script>
 </head>
 
 <body>
