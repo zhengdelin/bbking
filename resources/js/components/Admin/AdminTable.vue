@@ -50,18 +50,18 @@
                                                 info: JSON.stringify(data),
                                             },
                                         }"
-                                        class="mr-1 md:mr-3 text-blue-500"
+                                        class="text-blue-500"
                                         v-if="update_route_name"
                                     >
                                         <svg-render-vue
                                             type="edit"
                                         ></svg-render-vue>
                                     </router-link>
-                                    <div class="text-red-500">
+                                    <!-- <div class="text-red-500">
                                         <svg-render-vue
                                             type="delete"
                                         ></svg-render-vue>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </td>
                         </slot>

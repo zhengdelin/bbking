@@ -9,6 +9,7 @@
     <admin-table-vue
         :datas="articles"
         :keys="keys"
+        :column_heads="headers"
         update_route_name="admin-articles-update"
     >
     </admin-table-vue>
@@ -39,6 +40,7 @@ export default {
             "updated_at",
             { name: "status", type: "boolean" },
         ];
+        const headers = ["標題", "內容", "類別", "上次更新", "顯示"];
         //監控更新article
         const update_article = computed(() => route.params.update_article);
         watch(update_article, async () => {
@@ -50,6 +52,7 @@ export default {
         return {
             articles,
             keys,
+            headers,
         };
     },
 };

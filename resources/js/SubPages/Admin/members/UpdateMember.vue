@@ -1,6 +1,6 @@
 // 新增使用者
 <template>
-    {{ user_info }}
+    <!-- {{ user_info }} -->
     <title-item title="會員 - 編輯會員" return_to_route_name="admin-members">
     </title-item>
     <title-item title="會員資訊">

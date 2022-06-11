@@ -54,7 +54,7 @@
             <RouterLink class="hover:text-blue-500" :to="{ name: 'user-login' }"
                 >返回登入</RouterLink
             >
-            <div v-if="step === 3" class="hover:text-blue-500" @click="step = 1">返回上一步</div>
+            <div v-if="step === 3" class="hover:text-blue-500 hover:cursor-pointer" @click="step = 1">返回上一步</div>
         </div>
     </FormContainer>
 </template>

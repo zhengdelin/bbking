@@ -186,7 +186,7 @@ export default {
                 // 名字
                 checkName: async ({ commit }, name) => {
                     let msg = "";
-                    if (name.length > 10) msg = "姓名最多10字元";
+                    if (name?.length > 10) msg = "姓名最多10字元";
                     commit(
                         "setStatus",
                         {

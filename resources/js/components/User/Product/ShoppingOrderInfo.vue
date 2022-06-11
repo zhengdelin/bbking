@@ -1,6 +1,6 @@
 <template>
-    <div class="bg-white py-5 px-10">
-        {{ data }}
+    <div class="bg-white py-5 px-10 flex flex-col gap-2">
+        <!-- {{ data }} -->
         <InputRadio
             v-model:value="data.delivery_method"
             title="配送方式"

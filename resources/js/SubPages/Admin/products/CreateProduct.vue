@@ -1,5 +1,5 @@
 <template>
-    {{ product }}
+    <!-- {{ product }} -->
     <title-item
         return_to_route_name="admin-products"
         title="產品 - 新增產品"

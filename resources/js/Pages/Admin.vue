@@ -121,10 +121,14 @@ export default {
 };
 </script>
 
-<style>
-#admin #menu-container a:hover,
-#admin #menu-container a.router-link-exact-active {
+<style scoped>
+#admin :deep(#menu-container a:hover),
+#admin :deep(#menu-container a.router-link-exact-active) {
     /* background-color: rgb(23, 23, 23); */
     color: rgb(103, 232, 249);
+}
+
+:deep(.router-link-active) {
+    color: white;
 }
 </style>
