@@ -24,19 +24,23 @@
             </SelectMenu>
         </div>
         <EmptyContainer :data="evaluations" class="mt-2">
-            <div v-for="evaluation in evaluations" :key="evaluation.member_id" class="py-2 border-b-2 border-gray-300">
+            <div
+                v-for="evaluation in evaluations"
+                :key="evaluation.member_id"
+                class="py-2 border-b-2 border-gray-300"
+            >
                 <div>
                     {{ formattedAccount(evaluation.account) }}
-                    <div class="text-xs text-gray-400">{{ evaluation.updated_at }}</div>
+                    <div class="text-xs text-gray-400">
+                        {{ evaluation.updated_at }}
+                    </div>
                 </div>
                 <StarsItem
                     v-model="evaluation.star"
                     :editable="false"
                     :size="'xs'"
-                    
                     class="mt-1 mb-3 gap-[2px]"
                 />
-                
 
                 <pre class="my-4 leading-5">{{ evaluation.evaluation }}</pre>
             </div>
@@ -84,12 +88,11 @@ export default {
         const average_star = computed(
             () =>
                 data.rawData.reduce((acc, val) => acc + val["star"], 0) /
-                data.rawData.length
+                    data.rawData.length || 0
         );
 
         const formattedAccount = computed(
-            () => (account) =>
-                account.slice(0, 1) + "*****" + account.slice(-1)
+            () => (account) => account.slice(0, 1) + "*****" + account.slice(-1)
         );
         return {
             evaluations,

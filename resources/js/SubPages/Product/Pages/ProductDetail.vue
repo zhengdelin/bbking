@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <div class="border mt-8 rounded-md border-gray-300">
+            <div class="border mt-8 rounded-md border-gray-300" v-if="product.description">
                 <div
                     class="py-2 text-center bg-gray-300 rounded-md font-bold shadow-sm shadow-black"
                 >
