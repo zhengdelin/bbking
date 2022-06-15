@@ -17,30 +17,27 @@
             </EmptyContainer>
             <TitleItem title="產品" />
             <EmptyContainer :data="products">
-                <div
-                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-white p-3 min-h-[70vh]"
-                >
+                <ProductListContainer>
                     <ProductListItem
                         v-for="product in products"
                         :key="product.id"
                         :product="product"
                     />
-                </div>
+                </ProductListContainer>
                 <template #emptyText>暫無商品</template>
             </EmptyContainer>
         </template>
         <template v-else>
             <TitleItem title="產品" />
             <EmptyContainer :data="products">
-                <div
-                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-white p-3 min-h-[70vh]"
-                >
+                <ProductListContainer>
+                
                     <ProductListItem
                         v-for="product in products"
                         :key="product.id"
                         :product="product"
                     />
-                </div>
+                </ProductListContainer>
                 <template #emptyText>暫無商品</template>
             </EmptyContainer>
             <TitleItem title="文章" />
@@ -68,6 +65,7 @@ import TitleItem from "../components/Objects/Title/TitleItem.vue";
 import EmptyContainer from "../components/Global/EmptyContainer.vue";
 import ArticleListItem from "../components/User/Article/ArticleListItem.vue";
 import ProductListItem from "../components/User/Product/ProductListItem.vue";
+import ProductListContainer from "../components/User/Product/ProductListContainer.vue";
 export default {
     components: {
         SearchBox,
@@ -75,6 +73,7 @@ export default {
         EmptyContainer,
         ArticleListItem,
         ProductListItem,
+        ProductListContainer,
     },
     async setup() {
         const router = useRouter();

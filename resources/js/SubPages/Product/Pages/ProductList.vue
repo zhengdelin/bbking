@@ -3,15 +3,13 @@
         <transition name="fade-from-bottom-15px">
             <PageContainer :data="products" v-show="show">
                 <template #default="{ data }">
-                    <div
-                        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-white p-3 min-h-[70vh]"
-                    >
-                        <product-list-item
+                    <ProductListContainer>
+                        <ProductListItem
                             v-for="product in data"
                             :key="product.id"
                             :product="product"
                         />
-                    </div>
+                    </ProductListContainer>
                 </template>
             </PageContainer>
         </transition>
@@ -26,9 +24,15 @@ import { useStore } from "vuex";
 import ProductListItem from "../../../components/User/Product/ProductListItem.vue";
 import EmptyContainer from "../../../components/Global/EmptyContainer.vue";
 import PageContainer from "../../../components/Global/PageContainer.vue";
+import ProductListContainer from "../../../components/User/Product/ProductListContainer.vue";
 
 export default {
-    components: { ProductListItem, EmptyContainer, PageContainer },
+    components: {
+        ProductListItem,
+        EmptyContainer,
+        PageContainer,
+        ProductListContainer,
+    },
     name: "ProductList",
     async setup() {
         const show = ref(false);

@@ -82,7 +82,7 @@ export default {
 
             // console.log("setCategories", Object.entries(categories));
             commit("setCategories", { categories, category_groups });
-            dispatch("setArticleProductRoute", getters.first_category, {
+            await dispatch("setArticleProductRoute", getters.first_category, {
                 root: true,
             });
         },
