@@ -62,7 +62,7 @@ export default {
                 // console.log("getUser->", user_info, token);
                 if (status === 200) {
                     //如果success,更新user info
-                    dispatch(
+                    await dispatch(
                         "updateUserStatus",
                         {
                             user_info,

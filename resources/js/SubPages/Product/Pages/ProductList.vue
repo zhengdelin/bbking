@@ -1,7 +1,7 @@
 <template>
     <EmptyContainer :data="products" class="relative">
         <transition name="fade-from-bottom-15px">
-            <PageContainer :data="products" v-show="show">
+            <PageContainer :data="products" :per="9" v-show="show">
                 <template #default="{ data }">
                     <ProductListContainer>
                         <ProductListItem
