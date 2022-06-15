@@ -33,7 +33,7 @@ export default {
             },
             products: {
                 text: "產品",
-                route: { path: "products" },
+                route: { path: "/products" },
             },
             about: {
                 text: "關於我們",
