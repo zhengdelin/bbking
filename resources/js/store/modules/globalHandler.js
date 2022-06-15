@@ -287,8 +287,8 @@ export default {
             ]);
             if (rootState.status !== "error") {
                 const form_data = new FormData();
-                let nData = JSON.parse(JSON.stringify(data)); 
-                if(typeof nData.logo === 'string'){
+                let nData = JSON.parse(JSON.stringify(data));
+                if (typeof nData.logo === "string") {
                     delete nData.logo;
                 }
                 for (const [key, value] of Object.entries(nData))
@@ -342,19 +342,22 @@ export default {
                 else return path.value + "/";
             });
             // console.log("category_menu_lists", path.value, url_base.value, "");
-            for (const [key, val] of Object.entries(
-                getters.category_map_by_category_group
-            )) {
+            const category_map_by_category_group =
+                getters.category_map_by_category_group;
+            for (const key of Object.keys(category_map_by_category_group)) {
                 const obj = {
                     text: key,
-                    children: Array.from(val, (x) => {
-                        // console.log("x",x);
-                        return {
-                            ...x,
-                            text: x.name,
-                            url: url_base.value + x.eng_name,
-                        };
-                    }),
+                    children: Array.from(
+                        category_map_by_category_group[key],
+                        (x) => {
+                            // console.log("x",x);
+                            return {
+                                ...x,
+                                text: x.name,
+                                url: url_base.value + x.eng_name,
+                            };
+                        }
+                    ),
                 };
                 list[key] = obj;
             }
@@ -367,9 +370,10 @@ export default {
 
         /* 總部 */
         headquarter: (state) => {
-            return Object.values(state.store_infos).find(
-                (i) => i.isHeadquarter
-            ) || {};
+            return (
+                Object.values(state.store_infos).find((i) => i.isHeadquarter) ||
+                {}
+            );
         },
         logo: (state, getters) => {
             return getters.headquarter?.logo;

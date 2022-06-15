@@ -197,7 +197,6 @@ export default {
 
                         commit("setNav", "admin");
                     }
-                    router.addRoute(not_found_route);
                     commit("init");
                 }
                 router.addRoute(not_found_route);
