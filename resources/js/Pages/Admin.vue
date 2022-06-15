@@ -42,8 +42,8 @@ import { computed } from "@vue/runtime-core";
 
 export default {
     components: { MenuContainer, AdminHeaderVue, MenuItem },
-    setup() {
-        const { state } = useStore();
+    async setup() {
+        const { state, dispatch } = useStore();
         const keep_alive = computed(() => state.keep_alive);
         const admin_menu_lists = [
             {
@@ -115,7 +115,7 @@ export default {
                 svg_name: "order",
             },
         ];
-
+        await dispatch("globalHandler/getCategories");
         return { keep_alive, admin_menu_lists };
     },
 };
