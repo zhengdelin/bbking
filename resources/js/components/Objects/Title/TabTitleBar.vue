@@ -16,13 +16,13 @@
         <div class="grid grid-flow-col gap-1">
             <!-- <slot name="button"></slot> -->
             <router-link
-                :to="{ path: article_route_path }"
+                :to="article_route_path"
                 class="bg-slate-300 px-7 mb-[2px] flex items-center text-lg rounded-[3px] font-bold"
             >
                 文章
             </router-link>
             <router-link
-            :to="{path:product_route_path}"
+            :to="product_route_path"
                 class="bg-slate-300 px-7 mb-[2px] flex items-center text-lg rounded-[3px] font-bold"
             >
                 產品

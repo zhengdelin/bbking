@@ -3,6 +3,7 @@
     <router-link
       :to="{ name: return_to_route_name }"
       class="text-blue-500 px-2"
+      active-class="text-blue-500"
       @click="commit('clearStatus')"
       v-if="return_to_route_name"
     >

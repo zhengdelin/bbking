@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col justify-between p-2 text-center bg-white min-h-[300px]">
-        <div class="flex-1">
+        <div class="flex-1 flex flex-col justify-between">
             <RouterLink
                 :to="{ path: productPath }"
                 class="hover:brightness-[0.7] duration-300 flex justify-center items-center h-[80%]"

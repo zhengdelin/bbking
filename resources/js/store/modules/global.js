@@ -29,11 +29,11 @@ export default {
             },
             articles: {
                 text: "文章介紹",
-                route: { name: "article-list" },
+                route: { path: "/articles" },
             },
             products: {
                 text: "產品",
-                route: { name: "product-list" },
+                route: { path: "products" },
             },
             about: {
                 text: "關於我們",
