@@ -1,21 +1,18 @@
 <template>
-    <div class="flex flex-col text-center bg-white">
-        <RouterLink
-            :to="{ path: productPath }"
-            class="hover:brightness-[0.7] duration-300 flex justify-center items-center"
-        >
-            <img
-                :src="product.image"
-                :alt="product.name"
-                width="300"
-                height="300"
-            />
-        </RouterLink>
-        <RouterLink
-            :to="{ path: productPath }"
-            class="px-2 mt-3 my-1 block hover:text-blue-800 font-bold"
-            >{{ product.name }}</RouterLink
-        >
+    <div class="flex flex-col justify-between p-2 text-center bg-white min-h-[300px]">
+        <div class="flex-1">
+            <RouterLink
+                :to="{ path: productPath }"
+                class="hover:brightness-[0.7] duration-300 flex justify-center items-center h-[80%]"
+            >
+                <img :src="product.image" :alt="product.name"/>
+            </RouterLink>
+            <RouterLink
+                :to="{ path: productPath }"
+                class="px-2 mt-3 my-1 block hover:text-blue-800 font-bold"
+                >{{ product.name }}</RouterLink
+            >
+        </div>
         <FormattedPrice :price="product.price" class="col-span-1 mt-2" />
     </div>
 </template>

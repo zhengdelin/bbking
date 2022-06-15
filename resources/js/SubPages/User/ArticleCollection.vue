@@ -22,8 +22,8 @@ import ArticleListItem from "../../components/User/Article/ArticleListItem.vue";
 import EmptyContainer from "../../components/Global/EmptyContainer.vue";
 import CollapseContainer from "../../components/Global/CollapseContainer.vue";
 import CategorySelectMenu from "../../components/Global/Menu/CategorySelectMenu.vue"
-const { getters } = useStore();
-
+const { getters, dispatch } = useStore();
+await dispatch("globalHandler/getCategories");
 const cur_category = ref();
 //分類好的文章
 const articles = computed(

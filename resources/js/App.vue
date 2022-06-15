@@ -28,8 +28,6 @@ export default {
             console.log("app onMounted");
             await Promise.all([
                 dispatch("globalHandler/getUser"),
-                dispatch("globalHandler/getActivityImgs"),
-                dispatch("globalHandler/getCategories"),
                 dispatch("globalHandler/getStoreInfos"),
             ]);
         });

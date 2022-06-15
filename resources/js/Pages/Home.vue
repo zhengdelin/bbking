@@ -56,7 +56,10 @@ export default {
         const news = computed(() => state.globalHandler.news);
         if (!news.value) await dispatch("globalHandler/getNews");
         else dispatch("globalHandler/getNews");
-
+        await Promise.all([
+            dispatch("globalHandler/getActivityImgs"),
+            dispatch("globalHandler/getCategories"),
+        ]);
         return { categories, news };
     },
 };

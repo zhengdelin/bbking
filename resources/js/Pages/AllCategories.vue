@@ -39,7 +39,8 @@ export default {
     components: { CategoryMenu, TabTitleBar },
     async setup() {
         const route = useRoute();
-        const { getters } = useStore();
+        const { getters, dispatch } = useStore();
+        await dispatch("globalHandler/getCategories");
         const category = computed(
             () =>
                 route.params.category || getters["globalHandler/first_category"]
