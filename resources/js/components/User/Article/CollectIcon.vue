@@ -1,5 +1,6 @@
 <template>
     <svg-render-vue
+    v-if="isLogin"
         @click="modelValue = !modelValue"
         :class="['hover:cursor-pointer ', { 'text-white': !modelValue }]"
         path-class="stroke-black stroke-[30px]"
@@ -10,6 +11,7 @@
 
 <script>
 import { computed } from "@vue/runtime-core";
+import { useStore } from 'vuex';
 export default {
     emits: ["update:modelValue"],
     setup(props, { emit, attrs }) {
@@ -17,7 +19,9 @@ export default {
             get: () => attrs.modelValue,
             set: (val) => emit("update:modelValue", val),
         });
-        return { modelValue };
+        const {state} = useStore();
+        const isLogin = computed(()=>state.is_login)
+        return { modelValue, isLogin };
     },
 };
 </script>

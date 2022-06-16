@@ -108,6 +108,11 @@ export const router = createRouter({
                     meta: {
                         title: "比比王樂器行-文章列表",
                     },
+                    // beforeEnter(to) {
+                    //     if (to.name === "articles")
+                    //         return { name: "article-list" };
+                    //     return true;
+                    // },
                     components: {
                         tab_title_bar: () =>
                             import("../components/Objects/Title/TabTitleBar"),

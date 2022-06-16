@@ -1,6 +1,6 @@
 <template>
-    <div class="logo w-[15%] md:w-[5%] sm:w-[10%]">
-        <img class="w-100" :src="logo" alt="Xiang's Music Store" />
+    <div class="logo w-[15%] sm:w-[10%] md:w-[5%] flex justify-center items-center">
+        <img class="py-1 w-[90%]" :src="logo" alt="Xiang's Music Store" />
     </div>
 </template>
 

@@ -53,6 +53,7 @@ import {
     postShoppingAgain,
     postUpdateProduct,
     putOrderStatus,
+    postFinishOrder,
 } from "./module/product";
 
 /* global */
@@ -106,6 +107,7 @@ export const apiGetOrders = getOrders;
 // export const apiGetOrderById = getOrderById;
 export const apiPostCancelOrder = postCancelOrder;
 export const apiPostRecoverOrder = postRecoverOrder;
+export const apiPostFinishOrder = postFinishOrder;
 export const apiPostShoppingAgain = postShoppingAgain;
 export const apiPostEvaluate = postEvaluate;
 //admin

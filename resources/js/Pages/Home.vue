@@ -2,7 +2,7 @@
     <div class="p-8 flex flex-col gap-8">
         <activity-img-banner></activity-img-banner>
         <div class="flex gap-4">
-            <CategoryMenu class="flex-shrink-0" />
+            <CategoryMenu class="flex-shrink-0 hidden md:block" />
             <div class="flex flex-col gap-4 w-full overflow-hidden">
                 <TitleItem title="最新商品" class="bg-cyan-200"></TitleItem>
                 <div class="overflow-x-scroll w-full bg-white">

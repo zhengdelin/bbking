@@ -52,6 +52,7 @@
             <div class="md:col-span-2">
                 <InputTextarea
                     title="地址"
+                    :readonly="read_only"
                     v-model="user_info.address"
                     @update:modelValue="
                         dispatch('userHandler/checkAddress', user_info.address)
@@ -114,7 +115,7 @@ export default {
         //取消
         const cancel = () => {
             nextTick(() => {
-                user_info.value = { ...state_user_info.value };
+                user_info.value = JSON.parse(JSON.stringify(state_user_info.value));
                 read_only.value = true;
             });
         };

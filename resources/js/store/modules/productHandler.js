@@ -16,6 +16,7 @@ import {
     apiPostShoppingAgain,
     apiPostUpdateProduct,
     apiPutOrderStatus,
+    apiPostFinishOrder,
 } from "../../api/api";
 import { checkFormat } from "../../compositions/check";
 
@@ -48,7 +49,12 @@ export default {
                 cancelable: true,
                 color: "text-yellow-700",
             },
-            3: { value: 3, label: "待收貨", color: "text-blue-500" },
+            3: {
+                value: 3,
+                label: "待收貨",
+                color: "text-blue-500",
+                enable_finish: true,
+            },
             4: { value: 4, label: "已完成", color: "text-green-500" },
             10: {
                 value: 10,
@@ -84,7 +90,7 @@ export default {
             state.products_by_id[product_id] = product;
         },
         setAllOrders: (state, orders) => {
-            state.all_orders = orders
+            state.all_orders = orders;
         },
     },
     actions: {
@@ -275,6 +281,14 @@ export default {
             }
             return false;
         },
+        finishOrder:async({dispatch},{order})=>{
+            if (confirm("確認完成訂單?")) {
+                await apiPostFinishOrder(order);
+                await dispatch("getOrders");
+                return true;
+            }
+            return false;
+        },
         //再買一次
         shoppingAgain: async ({ dispatch }, { order }) => {
             // console.log("shoppingAgain", order);
@@ -383,7 +397,7 @@ export default {
             console.log(status, "status");
             return status;
         },
-        allOrdersById:state=>{
+        allOrdersById: (state) => {
             return state.all_orders.reduce((acc, val) => {
                 acc[val.id] = val;
                 return acc;
@@ -394,7 +408,7 @@ export default {
                 acc[val.status] = acc[val.status] || [];
                 acc[val.status].push(val);
                 return acc;
-            },{});
+            }, {});
         },
         getAllOrdersByStatus: (state, getters) => (status) => {
             return status

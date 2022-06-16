@@ -63,6 +63,7 @@ Route::middleware('token_middleware')->group(function () {
     // Route::get("product/getOrderById", [ProductController::class, 'getOrderById']);
     Route::put("order/{order_id}", [ProductController::class, 'cancelOrder']);
     Route::put("order/{order_id}/recover", [ProductController::class, 'recoverOrder']);
+    Route::put("order/{order_id}/finish", [ProductController::class, 'finishOrder']);
     Route::post("order/{order_id}/again", [ProductController::class, 'shoppingAgain']);
     Route::post("order/evaluate/{product_id}", [ProductController::class, 'evaluate']);
     /* 使用者珍藏文章 */

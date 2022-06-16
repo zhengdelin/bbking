@@ -30,7 +30,7 @@ class ProductController extends GlobalController
                 LEFT JOIN `evaluations` AS c ON c.product_id = a.id
                 LEFT JOIN `members` AS d ON c.member_id = d.id
                 WHERE a.status = 1 AND b.id = (SELECT id FROM `categories` WHERE eng_name = '$category')
-                GROUP BY a.id;";
+                GROUP BY a.id ORDER BY a.updated_at DESC;";
         /* 只取得已上架商品 */
         $products = DB::select($sql);
         for ($i = 0, $len = count($products); $i < $len; $i++) {
@@ -82,7 +82,7 @@ class ProductController extends GlobalController
         return response()->json(['status' => 200, 'product' => $product]);
     }
     /* 將產品新增進購物車 */
-    public function addProductToCart(Request $request,$product_id, $amount)
+    public function addProductToCart(Request $request, $product_id, $amount)
     {
         $member_id = $request->user_info->id;
         $order_id = $request->order_id;
@@ -162,12 +162,11 @@ class ProductController extends GlobalController
         $user_id = $request->user_info->id;
 
         $order = DB::select("SELECT a.id from `orders` AS a, `order_record_products` AS b WHERE a.id = b.order_id AND a.member_id = $user_id AND a.status = 0 and b.product_id = $product_id");
-        if(count($order)){
+        if (count($order)) {
             DB::table('order_record_products')->where([['order_id', $order[0]->id], ['product_id', $product_id]])->delete();
             return response()->json(['status' => 200, 'msg' => '成功刪除產品']);
-        }else{
+        } else {
             return response()->json(['status' => 200, 'msg' => '商品已刪除']);
-
         }
     }
     /* 提交訂單 */
@@ -232,7 +231,7 @@ class ProductController extends GlobalController
                       LEFT JOIN `products` AS c ON b.product_id = c.id
                       LEFT JOIN `evaluations` AS d ON d.product_id = b.product_id AND d.member_id = a.member_id
                       WHERE  a.member_id = $user_id AND a.status != 0
-                      GROUP BY a.id;";
+                      GROUP BY a.id ORDER BY a.updated_time DESC;";
         // $sql = "SELECT 
         // a.id, a.product_price, a.total_price, a.delivery_fee, a.delivery_method, 
         // a.address, a.pay_method, a.name, a.email, a.phone, a.note, a.status, a.updated_time,
@@ -332,6 +331,14 @@ class ProductController extends GlobalController
         ]);
         return response()->json(['status' => 200, "msg" => '成功恢復訂單']);
     }
+    public function finishOrder(Request $request, $order_id)
+    {
+        DB::table("orders")->where('id', $order_id)->update([
+            "completion_time" => parent::get_datetime(),
+            "status" => 4
+        ]);
+        return response()->json(['status' => 200, "msg" => '訂單已完成']);
+    }
     //再買一次
     public function shoppingAgain(Request $request, $order_id)
     {
@@ -388,6 +395,4 @@ class ProductController extends GlobalController
             ]);
         return response()->json(['status' => 200, 'msg' => "已新增評價內容"]);
     }
-
-    
 }

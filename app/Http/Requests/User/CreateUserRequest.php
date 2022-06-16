@@ -33,7 +33,10 @@ class CreateUserRequest extends FormRequest
                 Rule::notIn(DB::table('members')->pluck('account')->toArray())
             ],
             'password' => 'required|string',
-            'email' => 'required|max:30|email',
+            'email' => [
+                'required', 'max:30', 'email',
+                Rule::notIn(DB::table('members')->pluck('email')->toArray())
+            ],
             'phone' => 'max:10|regex:/^09[0-9]{8}$/|nullable',
             'address' => 'max:50|string|nullable',
             'name' => 'max:10|string|nullable',
@@ -42,7 +45,8 @@ class CreateUserRequest extends FormRequest
     public function messages()
     {
         return [
-            'account.not_in'=>'帳號已被註冊' 
+            'account.not_in'=>'帳號已被註冊', 
+            'email.not_in'=>'電子郵件已被註冊' 
         ];
     }
     protected function failedValidation(Validator $validator)

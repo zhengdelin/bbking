@@ -1,5 +1,5 @@
 <template>
-    <RouterLink :to="`/products/${category}`">
+    <RouterLink :to="category ? `/products/${category}` : '/products'">
         <button
             :class="[
                 'bg-yellow-500 font-bold hover:bg-yellow-400',

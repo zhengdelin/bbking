@@ -7,7 +7,7 @@
             :title="store_info.name"
             return_to_route_name="about"
         ></title-item>
-        <div v-html="store_info.description"></div>
+        <div class="no-tailwind-base" v-html="store_info.description"></div>
     </div>
 </template>
 

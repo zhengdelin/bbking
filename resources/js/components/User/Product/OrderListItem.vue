@@ -25,6 +25,15 @@
                         恢復訂單
                     </div>
                 </div>
+                <div
+                    @click="finishOrder"
+                    v-if="cur_status.enable_finish"
+                    class="group px-3 border-l border-slate-300 text-blue-500 hover:cursor-pointer"
+                >
+                    <div class="group-hover:-translate-y-1 duration-500">
+                        完成訂單
+                    </div>
+                </div>
             </div>
             <slot name="link">
                 <router-link
@@ -137,6 +146,11 @@ export default {
                 order:order.value
             })
         }
+        const finishOrder = async()=>{
+            await dispatch("productHandler/finishOrder",{
+                order:order.value
+            })
+        }
         return {
             order,
             status,
@@ -144,7 +158,8 @@ export default {
             pay_method_options,
             cancelOrder,
             recoverOrder,
-            cur_status
+            cur_status,
+            finishOrder
         };
     },
 };

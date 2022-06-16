@@ -29,13 +29,20 @@ class UserMemberController extends GlobalController
     public function get_own_profile($account)
     {
         $token = parent::get_token($account);
-        DB::table('members')->where('account', $account)->update(['token' => $token, 'updated_at' => parent::get_datetime()]);
+        DB::table('members')
+            ->where('account', $account)
+            ->orWhere('email', $account)
+            ->update(['token' => $token, 'updated_at' => parent::get_datetime()]);
         $user_info = $this->get_user_info($account);
         return ['user_info' => $user_info, 'token' => $token];
     }
     public function get_user_info($account)
     {
-        $user_info = DB::table('members')->select('id', 'name', 'account', 'email', 'phone', 'address', 'role_id')->where('account', $account)->first();
+        $user_info = DB::table('members')
+            ->select('id', 'name', 'account', 'email', 'phone', 'address', 'role_id')
+            ->where('account', $account)
+            ->orWhere('email', $account)
+            ->first();
         return $user_info;
     }
     public function updateOwnProfile(UpdateUserRequest $request, $id)
@@ -62,7 +69,7 @@ class UserMemberController extends GlobalController
         // dd($request->all());
         $account = $request->account;
         $password = $request->password;
-        $user = DB::table('members')->where([['account', $account], ['status', 1]])->first();
+        $user = DB::table('members')->where([['account', $account], ['status', 1]])->orWhere([["email", $account], ["status", 1]])->first();
         if (!$user || !password_verify($password, $user->password)) {
             // return response()->json(['status' => 'api_error', 'status_obj' => ['無效的登陸名或密碼']]);
             return response()->json(['status' => 400, 'msg' => '無效的登陸名或密碼']);

@@ -13,6 +13,7 @@ export const getOrders = () => get(`orders`);
 // export const getOrderById = data=>get("product/getOrderById",data);
 export const postCancelOrder = (data) => put(`order/${data.id}`);
 export const postRecoverOrder = (data) => put(`order/${data.id}/recover`);
+export const postFinishOrder = (data) => put(`order/${data.id}/finish`);
 export const postShoppingAgain = (data) => post(`order/${data.id}/again`, data);
 export const postEvaluate = (data) =>
     post(`order/evaluate/${data.product_id}`, data);

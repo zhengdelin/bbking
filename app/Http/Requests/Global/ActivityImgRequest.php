@@ -28,13 +28,14 @@ class ActivityImgRequest extends FormRequest
     {
         return [
             'status' => 'required|boolean',
-            'image' => ['image', Rule::requiredIf(!isset($this->old_image))],
-            'old_image' => "required|string",
+            'image' => 'exclude_if:hasOldImg,true|image|nullable',
+            'old_image' => "string|nullable",
         ];
     }
     protected function prepareForValidation()
     {
         $this->merge([
+            'hasOldImg'=>isset($this->old_image),
             'status' => filter_var($this->status, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE)
         ]);
     }
